@@ -1575,3 +1575,77 @@ This design strategy:
 - Maintains architectural integrity
 - Enables fast iteration and validation
 
+------------------------------------------------------------------------
+
+# Technical Decisions
+
+The following technical decisions were made during the planning phase
+and must be respected throughout development.
+
+## Directory Structure
+
+The project does NOT use a `src/` directory.
+
+All main directories are placed at the root level:
+
+- `app/` → Presentation layer (Next.js App Router)
+- `modules/` → Domain modules (business logic)
+- `shared/` → Shared infrastructure and utilities
+
+Path aliases use `@/*` mapping to the project root.
+
+## Database (Local Development)
+
+- Docker Compose with PostgreSQL 16
+- Port: 5432
+- Database name: `ai_recipe_db`
+- Managed via `docker-compose.yml` at project root
+
+## Testing Framework
+
+- Framework: **Vitest**
+- Strategy: **TDD** (Test-Driven Development)
+- Test scope:
+  - use-cases
+  - business logic
+- Do NOT test:
+  - UI components
+  - Pages generated with v0
+- Test file pattern: `**/*.test.ts`
+- Scripts:
+  - `npm run test` → watch mode
+  - `npm run test:run` → single run (CI)
+
+## Image Storage
+
+- Service: **Vercel Blob**
+- Used for storing AI-generated dish images
+- Uploaded user images are NOT stored permanently
+
+## Authentication
+
+- Library: **Auth.js v5** (next-auth@beta)
+- Provider: Credentials (email + password)
+- Session strategy: JWT (no session table in DB)
+- Password hashing: bcryptjs
+
+## Environment Variables
+
+Required variables:
+
+- `DATABASE_URL` → PostgreSQL connection string
+- `AUTH_SECRET` → Auth.js secret key
+- `OPENAI_API_KEY` → OpenAI API key
+- `BLOB_READ_WRITE_TOKEN` → Vercel Blob access token
+
+## UI Component Library
+
+- **shadcn/ui** with Tailwind CSS v4
+- Mobile-first design approach
+- UI generation assisted by v0
+
+## Input Validation
+
+- Library: **Zod**
+- Applied in Server Actions (actions layer)
+
