@@ -41,8 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 # ai
-AGENTS.md
-AI_RULES.md
-ARCHITECTURE.md
-CLAUDE.md
-ai_recipe_project_knowledge.md
+# AGENTS.md
+# AI_RULES.md
+# ARCHITECTURE.md
+# CLAUDE.md
+# ai_recipe_project_knowledge.md
