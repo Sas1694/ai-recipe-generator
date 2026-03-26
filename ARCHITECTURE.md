@@ -247,15 +247,22 @@ Reference saved in DB
 
 * **User**
 * **Recipe**
+* **UserRecipe** (join table — many-to-many User ↔ Recipe)
 * **RecipeIngredient**
 * **RecipeStep**
 * **RecipeImage**
 
 Key decisions:
 
+* Recipes are shared entities, linked to users via UserRecipe (many-to-many)
+* `ingredientHash` on Recipe enables cache: same ingredients → reuse recipe without calling the LLM
+* `visualDescription` on Recipe stores the visual prompt for image generation
 * Ingredients are stored per recipe (no global catalog)
 * Images stored externally, only references in DB
 * Uploaded images are NOT persisted
+* Deleting a user removes their UserRecipe links but preserves recipes as cache
+* Deleting a recipe cascades to ingredients, steps, and images
+* Schema located at `prisma/schema.prisma` (Prisma default); client singleton at `lib/prisma.ts`
 
 ---
 

@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── User ────────────────────────────────────────────────────────────────────
+// Authenticated user. Only entity persisted for auth (JWT strategy, no
+// Session/Account/VerificationToken tables).
+
+model User {
+  id           String       @id @default(uuid())
+  name         String
+  email        String       @unique
+  passwordHash String
+  createdAt    DateTime     @default(now())
+  recipes      UserRecipe[]
+}
+
+// ─── Recipe ──────────────────────────────────────────────────────────────────
+// AI-generated recipe. Shared entity — linked to users via UserRecipe.
+// ingredientHash enables cache: same ingredients → reuse recipe without
+// calling the LLM again (estimated 30-70% cost reduction).
+
+model Recipe {
+  id                String             @id @default(uuid())
+  title             String
+  description       String
+  visualDescription String
+  ingredientHash    String
+  createdAt         DateTime           @default(now())
+  users             UserRecipe[]
+  ingredients       RecipeIngredient[]
+  steps             RecipeStep[]
+  images            RecipeImage[]
+
+  @@index([ingredientHash])
+}
+
+// ─── UserRecipe ──────────────────────────────────────────────────────────────
+// Join table for many-to-many User ↔ Recipe.
+// When a user is deleted, only their UserRecipe rows are removed;
+// the Recipe itself is preserved as cache for other users.
+
+model UserRecipe {
+  id       String   @id @default(uuid())
+  userId   String
+  recipeId String
+  savedAt  DateTime @default(now())
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipe   Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, recipeId])
+}
+
+// ─── RecipeIngredient ────────────────────────────────────────────────────────
+// Ingredients stored per recipe (no global catalog).
+
+model RecipeIngredient {
+  id       String @id @default(uuid())
+  recipeId String
+  name     String
+  quantity String
+  unit     String
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
+
+// ─── RecipeStep ──────────────────────────────────────────────────────────────
+// Ordered preparation steps for a recipe.
+
+model RecipeStep {
+  id          String @id @default(uuid())
+  recipeId    String
+  stepNumber  Int
+  instruction String
+  recipe      Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
+
+// ─── RecipeImage ─────────────────────────────────────────────────────────────
+// AI-generated dish image. Stored externally; only URL reference in DB.
+
+model RecipeImage {
+  id        String   @id @default(uuid())
+  recipeId  String
+  imageUrl  String
+  prompt    String
+  model     String
+  createdAt DateTime @default(now())
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
