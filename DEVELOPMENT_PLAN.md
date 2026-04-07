@@ -23,9 +23,8 @@
 | PostgreSQL en Neon + migración aplicada | ✅ Listo |
 | Cliente Prisma singleton (`lib/prisma.ts`) | ✅ Listo |
 | Documentación del proyecto | ✅ Listo |
-| Directorios `modules/` y `shared/` | ❌ No existe |
+| Infraestructura compartida (Fase 1) | ✅ Listo |
 | Autenticación | ❌ No implementado |
-| Integración IA (OpenAI) | ❌ No implementado |
 | Features (detección, recetas, imágenes) | ❌ No implementado |
 | UI (páginas y componentes) | ❌ No implementado |
 | Tests | ❌ No implementado |
@@ -441,8 +440,15 @@ Actualizar `app/recipes/[id]/page.tsx`:
 app/page.tsx
 ```
 
-- Descripción del proyecto
-- Call-to-action hacia `/auth/register` o `/generate`
+**Comportamiento según autenticación:**
+- Usuario no autenticado → muestra la landing page
+- Usuario autenticado → redirige automáticamente a `/generate` (server-side redirect)
+
+**Estructura de la landing:**
+1. **Hero Section** — Propuesta de valor: "Cocina con lo que ya tienes en casa". CTA principal: "Empezar" → `/auth/register`. CTA secundario: "Iniciar sesión" → `/auth/login`
+2. **Cómo funciona** — Flujo visual: subir imagen → editar ingredientes → generar receta → visualizar plato
+3. **Propuesta de valor** — Beneficios clave: usa ingredientes que ya tienes, reduce desperdicio, IA, experiencia rápida
+4. **CTA final** — Refuerzo de conversión con botón hacia el flujo principal
 
 ### 6.2 Componentes shadcn/ui
 

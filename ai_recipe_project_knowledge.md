@@ -1682,3 +1682,175 @@ Required variables:
 - Library: **Zod**
 - Applied in Server Actions (actions layer)
 
+------------------------------------------------------------------------
+
+# 🏠 Landing Page & Post-Login Redirection
+
+## 🎯 Objective
+
+The application includes a **landing page** whose purpose is to:
+
+- Clearly communicate the value proposition
+- Introduce users to the core workflow
+- Reduce initial friction
+- Drive users toward recipe generation as quickly as possible
+
+---
+
+## 🔐 Authentication-Based Behavior
+
+The landing page behavior depends on the user's authentication state.
+
+### Unauthenticated User
+
+- Accesses `/`
+- Sees the landing page with:
+  - Value proposition
+  - Explanation of how the app works
+  - Call-to-actions (register / login)
+
+### Authenticated User
+
+- Accesses `/`
+- Is automatically redirected to:
+
+/generate
+
+This redirection removes unnecessary steps and takes the user directly to the main functionality of the application.
+
+---
+
+## 🔄 User Flows
+
+### New User
+
+Landing (/)
+   ↓
+Register / Login
+   ↓
+Automatic redirect
+   ↓
+/generate
+
+### Authenticated User
+
+/
+↓
+Automatic redirect
+↓
+/generate
+
+---
+
+## 🧩 Landing Structure
+
+The landing page follows a **mobile-first** and conversion-focused design.
+
+### 1. Hero Section
+
+- Clear value proposition:
+  "Cook with what you already have at home"
+- Primary CTA:
+  "Get started"
+- Secondary CTA:
+  "Sign in"
+
+---
+
+### 2. How It Works
+
+Describes the real system flow:
+
+1. Upload an image of your ingredients  
+2. Edit the ingredient list (Human-in-the-Loop)  
+3. Generate a recipe  
+4. Visualize the final dish  
+
+---
+
+### 3. Value Proposition
+
+Key benefits:
+
+- Use ingredients you already have
+- Reduce food waste
+- AI-powered recipe generation
+- Fast and easy experience
+
+---
+
+### 4. Final Call To Action
+
+- Reinforces conversion
+- Main button to start the core flow
+
+---
+
+## 🏗️ Architecture Integration
+
+The landing page belongs to the **presentation layer**:
+
+app/
+  page.tsx   → Landing page
+
+The main functionality is located at:
+
+app/generate/page.tsx → Recipe generation flow
+
+This respects the architectural separation of concerns:
+
+- app/ → UI and routing
+- modules/ → business logic
+- shared/ → infrastructure
+
+---
+
+## ⚙️ Technical Implementation
+
+The redirection is implemented in the **Server Component** of the landing page:
+
+if (session) {
+  redirect("/generate")
+}
+
+### Considerations
+
+- Session validation uses Auth.js (NextAuth)
+- Redirection occurs on the server
+- No business logic is introduced in the UI layer
+- The architecture flow is preserved:
+
+UI → navigation → Server Action / routing
+
+---
+
+## 🧠 Design Decisions
+
+### Automatic Redirect for Authenticated Users
+
+Reason:
+
+- Improves user experience
+- Eliminates unnecessary steps
+- Aligns with the main goal: generating recipes quickly
+
+---
+
+### Landing as Acquisition-Only Page
+
+The landing page is not a dashboard.
+
+- Authenticated users do not interact with it
+- Its sole purpose is onboarding and conversion
+
+---
+
+## 🚀 Outcome
+
+This functionality:
+
+- Significantly improves initial user experience
+- Maintains consistency with the existing architecture
+- Reinforces the main application flow
+- Does not introduce additional backend complexity
+
