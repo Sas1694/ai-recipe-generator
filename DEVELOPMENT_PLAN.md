@@ -25,9 +25,10 @@
 | Documentación del proyecto | ✅ Listo |
 | Infraestructura compartida (Fase 1) | ✅ Listo |
 | Autenticación (Fase 2) | ✅ Listo |
-| Features (detección, recetas, imágenes) | ❌ No implementado |
-| UI (páginas y componentes) | ❌ No implementado |
-| Tests | ❌ No implementado |
+| Detección de ingredientes (Fase 3) | ✅ Listo |
+| Generación de recetas (Fase 4) | ❌ No implementado |
+| Generación de imágenes (Fase 5) | ❌ No implementado |
+| Polish y producción (Fase 6) | ❌ No implementado |
 
 ---
 
@@ -272,10 +273,10 @@ app/generate/components/IngredientListEditor.tsx
 
 ### Verificación
 
-- [ ] **Tests pasan**: `npm run test:run` → todos en verde
-- [ ] Subir imagen muestra ingredientes detectados
-- [ ] Se pueden editar, añadir y eliminar ingredientes
-- [ ] El botón de confirmar envía la lista final
+- [x] **Tests pasan**: `npm run test:run` → todos en verde
+- [x] Subir imagen muestra ingredientes detectados
+- [x] Se pueden editar, añadir y eliminar ingredientes
+- [x] El botón de confirmar envía la lista final
 
 ---
 
