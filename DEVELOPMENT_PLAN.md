@@ -24,7 +24,7 @@
 | Cliente Prisma singleton (`lib/prisma.ts`) | ✅ Listo |
 | Documentación del proyecto | ✅ Listo |
 | Infraestructura compartida (Fase 1) | ✅ Listo |
-| Autenticación | ❌ No implementado |
+| Autenticación (Fase 2) | ✅ Listo |
 | Features (detección, recetas, imágenes) | ❌ No implementado |
 | UI (páginas y componentes) | ❌ No implementado |
 | Tests | ❌ No implementado |
@@ -187,13 +187,14 @@ app/auth/login/page.tsx
 app/auth/register/page.tsx
 ```
 
-#### Paso 7 — Middleware
+#### Paso 7 — Proxy (protección de rutas)
 
 ```
-middleware.ts
+proxy.ts
 ```
 
 - Proteger rutas `/generate`, `/recipes` — redirigir a `/auth/login` si no autenticado
+- Next.js 16 recomienda `proxy.ts` en lugar de `middleware.ts`
 
 ### Verificación
 
