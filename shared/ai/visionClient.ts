@@ -1,4 +1,10 @@
+import { z } from "zod";
+import { zodTextFormat } from "openai/helpers/zod";
 import { openai } from "@/shared/ai/openaiClient";
+
+const ingredientDetectionSchema = z.object({
+  ingredients: z.array(z.string()),
+});
 
 const INGREDIENT_DETECTION_PROMPT = `You are a food ingredient detection system. Given an image, analyze its contents to detect and list all observable food ingredients using the following strict rules:
 
@@ -10,22 +16,13 @@ const INGREDIENT_DETECTION_PROMPT = `You are a food ingredient detection system.
 - Be conservative: only include ingredients you are highly confident are present; if unsure, omit the ingredient.
 - Do not include preparation terms (e.g., "grated", "sliced")—focus on the core ingredient.
 - Do not include packaging materials (e.g., "plastic", "foil").
-- Always return ONLY a JSON array of strings with the detected ingredient names.
 
-For complex packaging, prioritize package ingredient lists, but confirm that ingredients match visible evidence when possible. If no ingredients are confidently detected, return an empty JSON array.
-
-Output Format:
-- Return a JSON object with a single key "ingredients" containing an array of strings.
-- Each string must be a single normalized ingredient name.
-- Do not include any explanatory text, comments, or extra fields.
-
-Example output:
-{"ingredients": ["egg", "tomato", "cheese", "milk"]}`;
+For complex packaging, prioritize package ingredient lists, but confirm that ingredients match visible evidence when possible. If no ingredients are confidently detected, return an empty array.`;
 
 export async function detectIngredientsFromImage(
   imageBase64: string
 ): Promise<string[]> {
-  const response = /* { output_text: "{\"ingredients\": [\"egg\", \"tomato\", \"cheese\", \"milk\"]}" }; */await openai.responses.create({
+  const response = await openai.responses.parse({
     model: "gpt-4o-mini",
     input: [{
         role: "user",
@@ -38,21 +35,14 @@ export async function detectIngredientsFromImage(
             },
         ],
     }],
+    text: {
+      format: zodTextFormat(ingredientDetectionSchema, "ingredients"),
+    },
   });
 
-  const content = response.output_text;
-  if (!content) {
+  if (response.output_parsed === null) {
     throw new Error("Failed to parse model response");
   }
 
-  const parsed = JSON.parse(content);
-  const ingredients = parsed.ingredients;
-
-  if (!Array.isArray(ingredients)) {
-    throw new Error("Failed to parse model response");
-  }
-
-  return ingredients.filter(
-    (item: unknown): item is string => typeof item === "string"
-  );
+  return response.output_parsed.ingredients;
 }
