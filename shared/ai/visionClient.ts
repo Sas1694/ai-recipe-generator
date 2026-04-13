@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { openai } from "@/shared/ai/openaiClient";
 
 const INGREDIENT_DETECTION_PROMPT = `You are a food ingredient detection system. Given an image, analyze its contents to detect and list all observable food ingredients using the following strict rules:
@@ -22,6 +23,10 @@ Output Format:
 Example output:
 {"ingredients": ["egg", "tomato", "cheese", "milk"]}`;
 
+const ingredientsResponseSchema = z.object({
+  ingredients: z.array(z.string()),
+});
+
 export async function detectIngredientsFromImage(
   imageBase64: string
 ): Promise<string[]> {
@@ -45,14 +50,17 @@ export async function detectIngredientsFromImage(
     throw new Error("Failed to parse model response");
   }
 
-  const parsed = JSON.parse(content);
-  const ingredients = parsed.ingredients;
-
-  if (!Array.isArray(ingredients)) {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(content);
+  } catch {
     throw new Error("Failed to parse model response");
   }
 
-  return ingredients.filter(
-    (item: unknown): item is string => typeof item === "string"
-  );
+  const result = ingredientsResponseSchema.safeParse(parsed);
+  if (!result.success) {
+    throw new Error("Failed to parse model response");
+  }
+
+  return result.data.ingredients;
 }
