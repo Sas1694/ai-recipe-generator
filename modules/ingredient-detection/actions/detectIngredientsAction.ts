@@ -7,11 +7,37 @@ import type { ActionResponse } from "@/shared/types/common";
 
 const MAX_IMAGE_SIZE = 4 * 1024 * 1024; // 4MB
 
+function getRawBase64ImageData(imageBase64: string): string {
+  const trimmed = imageBase64.trim();
+  const dataUrlMatch = trimmed.match(/^data:[^;]+;base64,(.+)$/);
+  return dataUrlMatch ? dataUrlMatch[1] : trimmed;
+}
+
+function getDecodedImageSizeInBytes(imageBase64: string): number | null {
+  try {
+    const rawBase64 = getRawBase64ImageData(imageBase64);
+
+    if (rawBase64.length === 0 || !/^[A-Za-z0-9+/]+={0,2}$/.test(rawBase64)) {
+      return null;
+    }
+
+    return Buffer.from(rawBase64, "base64").length;
+  } catch {
+    return null;
+  }
+}
+
 const detectIngredientsSchema = z.object({
   imageBase64: z
     .string()
     .min(1, "Image is required")
-    .max(MAX_IMAGE_SIZE, "Image is too large (max 4MB)"),
+    .refine((value) => getDecodedImageSizeInBytes(value) !== null, {
+      message: "Image must be valid base64",
+    })
+    .refine((value) => {
+      const sizeInBytes = getDecodedImageSizeInBytes(value);
+      return sizeInBytes !== null && sizeInBytes <= MAX_IMAGE_SIZE;
+    }, "Image is too large (max 4MB)"),
 });
 
 export async function detectIngredientsAction(
