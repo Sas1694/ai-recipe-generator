@@ -29,6 +29,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
     }
 
     const objectUrl = URL.createObjectURL(file);
+    if (!objectUrl.startsWith("blob:")) return;
     setPreview(objectUrl);
     onImageSelected(file);
   }
