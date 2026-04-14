@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { detectIngredients } from "@/modules/ingredient-detection/use-cases/detectIngredients";
 import type { VisionModelService } from "@/modules/ingredient-detection/types";
 
+const testImage = { base64: "valid-base64-image-data", mimeType: "image/jpeg" };
+
 describe("detectIngredients", () => {
   const mockVisionModelService: VisionModelService = {
     detectIngredients: vi.fn(),
@@ -20,19 +22,19 @@ describe("detectIngredients", () => {
       "eggs",
     ]);
 
-    const result = await detectIngredients("valid-base64-image-data", {
+    const result = await detectIngredients(testImage, {
       visionModelService: mockVisionModelService,
     });
 
     expect(mockVisionModelService.detectIngredients).toHaveBeenCalledWith(
-      "valid-base64-image-data"
+      testImage
     );
     expect(result).toEqual(["egg", "tomato", "cheese", "eggs"]);
   });
 
   it("should throw an error if image data is empty", async () => {
     await expect(
-      detectIngredients("", {
+      detectIngredients({ base64: "", mimeType: "image/jpeg" }, {
         visionModelService: mockVisionModelService,
       })
     ).rejects.toThrow("Image data is required");
@@ -46,7 +48,7 @@ describe("detectIngredients", () => {
     );
 
     await expect(
-      detectIngredients("valid-base64-image-data", {
+      detectIngredients(testImage, {
         visionModelService: mockVisionModelService,
       })
     ).rejects.toThrow("Failed to parse model response");

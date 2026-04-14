@@ -45,7 +45,7 @@ export function IngredientListEditor({
       <div className="space-y-2">
         {ingredients.map((ingredient, index) => (
           <div
-            key={index}
+            key={ingredient}
             className="flex items-center justify-between rounded-md border border-foreground/20 px-3 py-2"
           >
             <span className="text-sm">{ingredient}</span>

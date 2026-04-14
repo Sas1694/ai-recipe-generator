@@ -13,11 +13,14 @@ export default function GeneratePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleImageSelected(imageBase64: string) {
+  async function handleImageSelected(file: File) {
     setError(null);
     setLoading(true);
 
-    const result = await detectIngredientsAction(imageBase64);
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const result = await detectIngredientsAction(formData);
 
     if (result.success) {
       setIngredients(result.data);

@@ -1,25 +1,10 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  DATABASE_URL: z
-    .string({
-      required_error: "DATABASE_URL is required",
-      invalid_type_error: "DATABASE_URL is required",
-    })
-    .min(1, "DATABASE_URL is required"),
-  AUTH_SECRET: z
-    .string({
-      required_error: "AUTH_SECRET is required",
-      invalid_type_error: "AUTH_SECRET is required",
-    })
-    .min(1, "AUTH_SECRET is required"),
-  OPENAI_API_KEY: z
-    .string({
-      required_error: "OPENAI_API_KEY is required",
-      invalid_type_error: "OPENAI_API_KEY is required",
-    })
-    .min(1, "OPENAI_API_KEY is required"),
-  //BLOB_READ_WRITE_TOKEN: z.string({ required_error: "BLOB_READ_WRITE_TOKEN is required", invalid_type_error: "BLOB_READ_WRITE_TOKEN is required" }).min(1, "BLOB_READ_WRITE_TOKEN is required"),
+  DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
+  AUTH_SECRET: z.string().min(1, "AUTH_SECRET is required"),
+  OPENAI_API_KEY: z.string().min(1, "OPENAI_API_KEY is required"),
+  //BLOB_READ_WRITE_TOKEN: z.string().min(1, "BLOB_READ_WRITE_TOKEN is required"),
 });
 
 function validateEnv() {

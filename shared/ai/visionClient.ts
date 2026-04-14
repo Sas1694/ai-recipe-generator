@@ -28,7 +28,8 @@ const ingredientsResponseSchema = z.object({
 });
 
 export async function detectIngredientsFromImage(
-  imageBase64: string
+  imageBase64: string,
+  mimeType: string
 ): Promise<string[]> {
   const response = /* { output_text: "{\"ingredients\": [\"egg\", \"tomato\", \"cheese\", \"milk\"]}" }; */await openai.responses.create({
     model: "gpt-4o-mini",
@@ -38,7 +39,7 @@ export async function detectIngredientsFromImage(
             { type: "input_text", text: INGREDIENT_DETECTION_PROMPT },
             {
                 type: "input_image",
-                image_url: `data:image/jpeg;base64,${imageBase64}`,
+                image_url: `data:${mimeType};base64,${imageBase64}`,
                 detail: "original"
             },
         ],

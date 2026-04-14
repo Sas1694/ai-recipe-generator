@@ -1,40 +1,41 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB, SUPPORTED_FORMATS_LABEL, SUPPORTED_MIME_TYPES } from "@/shared/config/limits";
 
 interface ImageUploaderProps {
-  onImageSelected: (imageBase64: string) => void;
+  onImageSelected: (file: File) => void;
   loading: boolean;
 }
 
 export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) {
   const [preview, setPreview] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    setError(null);
 
-    if (!file.type.startsWith("image/")) {
+    if (!SUPPORTED_MIME_TYPES.includes(file.type)) {
+      setError(`Unsupported image format. Use ${SUPPORTED_FORMATS_LABEL}.`);
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      setPreview(result);
+    if (file.size > MAX_IMAGE_SIZE_BYTES) {
+      setError(`Image must be under ${MAX_IMAGE_SIZE_MB}MB.`);
+      return;
+    }
 
-      // Extract base64 data (remove data:image/...;base64, prefix)
-      const base64 = result.split(",")[1];
-      if (base64) {
-        onImageSelected(base64);
-      }
-    };
-    reader.readAsDataURL(file);
+    const objectUrl = URL.createObjectURL(file);
+    setPreview(objectUrl);
+    onImageSelected(file);
   }
 
   function handleReset() {
     setPreview(null);
+    setError(null);
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -84,11 +85,14 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
             />
           </svg>
           <span className="text-sm font-medium">Click to upload an image</span>
-          <span className="mt-1 text-xs text-foreground/60">JPG, PNG up to 4MB</span>
+          <span className="mt-1 text-xs text-foreground/60">{`${SUPPORTED_FORMATS_LABEL} up to ${MAX_IMAGE_SIZE_MB}MB`}</span>
+          {error && (
+            <span className="mt-2 text-xs text-red-500">{error}</span>
+          )}
           <input
             ref={inputRef}
             type="file"
-            accept="image/*"
+            accept={SUPPORTED_MIME_TYPES.join(",")}
             onChange={handleFileChange}
             className="hidden"
           />

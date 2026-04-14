@@ -1,7 +1,7 @@
 import { detectIngredientsFromImage } from "@/shared/ai/visionClient";
-import type { VisionModelService } from "../types";
+import type { VisionModelService, ImageData } from "../types";
 
 export const visionModelService: VisionModelService = {
-  detectIngredients: (imageBase64: string) =>
-    detectIngredientsFromImage(imageBase64),
+  detectIngredients: (image: ImageData) =>
+    detectIngredientsFromImage(image.base64, image.mimeType),
 };

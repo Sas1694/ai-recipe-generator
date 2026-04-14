@@ -1,3 +1,8 @@
+export interface ImageData {
+  base64: string;
+  mimeType: string;
+}
+
 export interface VisionModelService {
-  detectIngredients(imageBase64: string): Promise<string[]>;
+  detectIngredients(image: ImageData): Promise<string[]>;
 }
