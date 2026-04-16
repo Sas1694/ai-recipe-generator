@@ -20,7 +20,8 @@ const INGREDIENT_DETECTION_PROMPT = `You are a food ingredient detection system.
 For complex packaging, prioritize package ingredient lists, but confirm that ingredients match visible evidence when possible. If no ingredients are confidently detected, return an empty array.`;
 
 export async function detectIngredientsFromImage(
-  imageBase64: string
+  imageBase64: string,
+  mimeType: string
 ): Promise<string[]> {
   const response = await openai.responses.parse({
     model: "gpt-4o-mini",
@@ -30,7 +31,7 @@ export async function detectIngredientsFromImage(
             { type: "input_text", text: INGREDIENT_DETECTION_PROMPT },
             {
                 type: "input_image",
-                image_url: `data:image/jpeg;base64,${imageBase64}`,
+                image_url: `data:${mimeType};base64,${imageBase64}`,
                 detail: "original"
             },
         ],

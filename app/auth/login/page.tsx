@@ -19,7 +19,6 @@ function LoginForm() {
     const result = await loginAction(formData);
 
     if (result.success) {
-      console.log("Login successful");
       router.push("/generate");
     } else {
       setError(result.error);

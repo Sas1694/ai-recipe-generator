@@ -1,15 +1,15 @@
-import type { VisionModelService } from "../types";
+import type { ImageData, VisionModelService } from "../types";
 
 export async function detectIngredients(
-  imageBase64: string,
+  image: ImageData,
   deps: { visionModelService: VisionModelService }
 ): Promise<string[]> {
-  if (!imageBase64.trim()) {
+  if (!image.base64.trim()) {
     throw new Error("Image data is required");
   }
 
   const rawIngredients =
-    await deps.visionModelService.detectIngredients(imageBase64);
+    await deps.visionModelService.detectIngredients(image);
 
   // Normalize: lowercase + deduplicate
   const seen = new Set<string>();

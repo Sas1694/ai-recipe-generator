@@ -2,9 +2,6 @@
 
 import { z } from "zod";
 import { signIn } from "@/shared/auth/auth";
-import { loginUser } from "@/modules/auth/use-cases/loginUser";
-import { userRepository } from "@/modules/auth/repositories/userRepository";
-import { authService } from "@/modules/auth/services/authService";
 import type { ActionResponse } from "@/shared/types/common";
 
 const loginSchema = z.object({
@@ -27,16 +24,14 @@ export async function loginAction(
   }
 
   try {
-    await loginUser(parsed.data, { userRepository, authService });
+    await signIn("credentials", {
+      email: parsed.data.email,
+      password: parsed.data.password,
+      redirect: false,
+    });
   } catch {
     return { success: false, error: "Invalid email or password" };
   }
-
-  await signIn("credentials", {
-    email: parsed.data.email,
-    password: parsed.data.password,
-    redirect: false,
-  });
 
   return { success: true, data: null };
 }

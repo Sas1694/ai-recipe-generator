@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
+import { MAX_IMAGE_SIZE_MB } from "@/shared/config/limits";
 
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
-      bodySizeLimit: "4mb",
+      bodySizeLimit: `${MAX_IMAGE_SIZE_MB}mb`,
     },
   },
 };
