@@ -71,7 +71,10 @@ ADDITIONAL RULES:
 - Title should be appealing but concise.
 
 FAILSAFE:
-- If the ingredient list is empty or unusable, return empty arrays for ingredients and steps.`;
+- If the ingredient list is empty or unusable, still return a schema-valid minimal recipe.
+- The fallback recipe must include a non-empty title, description, and visualDescription.
+- The fallback recipe must include at least one ingredient and at least one step.
+- Use only allowed pantry items for the fallback recipe: water, salt, pepper, oil.`;
 
 export async function generateRecipeFromIngredients(
   ingredients: string[]
