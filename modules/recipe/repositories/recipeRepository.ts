@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import type {
-  RecipeRepository,
-  RecipeDTO,
   GeneratedRecipe,
+  RecipeDTO,
+  RecipeRepository,
 } from "../types";
 
 function toRecipeDTO(recipe: {
@@ -55,30 +55,50 @@ export const recipeRepository: RecipeRepository = {
     data: GeneratedRecipe,
     ingredientHash: string
   ): Promise<RecipeDTO> {
-    const recipe = await prisma.recipe.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        visualDescription: data.visualDescription,
-        ingredientHash,
-        ingredients: {
-          create: data.ingredients.map((i) => ({
-            name: i.name,
-            quantity: i.quantity,
-            unit: i.unit,
-          })),
+    try {
+      const recipe = await prisma.recipe.create({
+        data: {
+          title: data.title,
+          description: data.description,
+          visualDescription: data.visualDescription,
+          ingredientHash,
+          ingredients: {
+            create: data.ingredients.map((i) => ({
+              name: i.name,
+              quantity: i.quantity,
+              unit: i.unit,
+            })),
+          },
+          steps: {
+            create: data.steps.map((s) => ({
+              stepNumber: s.stepNumber,
+              instruction: s.instruction,
+            })),
+          },
         },
-        steps: {
-          create: data.steps.map((s) => ({
-            stepNumber: s.stepNumber,
-            instruction: s.instruction,
-          })),
-        },
-      },
-      include: recipeIncludes,
-    });
+        include: recipeIncludes,
+      });
 
-    return toRecipeDTO(recipe);
+      return toRecipeDTO(recipe);
+    } catch (error) {
+      // Handle race condition: another request created the recipe first
+      const isPrismaUniqueError =
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        error.code === "P2002";
+
+      if (isPrismaUniqueError) {
+        const existing = await prisma.recipe.findFirst({
+          where: { ingredientHash },
+          include: recipeIncludes,
+        });
+        if (existing) {
+          return toRecipeDTO(existing);
+        }
+      }
+      throw error;
+    }
   },
 
   async linkUserToRecipe(userId: string, recipeId: string): Promise<void> {
@@ -86,12 +106,14 @@ export const recipeRepository: RecipeRepository = {
       await prisma.userRecipe.create({
         data: { userId, recipeId },
       });
-    } catch (error: unknown) {
+    } catch (error) {
       // Ignore unique constraint violation (user already linked)
-      if (
-        error instanceof Error &&
-        error.message.includes("Unique constraint")
-      ) {
+      const isPrismaError =
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        error.code === "P2002";
+      if (isPrismaError) {
         return;
       }
       throw error;

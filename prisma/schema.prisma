@@ -37,7 +37,7 @@ model Recipe {
   steps             RecipeStep[]
   images            RecipeImage[]
 
-  @@index([ingredientHash])
+  @@unique([ingredientHash])
 }
 
 // ─── UserRecipe ──────────────────────────────────────────────────────────────
