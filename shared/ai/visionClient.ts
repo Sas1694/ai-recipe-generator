@@ -17,7 +17,7 @@ const INGREDIENT_DETECTION_PROMPT = `You are a food ingredient detection system.
 - Do not include preparation terms (e.g., "grated", "sliced")—focus on the core ingredient.
 - Do not include packaging materials (e.g., "plastic", "foil").
 
-For complex packaging, prioritize package ingredient lists, but confirm that ingredients match visible evidence when possible. If no ingredients are confidently detected, return an empty array.`;
+Return a JSON object with an "ingredients" field containing the detected ingredients as an array of strings. For complex packaging, prioritize package ingredient lists, but confirm that ingredients match visible evidence when possible. If no ingredients are confidently detected, return { "ingredients": [] }.`;
 
 export async function detectIngredientsFromImage(
   imageBase64: string,
