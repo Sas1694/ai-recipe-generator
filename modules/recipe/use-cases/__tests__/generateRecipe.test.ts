@@ -19,6 +19,7 @@ describe("generateRecipe", () => {
     countUserRecipesToday: vi.fn(),
     findById: vi.fn(),
     findByUserId: vi.fn(),
+    isLinkedToUser: vi.fn(),
   };
 
   const deps = {

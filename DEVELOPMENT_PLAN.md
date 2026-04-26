@@ -26,9 +26,11 @@
 | Infraestructura compartida (Fase 1) | ✅ Listo |
 | Autenticación (Fase 2) | ✅ Listo |
 | Detección de ingredientes (Fase 3) | ✅ Listo |
-| Generación de recetas (Fase 4) | ❌ No implementado |
-| Generación de imágenes (Fase 5) | ❌ No implementado |
+| Generación de recetas (Fase 4) | ✅ Listo |
+| Generación de imágenes (Fase 5) | ✅ Listo |
 | Polish y producción (Fase 6) | ❌ No implementado |
+
+**Progreso actual:** Fase 5 completada. 25 tests pasando. Listo para Fase 6.
 
 ---
 
@@ -105,10 +107,10 @@ shared/types/common.ts
 
 ### Verificación
 
-- [ ] `npm run test` arranca Vitest en modo watch
-- [ ] `npm run test:run` ejecuta (aunque 0 tests)
-- [ ] `npm run build` compila sin errores
-- [ ] La validación de env lanza error si falta `OPENAI_API_KEY`
+- [x] `npm run test` arranca Vitest en modo watch ✅
+- [x] `npm run test:run` ejecuta (aunque 0 tests) ✅
+- [x] `npm run build` compila sin errores ✅
+- [x] La validación de env lanza error si falta `OPENAI_API_KEY` ✅
 
 ---
 
@@ -199,10 +201,10 @@ proxy.ts
 
 ### Verificación
 
-- [ ] **Tests pasan**: `npm run test:run` → todos en verde
-- [ ] Registro de usuario funciona y se persiste en BD
-- [ ] Login devuelve sesión JWT válida
-- [ ] Rutas protegidas redirigen a login
+- [x] **Tests pasan**: `npm run test:run` → todos en verde ✅ (registerUser.test.ts, loginUser.test.ts)
+- [x] Registro de usuario funciona y se persiste en BD ✅
+- [x] Login devuelve sesión JWT válida ✅
+- [x] Rutas protegidas redirigen a login ✅
 
 ---
 
@@ -273,10 +275,10 @@ app/generate/components/IngredientListEditor.tsx
 
 ### Verificación
 
-- [x] **Tests pasan**: `npm run test:run` → todos en verde
-- [x] Subir imagen muestra ingredientes detectados
-- [x] Se pueden editar, añadir y eliminar ingredientes
-- [x] El botón de confirmar envía la lista final
+- [x] **Tests pasan**: `npm run test:run` → todos en verde ✅ (detectIngredients.test.ts)
+- [x] Subir imagen muestra ingredientes detectados ✅
+- [x] Se pueden editar, añadir y eliminar ingredientes ✅
+- [x] El botón de confirmar envía la lista final ✅
 
 ---
 
@@ -349,13 +351,13 @@ app/recipes/[id]/page.tsx            → Detalle de receta (título, descripció
 
 ### Verificación
 
-- [ ] **Tests pasan**: `npm run test:run` → todos en verde
-- [ ] Confirmar ingredientes genera receta y la muestra
-- [ ] La receta se persiste en BD con ingredientes y pasos
-- [ ] Mismos ingredientes reusan receta cacheada (no llaman al LLM)
-- [ ] Se rechaza al usuario si supera 5 recetas/día
-- [ ] Lista de recetas muestra todas las del usuario
-- [ ] Detalle de receta muestra toda la información
+- [x] **Tests pasan**: `npm run test:run` → todos en verde ✅ (generateRecipe.test.ts, getRecipe.test.ts, listUserRecipes.test.ts)
+- [x] Confirmar ingredientes genera receta y la muestra ✅
+- [x] La receta se persiste en BD con ingredientes y pasos ✅
+- [x] Mismos ingredientes reusan receta cacheada (no llaman al LLM) ✅
+- [x] Se rechaza al usuario si supera 5 recetas/día ✅
+- [x] Lista de recetas muestra todas las del usuario ✅
+- [x] Detalle de receta muestra toda la información ✅
 
 ---
 
@@ -422,10 +424,10 @@ Actualizar `app/recipes/[id]/page.tsx`:
 
 ### Verificación
 
-- [ ] **Tests pasan**: `npm run test:run` → todos en verde
-- [ ] Botón genera imagen y la muestra en la receta
-- [ ] Imagen se almacena en Vercel Blob
-- [ ] Referencia se guarda en BD (RecipeImage)
+- [x] **Tests pasan**: `npm run test:run` → todos en verde ✅ (generateDishImage.test.ts)
+- [x] Botón genera imagen y la muestra en la receta ✅
+- [x] Imagen se almacena en Vercel Blob ✅
+- [x] Referencia se guarda en BD (RecipeImage) ✅
 
 ---
 
