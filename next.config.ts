@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
       bodySizeLimit: `${MAX_IMAGE_SIZE_MB}mb`,
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

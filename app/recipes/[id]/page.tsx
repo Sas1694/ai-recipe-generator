@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getRecipeAction } from "@/modules/recipe/actions/getRecipeAction";
+import { recipeImageRepository } from "@/modules/image-generation/repositories/recipeImageRepository";
+import { DishImageSection } from "./components/DishImageSection";
 
 export default async function RecipeDetailPage({
   params,
@@ -28,6 +30,7 @@ export default async function RecipeDetailPage({
   }
 
   const recipe = result.data;
+  const existingImage = await recipeImageRepository.findByRecipeId(recipe.id);
 
   return (
     <main className="flex min-h-full items-start justify-center px-4 py-8">
@@ -84,8 +87,9 @@ export default async function RecipeDetailPage({
           </ol>
         </div>
 
-        {/* Phase 5: Generate dish image button will go here */}
+        <DishImageSection recipeId={recipe.id} initialImage={existingImage} />
       </div>
     </main>
   );
 }
+
