@@ -28,7 +28,7 @@ export async function generateDishImageAction(
   }
 
   try {
-    const image = await generateDishImage(parsed.data.recipeId, {
+    const image = await generateDishImage(parsed.data.recipeId, session.user.id, {
       recipeSource: recipeRepository,
       imageGenerationService,
       recipeImageRepository,

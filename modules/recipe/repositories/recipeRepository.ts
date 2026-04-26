@@ -154,4 +154,13 @@ export const recipeRepository: RecipeRepository = {
 
     return userRecipes.map((ur) => toRecipeDTO(ur.recipe));
   },
+
+  async isLinkedToUser(recipeId: string, userId: string): Promise<boolean> {
+    const link = await prisma.userRecipe.findUnique({
+      where: { userId_recipeId: { userId, recipeId } },
+      select: { id: true },
+    });
+
+    return link !== null;
+  },
 };

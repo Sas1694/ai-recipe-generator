@@ -42,4 +42,5 @@ export interface RecipeImageRepository {
 
 export interface RecipeSource {
   findById(id: string): Promise<{ id: string; visualDescription: string } | null>;
+  isLinkedToUser(recipeId: string, userId: string): Promise<boolean>;
 }

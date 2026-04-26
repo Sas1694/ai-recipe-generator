@@ -50,4 +50,5 @@ export interface RecipeRepository {
   countUserRecipesToday(userId: string): Promise<number>;
   findById(id: string): Promise<RecipeDTO | null>;
   findByUserId(userId: string): Promise<RecipeDTO[]>;
+  isLinkedToUser(recipeId: string, userId: string): Promise<boolean>;
 }

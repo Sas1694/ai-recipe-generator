@@ -11,6 +11,7 @@ import type {
 describe("generateDishImage", () => {
   const mockRecipeSource: RecipeSource = {
     findById: vi.fn(),
+    isLinkedToUser: vi.fn(),
   };
 
   const mockImageGenerationService: ImageGenerationService = {
@@ -27,6 +28,8 @@ describe("generateDishImage", () => {
     imageGenerationService: mockImageGenerationService,
     recipeImageRepository: mockRecipeImageRepository,
   };
+
+  const USER_ID = "user-uuid-999";
 
   const sampleRecipe = {
     id: "recipe-uuid-123",
@@ -53,7 +56,19 @@ describe("generateDishImage", () => {
     vi.resetAllMocks();
   });
 
+  it("should throw an error when the recipe does not belong to the user", async () => {
+    vi.mocked(mockRecipeSource.isLinkedToUser).mockResolvedValue(false);
+
+    await expect(
+      generateDishImage("recipe-uuid-123", USER_ID, deps)
+    ).rejects.toThrow("Recipe not found or access denied");
+
+    expect(mockRecipeSource.findById).not.toHaveBeenCalled();
+    expect(mockImageGenerationService.generateDishImage).not.toHaveBeenCalled();
+  });
+
   it("should generate an image, upload it, and save the reference to the DB", async () => {
+    vi.mocked(mockRecipeSource.isLinkedToUser).mockResolvedValue(true);
     vi.mocked(mockRecipeSource.findById).mockResolvedValue(sampleRecipe);
     vi.mocked(mockRecipeImageRepository.findByRecipeId).mockResolvedValue(null);
     vi.mocked(mockImageGenerationService.generateDishImage).mockResolvedValue(
@@ -63,9 +78,10 @@ describe("generateDishImage", () => {
       sampleRecipeImageDTO
     );
 
-    const result = await generateDishImage("recipe-uuid-123", deps);
+    const result = await generateDishImage("recipe-uuid-123", USER_ID, deps);
 
     expect(result).toEqual(sampleRecipeImageDTO);
+    expect(mockRecipeSource.isLinkedToUser).toHaveBeenCalledWith("recipe-uuid-123", USER_ID);
     expect(mockRecipeSource.findById).toHaveBeenCalledWith("recipe-uuid-123");
     expect(mockImageGenerationService.generateDishImage).toHaveBeenCalledWith(
       sampleRecipe.visualDescription,
@@ -80,12 +96,13 @@ describe("generateDishImage", () => {
   });
 
   it("should return the existing image without calling the service if one already exists", async () => {
+    vi.mocked(mockRecipeSource.isLinkedToUser).mockResolvedValue(true);
     vi.mocked(mockRecipeSource.findById).mockResolvedValue(sampleRecipe);
     vi.mocked(mockRecipeImageRepository.findByRecipeId).mockResolvedValue(
       sampleRecipeImageDTO
     );
 
-    const result = await generateDishImage("recipe-uuid-123", deps);
+    const result = await generateDishImage("recipe-uuid-123", USER_ID, deps);
 
     expect(result).toEqual(sampleRecipeImageDTO);
     expect(mockImageGenerationService.generateDishImage).not.toHaveBeenCalled();
@@ -93,9 +110,10 @@ describe("generateDishImage", () => {
   });
 
   it("should throw an error when the recipe is not found", async () => {
+    vi.mocked(mockRecipeSource.isLinkedToUser).mockResolvedValue(true);
     vi.mocked(mockRecipeSource.findById).mockResolvedValue(null);
 
-    await expect(generateDishImage("non-existent-id", deps)).rejects.toThrow(
+    await expect(generateDishImage("non-existent-id", USER_ID, deps)).rejects.toThrow(
       "Recipe not found"
     );
 
@@ -103,12 +121,13 @@ describe("generateDishImage", () => {
   });
 
   it("should throw an error when the recipe has no visual description", async () => {
+    vi.mocked(mockRecipeSource.isLinkedToUser).mockResolvedValue(true);
     vi.mocked(mockRecipeSource.findById).mockResolvedValue({
       id: "recipe-uuid-123",
       visualDescription: "",
     });
 
-    await expect(generateDishImage("recipe-uuid-123", deps)).rejects.toThrow(
+    await expect(generateDishImage("recipe-uuid-123", USER_ID, deps)).rejects.toThrow(
       "Recipe has no visual description"
     );
 
@@ -116,13 +135,14 @@ describe("generateDishImage", () => {
   });
 
   it("should propagate errors from the image generation service", async () => {
+    vi.mocked(mockRecipeSource.isLinkedToUser).mockResolvedValue(true);
     vi.mocked(mockRecipeSource.findById).mockResolvedValue(sampleRecipe);
     vi.mocked(mockRecipeImageRepository.findByRecipeId).mockResolvedValue(null);
     vi.mocked(mockImageGenerationService.generateDishImage).mockRejectedValue(
       new Error("Image model unavailable")
     );
 
-    await expect(generateDishImage("recipe-uuid-123", deps)).rejects.toThrow(
+    await expect(generateDishImage("recipe-uuid-123", USER_ID, deps)).rejects.toThrow(
       "Image model unavailable"
     );
 

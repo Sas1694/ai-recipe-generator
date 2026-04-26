@@ -7,12 +7,18 @@ import type {
 
 export async function generateDishImage(
   recipeId: string,
+  userId: string,
   deps: {
     recipeSource: RecipeSource;
     imageGenerationService: ImageGenerationService;
     recipeImageRepository: RecipeImageRepository;
   }
 ): Promise<RecipeImageDTO> {
+  const isOwner = await deps.recipeSource.isLinkedToUser(recipeId, userId);
+  if (!isOwner) {
+    throw new Error("Recipe not found or access denied");
+  }
+
   const recipe = await deps.recipeSource.findById(recipeId);
   if (!recipe) {
     throw new Error("Recipe not found");

@@ -11,6 +11,7 @@ export async function generateImageFromDescription(
     n: 1,
     size: "1024x1024",
     quality: "medium",
+    response_format: "b64_json",
   });
 
   const base64 = (response.data?.[0] as { b64_json?: string } | undefined)
