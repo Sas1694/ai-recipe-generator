@@ -28,9 +28,9 @@
 | Detección de ingredientes (Fase 3) | ✅ Listo |
 | Generación de recetas (Fase 4) | ✅ Listo |
 | Generación de imágenes (Fase 5) | ✅ Listo |
-| Polish y producción (Fase 6) | ❌ No implementado |
+| Polish y producción (Fase 6) | ✅ Listo |
 
-**Progreso actual:** Fase 5 completada. 25 tests pasando. Listo para Fase 6.
+**Progreso actual:** Todas las fases completadas. 26 tests pasando. Pendiente: deploy a Vercel.
 
 ---
 
@@ -438,7 +438,7 @@ Actualizar `app/recipes/[id]/page.tsx`:
 > **Depende de**: Todas las fases anteriores.
 > No aplica TDD (no hay lógica de negocio nueva).
 
-### 6.1 Landing Page
+### 6.1 Landing Page ✅
 
 ```
 app/page.tsx
@@ -449,23 +449,31 @@ app/page.tsx
 - Usuario autenticado → redirige automáticamente a `/generate` (server-side redirect)
 
 **Estructura de la landing:**
-1. **Hero Section** — Propuesta de valor: "Cocina con lo que ya tienes en casa". CTA principal: "Empezar" → `/auth/register`. CTA secundario: "Iniciar sesión" → `/auth/login`
-2. **Cómo funciona** — Flujo visual: subir imagen → editar ingredientes → generar receta → visualizar plato
-3. **Propuesta de valor** — Beneficios clave: usa ingredientes que ya tienes, reduce desperdicio, IA, experiencia rápida
-4. **CTA final** — Refuerzo de conversión con botón hacia el flujo principal
+1. **Hero Section** — "Cook with what you already have". CTA principal: "Start for free" → `/auth/register`. CTA secundario: "Sign in" → `/auth/login`
+2. **Cómo funciona** — Flujo visual 4 pasos con iconos: subir imagen → editar ingredientes → generar receta → visualizar plato
+3. **Propuesta de valor** — 3 beneficios en cards: usa ingredientes que ya tienes, reduce desperdicio, velocidad
+4. **CTA final** — Card de conversión con botón principal
+5. **Footer** y **nav sticky** con logo, links y CTAs
 
-### 6.2 Componentes shadcn/ui
+### 6.2 Componentes shadcn/ui ✅
 
-- Instalar librería de componentes
-- Refinar formularios, botones, cards, toasts
-- Consistencia visual en todas las páginas
+Instalado y configurado:
+- Dependencias: `class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`, `@radix-ui/react-slot`, `@radix-ui/react-label`, `@radix-ui/react-toast`, `@radix-ui/react-separator`
+- Componentes creados en `components/ui/`: `button`, `input`, `card`, `badge`, `skeleton`, `label`, `separator`
+- CSS variables shadcn integradas en `app/globals.css` (compatibles con Tailwind v4)
+- `lib/utils.ts` con helper `cn()`
+- `components.json` con configuración shadcn
 
-### 6.3 UX
+### 6.3 UX ✅
 
-- Loading states (Suspense boundaries)
-- Error boundaries
-- Mensajes de error amigables
-- Responsive / mobile-first
+- `components/AppHeader.tsx` — header sticky compartido para páginas de app (nav + sign out)
+- Auth pages rediseñadas con `Card`, `Input`, `Button`, `Label` de shadcn
+- `app/generate/` refactorizado: `GeneratePage` (Server Component) + `GenerateContent` (Client Component)
+- `Skeleton` states durante detección de ingredientes, generación de receta e imagen
+- `IngredientListEditor` y `DishImageSection` actualizados con componentes shadcn
+- `app/recipes/page.tsx` y `app/recipes/[id]/page.tsx` con AppHeader, Badge, Separator y polish completo
+- Mensajes de error con estilos consistentes (`bg-destructive/10`)
+- Responsive / mobile-first en todas las páginas
 
 ### 6.4 Deploy
 
@@ -479,8 +487,13 @@ app/page.tsx
 
 ### Verificación
 
-- [ ] **Todos los tests pasan**: `npm run test:run` → suite completa en verde
-- [ ] Flujo completo E2E funciona: register → login → upload → editar ingredientes → generar receta → generar imagen → ver recetas
+- [x] **Todos los tests pasan**: `npm run test:run` → 26 tests en verde ✅
+- [x] `npm run build` compila sin errores ✅
+- [x] Landing page visible para usuarios no autenticados ✅
+- [x] Usuarios autenticados redirigen a `/generate` desde la landing ✅
+- [x] shadcn/ui aplicado de forma consistente en todas las páginas ✅
+- [x] Loading states con Skeleton en generate y dish image ✅
+- [ ] Flujo completo E2E verificado en producción
 - [ ] Deploy en Vercel operativo
 - [ ] CI pipeline pasa en verde
 

@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { X } from "lucide-react";
 
 interface IngredientListEditorProps {
   ingredients: string[];
@@ -37,7 +40,7 @@ export function IngredientListEditor({
     <div className="space-y-4">
       <div className="text-center">
         <h2 className="text-lg font-semibold">Review ingredients</h2>
-        <p className="mt-1 text-sm text-foreground/60">
+        <p className="mt-1 text-sm text-muted-foreground">
           Edit the list before generating your recipe
         </p>
       </div>
@@ -46,54 +49,54 @@ export function IngredientListEditor({
         {ingredients.map((ingredient, index) => (
           <div
             key={ingredient}
-            className="flex items-center justify-between rounded-md border border-foreground/20 px-3 py-2"
+            className="flex items-center justify-between rounded-lg border bg-card px-3 py-2 shadow-sm"
           >
-            <span className="text-sm">{ingredient}</span>
+            <span className="text-sm font-medium">{ingredient}</span>
             <button
               type="button"
               onClick={() => handleRemove(index)}
-              className="text-sm text-red-500 hover:text-red-700"
+              className="ml-2 rounded p-0.5 text-muted-foreground hover:text-destructive"
               aria-label={`Remove ${ingredient}`}
             >
-              ✕
+              <X className="h-4 w-4" />
             </button>
           </div>
         ))}
       </div>
 
       {ingredients.length === 0 && (
-        <p className="text-center text-sm text-foreground/40">
+        <p className="text-center text-sm text-muted-foreground">
           No ingredients yet. Add some below.
         </p>
       )}
 
       <div className="flex gap-2">
-        <input
+        <Input
           type="text"
           value={newIngredient}
           onChange={(e) => setNewIngredient(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Add ingredient..."
-          className="flex-1 rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-foreground/40 focus:outline-none"
+          placeholder="Add ingredient…"
         />
-        <button
+        <Button
           type="button"
+          variant="outline"
           onClick={handleAdd}
           disabled={!newIngredient.trim()}
-          className="rounded-md border border-foreground/20 px-4 py-2 text-sm font-medium transition-opacity hover:opacity-90 disabled:opacity-50"
         >
           Add
-        </button>
+        </Button>
       </div>
 
-      <button
+      <Button
         type="button"
+        className="w-full"
         onClick={() => onConfirm(ingredients)}
         disabled={ingredients.length === 0}
-        className="w-full rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         Confirm ingredients ({ingredients.length})
-      </button>
+      </Button>
     </div>
   );
 }
+

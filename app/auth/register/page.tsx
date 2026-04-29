@@ -4,6 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { registerAction } from "@/modules/auth/actions/registerAction";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChefHat } from "lucide-react";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -25,80 +30,70 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-full items-center justify-center px-4">
+    <main className="flex min-h-screen items-center justify-center bg-muted/40 px-4">
       <div className="w-full max-w-sm space-y-6">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">Create account</h1>
-          <p className="mt-1 text-sm text-foreground/60">
-            Start generating recipes with AI
-          </p>
+        <div className="flex flex-col items-center gap-2 text-center">
+          <Link href="/" className="flex items-center gap-2">
+            <ChefHat className="h-7 w-7" />
+            <span className="text-xl font-bold">AI Recipe Generator</span>
+          </Link>
         </div>
 
-        <form action={handleSubmit} className="space-y-4">
-          {error && (
-            <div className="rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400">
-              {error}
-            </div>
-          )}
-
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium">
-              Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              required
-              className="mt-1 block w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-foreground/40 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              className="mt-1 block w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-foreground/40 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              minLength={6}
-              className="mt-1 block w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-foreground/40 focus:outline-none"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-50"
-          >
-            {loading ? "Creating account..." : "Create account"}
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-foreground/60">
-          Already have an account?{" "}
-          <Link
-            href="/auth/login"
-            className="font-medium text-foreground underline"
-          >
-            Sign in
-          </Link>
-        </p>
+        <Card>
+          <CardHeader className="pb-4">
+            <CardTitle className="text-xl">Create account</CardTitle>
+            <CardDescription>Start generating recipes with AI — it&apos;s free.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form action={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                  {error}
+                </div>
+              )}
+              <div className="space-y-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  minLength={6}
+                  placeholder="At least 6 characters"
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Creating account…" : "Create account"}
+              </Button>
+            </form>
+          </CardContent>
+          <CardFooter className="justify-center text-sm text-muted-foreground">
+            Already have an account?&nbsp;
+            <Link href="/auth/login" className="font-medium text-foreground underline underline-offset-4">
+              Sign in
+            </Link>
+          </CardFooter>
+        </Card>
       </div>
     </main>
   );
