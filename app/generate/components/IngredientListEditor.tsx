@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { X } from "lucide-react";
+import { X, Plus, Sparkles } from "lucide-react";
 
 interface IngredientListEditorProps {
   ingredients: string[];
@@ -37,66 +35,76 @@ export function IngredientListEditor({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div className="text-center">
-        <h2 className="text-lg font-semibold">Review ingredients</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Edit the list before generating your recipe
+        <h2 className="text-lg font-bold text-zinc-900">
+          Confirm your ingredients
+        </h2>
+        <p className="mt-1 text-sm text-zinc-500">
+          Remove anything that doesn&apos;t belong or add what&apos;s missing
         </p>
       </div>
 
-      <div className="space-y-2">
-        {ingredients.map((ingredient, index) => (
-          <div
-            key={ingredient}
-            className="flex items-center justify-between rounded-lg border bg-card px-3 py-2 shadow-sm"
-          >
-            <span className="text-sm font-medium">{ingredient}</span>
-            <button
-              type="button"
-              onClick={() => handleRemove(index)}
-              className="ml-2 rounded p-0.5 text-muted-foreground hover:text-destructive"
-              aria-label={`Remove ${ingredient}`}
-            >
-              <X className="h-4 w-4" />
-            </button>
+      {/* Chip grid */}
+      <div className="min-h-[80px] rounded-2xl border border-zinc-200 bg-white p-4">
+        {ingredients.length === 0 ? (
+          <div className="flex flex-col items-center gap-2 py-4 text-center">
+            <Sparkles className="h-5 w-5 text-zinc-300" />
+            <p className="text-sm text-zinc-400">No ingredients yet. Add some below.</p>
           </div>
-        ))}
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            {ingredients.map((ingredient, index) => (
+              <span
+                key={ingredient}
+                className="flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-sm font-medium text-orange-700"
+              >
+                {ingredient}
+                <button
+                  type="button"
+                  onClick={() => handleRemove(index)}
+                  aria-label={`Remove ${ingredient}`}
+                  className="mt-px text-orange-400 transition-colors hover:text-orange-600"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
-      {ingredients.length === 0 && (
-        <p className="text-center text-sm text-muted-foreground">
-          No ingredients yet. Add some below.
-        </p>
-      )}
-
+      {/* Add input */}
       <div className="flex gap-2">
-        <Input
+        <input
           type="text"
           value={newIngredient}
           onChange={(e) => setNewIngredient(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Add ingredient…"
+          placeholder="Add an ingredient…"
+          className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 placeholder:text-zinc-400 outline-none transition-colors focus:border-orange-400 focus:ring-2 focus:ring-orange-400/15"
         />
-        <Button
+        <button
           type="button"
-          variant="outline"
           onClick={handleAdd}
           disabled={!newIngredient.trim()}
+          aria-label="Add ingredient"
+          className="flex h-[42px] w-[42px] items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-500 transition-colors hover:border-orange-400 hover:text-orange-500 disabled:opacity-40"
         >
-          Add
-        </Button>
+          <Plus className="h-4 w-4" />
+        </button>
       </div>
 
-      <Button
+      {/* Confirm button */}
+      <button
         type="button"
-        className="w-full"
         onClick={() => onConfirm(ingredients)}
         disabled={ingredients.length === 0}
+        className="w-full rounded-xl bg-orange-500 py-3 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-orange-400 disabled:pointer-events-none disabled:opacity-50"
       >
-        Confirm ingredients ({ingredients.length})
-      </Button>
+        Generate recipe with {ingredients.length} ingredient
+        {ingredients.length !== 1 ? "s" : ""} →
+      </button>
     </div>
   );
 }
-
