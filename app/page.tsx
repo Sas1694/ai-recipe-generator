@@ -34,16 +34,18 @@ export default async function HomePage() {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/auth/login">
-              <button className="rounded-lg px-4 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100">
-                Sign in
-              </button>
+            <Link
+              href="/auth/login"
+              className="rounded-lg px-4 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100"
+            >
+              Sign in
             </Link>
-            <Link href="/auth/register">
-              <button className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-1.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/30">
-                Get started
-                <ArrowRight className="h-3.5 w-3.5" />
-              </button>
+            <Link
+              href="/auth/register"
+              className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-1.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/30"
+            >
+              Get started
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
@@ -86,17 +88,19 @@ export default async function HomePage() {
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href="/auth/register">
-                <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px sm:w-auto">
-                  <Sparkles className="h-4 w-4" />
-                  Start for free
-                </button>
+              <Link
+                href="/auth/register"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px sm:w-auto"
+              >
+                <Sparkles className="h-4 w-4" />
+                Start for free
               </Link>
-              <Link href="/auth/login">
-                <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/6 px-8 py-3 text-sm font-medium text-zinc-300 backdrop-blur-sm transition-all duration-200 hover:border-white/20 hover:bg-white/10 hover:text-zinc-100 sm:w-auto">
-                  Sign in
-                  <ArrowRight className="h-4 w-4 text-zinc-500" />
-                </button>
+              <Link
+                href="/auth/login"
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/6 px-8 py-3 text-sm font-medium text-zinc-300 backdrop-blur-sm transition-all duration-200 hover:border-white/20 hover:bg-white/10 hover:text-zinc-100 sm:w-auto"
+              >
+                Sign in
+                <ArrowRight className="h-4 w-4 text-zinc-500" />
               </Link>
             </div>
             <p className="mt-5 text-xs text-zinc-600">
@@ -239,11 +243,12 @@ export default async function HomePage() {
                 <p className="mt-4 text-zinc-400">
                   Join home cooks who waste less, cook more, and actually enjoy figuring out dinner.
                 </p>
-                <Link href="/auth/register" className="mt-8 inline-block">
-                  <button className="flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px">
-                    <Sparkles className="h-4 w-4" />
-                    Create your free account
-                  </button>
+                <Link
+                  href="/auth/register"
+                  className="mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  Create your free account
                 </Link>
                 <p className="mt-4 text-xs text-zinc-600">Takes 30 seconds to sign up</p>
               </div>

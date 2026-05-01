@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { UploadCloud } from "lucide-react";
 import {
   MAX_IMAGE_SIZE_BYTES,
@@ -19,6 +19,12 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
   const [error, setError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
 
   function processFile(file: File) {
     setError(null);
@@ -50,6 +56,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
   }
 
   function handleReset() {
+    if (preview) URL.revokeObjectURL(preview);
     setPreview(null);
     setError(null);
     if (inputRef.current) inputRef.current.value = "";

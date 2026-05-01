@@ -56,7 +56,7 @@ export function IngredientListEditor({
           <div className="flex flex-wrap gap-2">
             {ingredients.map((ingredient, index) => (
               <span
-                key={ingredient}
+                key={`${ingredient}-${index}`}
                 className="flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-sm font-medium text-orange-700"
               >
                 {ingredient}
