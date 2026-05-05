@@ -4,6 +4,7 @@ import { recipeImageRepository } from "@/modules/image-generation/repositories/r
 import { DishImageSection } from "./components/DishImageSection";
 import { AppHeader } from "@/components/AppHeader";
 import { ArrowLeft, Clock } from "lucide-react";
+import { AnimatedSection } from "@/components/AnimatedSection";
 
 export default async function RecipeDetailPage({
   params,
@@ -44,16 +45,18 @@ export default async function RecipeDetailPage({
       <main className="flex flex-1 items-start justify-center px-4 py-10">
         <div className="w-full max-w-2xl space-y-8">
           {/* Back */}
-          <Link
-            href="/recipes"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            My Recipes
-          </Link>
+          <AnimatedSection delay={0}>
+            <Link
+              href="/recipes"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              My Recipes
+            </Link>
+          </AnimatedSection>
 
           {/* Title block */}
-          <div className="space-y-2">
+          <AnimatedSection delay={100} className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
               {recipe.title}
             </h1>
@@ -66,10 +69,10 @@ export default async function RecipeDetailPage({
                 year: "numeric",
               })}
             </p>
-          </div>
+          </AnimatedSection>
 
           {/* Ingredients */}
-          <div>
+          <AnimatedSection delay={150}>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-400">
               Ingredients
             </h2>
@@ -87,10 +90,10 @@ export default async function RecipeDetailPage({
                 </li>
               ))}
             </ul>
-          </div>
+          </AnimatedSection>
 
           {/* Steps */}
-          <div>
+          <AnimatedSection delay={200}>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-400">
               Steps
             </h2>
@@ -109,10 +112,12 @@ export default async function RecipeDetailPage({
                 </li>
               ))}
             </ol>
-          </div>
+          </AnimatedSection>
 
           {/* Dish image */}
-          <DishImageSection recipeId={recipe.id} initialImage={existingImage} />
+          <AnimatedSection delay={250}>
+            <DishImageSection recipeId={recipe.id} initialImage={existingImage} />
+          </AnimatedSection>
         </div>
       </main>
     </>

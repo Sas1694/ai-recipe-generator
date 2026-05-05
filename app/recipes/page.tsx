@@ -2,6 +2,7 @@ import Link from "next/link";
 import { listUserRecipesAction } from "@/modules/recipe/actions/listUserRecipesAction";
 import { AppHeader } from "@/components/AppHeader";
 import { ChefHat, Plus, Clock, Layers } from "lucide-react";
+import { AnimatedSection } from "@/components/AnimatedSection";
 
 export default async function RecipesPage() {
   const result = await listUserRecipesAction();
@@ -12,7 +13,7 @@ export default async function RecipesPage() {
       <main className="flex flex-1 items-start justify-center px-4 py-10">
         <div className="w-full max-w-2xl space-y-6">
           {/* Header */}
-          <div className="flex items-center justify-between">
+          <AnimatedSection className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
                 My Recipes
@@ -31,7 +32,7 @@ export default async function RecipesPage() {
               <Plus className="h-4 w-4" />
               New Recipe
             </Link>
-          </div>
+          </AnimatedSection>
 
           {/* Error */}
           {!result.success && (
@@ -42,7 +43,7 @@ export default async function RecipesPage() {
 
           {/* Empty state */}
           {result.success && result.data.length === 0 && (
-            <div className="flex flex-col items-center gap-5 rounded-2xl border-2 border-dashed border-zinc-200 py-20 text-center">
+            <AnimatedSection delay={100} className="flex flex-col items-center gap-5 rounded-2xl border-2 border-dashed border-zinc-200 py-20 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-50">
                 <ChefHat className="h-8 w-8 text-orange-400" />
               </div>
@@ -60,17 +61,17 @@ export default async function RecipesPage() {
                 <Plus className="h-4 w-4" />
                 Generate your first recipe
               </Link>
-            </div>
+            </AnimatedSection>
           )}
 
           {/* Recipe list */}
           {result.success && result.data.length > 0 && (
             <div className="space-y-3">
-              {result.data.map((recipe) => (
-                <Link
-                  key={recipe.id}
-                  href={`/recipes/${recipe.id}`}
-                  className="group block rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-all duration-200 hover:border-orange-200 hover:shadow-[0_4px_20px_rgba(249,115,22,0.08)]"
+              {result.data.map((recipe, i) => (
+                <AnimatedSection key={recipe.id} delay={i * 60}>
+                  <Link
+                    href={`/recipes/${recipe.id}`}
+                    className="group block rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-all duration-200 hover:border-orange-200 hover:shadow-[0_4px_20px_rgba(249,115,22,0.08)]"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
@@ -102,7 +103,8 @@ export default async function RecipesPage() {
                       })}
                     </span>
                   </div>
-                </Link>
+                  </Link>
+                </AnimatedSection>
               ))}
             </div>
           )}
