@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { zodTextFormat } from "openai/helpers/zod";
 import { openai } from "@/shared/ai/openaiClient";
+// Mock import — used when MOCK_AI=true in .env.local
+import { detectIngredientsFromImage as detectIngredientsMock } from "@/shared/ai/mocks/visionClientMock";
 
 const ingredientDetectionSchema = z.object({
   ingredients: z.array(z.string()),
@@ -23,6 +25,10 @@ export async function detectIngredientsFromImage(
   imageBase64: string,
   mimeType: string
 ): Promise<string[]> {
+  if (process.env.MOCK_AI === "true") {
+    return detectIngredientsMock(imageBase64, mimeType);
+  }
+
   const response = await openai.responses.parse({
     model: "gpt-4o-mini",
     input: [{

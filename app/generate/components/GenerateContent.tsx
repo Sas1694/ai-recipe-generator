@@ -8,6 +8,7 @@ import { detectIngredientsAction } from "@/modules/ingredient-detection/actions/
 import { generateRecipeAction } from "@/modules/recipe/actions/generateRecipeAction";
 import { ChefHat, CheckCircle2 } from "lucide-react";
 import type { RecipeDTO } from "@/modules/recipe/types";
+import { AnimatedSection } from "@/components/AnimatedSection";
 
 type Step = "upload" | "review" | "generating" | "result";
 
@@ -112,12 +113,12 @@ export function GenerateContent() {
   return (
     <div className="w-full max-w-lg space-y-8">
       {/* Header */}
-      <div className="space-y-4 text-center">
+      <AnimatedSection className="space-y-4 text-center">
         <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
           Generate a Recipe
         </h1>
         <StepIndicator current={step} />
-      </div>
+      </AnimatedSection>
 
       {/* Error */}
       {error && (
@@ -128,12 +129,14 @@ export function GenerateContent() {
 
       {/* Upload */}
       {step === "upload" && (
-        <ImageUploader onImageSelected={handleImageSelected} loading={loading} />
+        <AnimatedSection>
+          <ImageUploader onImageSelected={handleImageSelected} loading={loading} />
+        </AnimatedSection>
       )}
 
       {/* Review */}
       {step === "review" && (
-        <div className="space-y-4">
+        <AnimatedSection className="space-y-4">
           <IngredientListEditor
             ingredients={ingredients}
             onConfirm={handleConfirm}
@@ -141,16 +144,16 @@ export function GenerateContent() {
           <button
             type="button"
             onClick={handleBack}
-            className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800"
+            className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 cursor-pointer"
           >
             ← Upload different photo
           </button>
-        </div>
+        </AnimatedSection>
       )}
 
       {/* Generating */}
       {step === "generating" && (
-        <div className="space-y-6">
+        <AnimatedSection className="space-y-6">
           <div className="flex flex-col items-center gap-5 py-10">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-500/10">
               <ChefHat className="h-8 w-8 animate-pulse text-orange-500" />
@@ -171,12 +174,12 @@ export function GenerateContent() {
               <div className="h-4 w-4/5 rounded-lg bg-zinc-100 animate-pulse" />
             </div>
           </div>
-        </div>
+        </AnimatedSection>
       )}
 
       {/* Result */}
       {step === "result" && recipe && (
-        <div className="space-y-6">
+        <AnimatedSection className="space-y-6">
           <div className="rounded-2xl border border-zinc-200 bg-white shadow-sm overflow-hidden">
             <div className="border-b border-zinc-100 bg-gradient-to-br from-orange-50 to-amber-50/50 px-6 py-5">
               <h2 className="text-xl font-bold text-zinc-900">{recipe.title}</h2>
@@ -224,18 +227,18 @@ export function GenerateContent() {
           <div className="flex gap-3">
             <button
               onClick={() => router.push(`/recipes/${recipe.id}`)}
-              className="flex-1 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400"
+              className="flex-1 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 cursor-pointer"
             >
               View Full Recipe
             </button>
             <button
               onClick={handleStartOver}
-              className="flex-1 rounded-xl border border-zinc-200 bg-white py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800"
+              className="flex-1 rounded-xl border border-zinc-200 bg-white py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 cursor-pointer"
             >
               Start Over
             </button>
           </div>
-        </div>
+        </AnimatedSection>
       )}
     </div>
   );

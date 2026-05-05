@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { registerAction } from "@/modules/auth/actions/registerAction";
 import Link from "next/link";
 import { ChefHat } from "lucide-react";
+import { AnimatedSection } from "@/components/AnimatedSection";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function RegisterPage() {
         }}
       />
       <div className="relative w-full max-w-sm space-y-8">
-        <div className="flex flex-col items-center gap-3 text-center">
+        <AnimatedSection variant="fade-up" delay={0} className="flex flex-col items-center gap-3 text-center">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/15">
               <ChefHat className="h-5 w-5 text-orange-400" />
@@ -44,9 +45,9 @@ export default function RegisterPage() {
             </span>
           </Link>
           <p className="text-sm text-zinc-500">Turn your fridge into a feast</p>
-        </div>
+        </AnimatedSection>
 
-        <div className="rounded-2xl border border-white/8 bg-zinc-900 p-7">
+        <AnimatedSection variant="fade-up" delay={100} className="rounded-2xl border border-white/8 bg-zinc-900 p-7">
           <h1 className="text-lg font-semibold text-zinc-100">Create your account</h1>
           <p className="mt-1 text-sm text-zinc-500">Start generating recipes with AI — it&apos;s free.</p>
 
@@ -66,7 +67,7 @@ export default function RegisterPage() {
                 type="text"
                 placeholder="Your name"
                 required
-                className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
+                className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
             </div>
             <div className="space-y-1.5">
@@ -79,7 +80,7 @@ export default function RegisterPage() {
                 type="email"
                 placeholder="name@example.com"
                 required
-                className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
+                className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
             </div>
             <div className="space-y-1.5">
@@ -93,13 +94,13 @@ export default function RegisterPage() {
                 minLength={6}
                 placeholder="At least 6 characters"
                 required
-                className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
+                className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
             </div>
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 disabled:opacity-60"
+              className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -114,14 +115,14 @@ export default function RegisterPage() {
               )}
             </button>
           </form>
-        </div>
+        </AnimatedSection>
 
-        <p className="text-center text-sm text-zinc-600">
+        <AnimatedSection variant="fade-up" delay={200} as="p" className="text-center text-sm text-zinc-600">
           Already have an account?{" "}
           <Link href="/auth/login" className="font-medium text-orange-400 transition-colors hover:text-orange-300">
             Sign in
           </Link>
-        </p>
+        </AnimatedSection>
       </div>
     </main>
   );

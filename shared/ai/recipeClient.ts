@@ -2,6 +2,8 @@ import { z } from "zod";
 import { zodTextFormat } from "openai/helpers/zod";
 import { openai } from "@/shared/ai/openaiClient";
 import type { GeneratedRecipe } from "@/modules/recipe/types";
+// Mock import — used when MOCK_AI=true in .env.local
+import { generateRecipeFromIngredients as generateRecipeMock } from "@/shared/ai/mocks/recipeClientMock";
 
 const generatedRecipeSchema = z.object({
   title: z.string().min(1),
@@ -79,6 +81,10 @@ FAILSAFE:
 export async function generateRecipeFromIngredients(
   ingredients: string[]
 ): Promise<GeneratedRecipe> {
+  if (process.env.MOCK_AI === "true") {
+    return generateRecipeMock(ingredients);
+  }
+
   const response = await openai.responses.parse({
     model: "gpt-4o-mini",
     input: [

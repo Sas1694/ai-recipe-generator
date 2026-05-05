@@ -1,10 +1,18 @@
 import { z } from "zod";
 
+const isMockAI = process.env.MOCK_AI === "true";
+
 const envSchema = z.object({
   DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
   AUTH_SECRET: z.string().min(1, "AUTH_SECRET is required"),
-  OPENAI_API_KEY: z.string().min(1, "OPENAI_API_KEY is required"),
-  BLOB_READ_WRITE_TOKEN: z.string().min(1, "BLOB_READ_WRITE_TOKEN is required"),
+  // Not required when MOCK_AI=true — AI clients are bypassed
+  OPENAI_API_KEY: isMockAI
+    ? z.string().optional().default("mock")
+    : z.string().min(1, "OPENAI_API_KEY is required"),
+  BLOB_READ_WRITE_TOKEN: isMockAI
+    ? z.string().optional().default("mock")
+    : z.string().min(1, "BLOB_READ_WRITE_TOKEN is required"),
+  MOCK_AI: z.enum(["true", "false"]).optional(),
 });
 
 function validateEnv() {
