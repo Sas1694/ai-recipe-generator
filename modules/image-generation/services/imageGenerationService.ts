@@ -61,6 +61,17 @@ export const imageGenerationService: ImageGenerationService = {
     recipeId: string
   ): Promise<GeneratedImageResult> {
     const prompt = buildPrompt(visualDescription);
+
+    // Skip OpenAI + Vercel Blob when MOCK_AI=true
+    if (process.env.MOCK_AI === "true") {
+      console.log("[MOCK] imageGenerationService.generateDishImage called for recipe:", recipeId);
+      return {
+        imageUrl: "/mock-dish.svg",
+        prompt,
+        model: `${IMAGE_MODEL}-mock`,
+      };
+    }
+
     const imageBuffer = await generateImageFromDescription(prompt);
 
     const environment = process.env.NODE_ENV ?? "development";

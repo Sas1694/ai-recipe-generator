@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { UploadCloud } from "lucide-react";
 import {
   MAX_IMAGE_SIZE_BYTES,
@@ -66,11 +67,13 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
     <div className="space-y-3">
       {preview ? (
         <div className="space-y-3">
-          <div className="relative overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
-            <img
+          <div className="relative h-64 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+            <Image
               src={preview}
               alt="Ingredient preview"
-              className="h-64 w-full object-cover"
+              fill
+              unoptimized
+              className="object-cover"
             />
             {loading && (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/80 backdrop-blur-sm">
@@ -85,7 +88,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
             <button
               type="button"
               onClick={handleReset}
-              className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800"
+              className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 cursor-pointer"
             >
               Choose a different photo
             </button>
