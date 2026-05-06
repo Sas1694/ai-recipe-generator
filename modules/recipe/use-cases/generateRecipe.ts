@@ -40,7 +40,7 @@ export async function generateRecipe(
   // Check cache
   const cached = await deps.recipeRepository.findByIngredientHash(ingredientHash);
   if (cached) {
-    await deps.recipeRepository.linkUserToRecipe(userId, cached.id);
+    await deps.recipeRepository.atomicLinkUserToRecipeWithDailyLimit(userId, cached.id, DAILY_RECIPE_LIMIT);
     return cached;
   }
 
@@ -54,8 +54,8 @@ export async function generateRecipe(
     ingredientHash
   );
 
-  // Link to user
-  await deps.recipeRepository.linkUserToRecipe(userId, savedRecipe.id);
+  // Link to user (atomic check included)
+  await deps.recipeRepository.atomicLinkUserToRecipeWithDailyLimit(userId, savedRecipe.id, DAILY_RECIPE_LIMIT);
 
   return savedRecipe;
 }

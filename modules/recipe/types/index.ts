@@ -46,7 +46,11 @@ export interface RecipeRepository {
     data: GeneratedRecipe,
     ingredientHash: string
   ): Promise<RecipeDTO>;
-  linkUserToRecipe(userId: string, recipeId: string): Promise<void>;
+  atomicLinkUserToRecipeWithDailyLimit(
+    userId: string,
+    recipeId: string,
+    dailyLimit: number
+  ): Promise<void>;
   countUserRecipesToday(userId: string): Promise<number>;
   findById(id: string): Promise<RecipeDTO | null>;
   findByUserId(userId: string): Promise<RecipeDTO[]>;

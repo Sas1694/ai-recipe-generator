@@ -42,6 +42,30 @@ describe("detectIngredients", () => {
     expect(mockVisionModelService.detectIngredients).not.toHaveBeenCalled();
   });
 
+  it("should throw an error if image base64 contains only whitespace", async () => {
+    await expect(
+      detectIngredients({ base64: "   ", mimeType: "image/jpeg" }, {
+        visionModelService: mockVisionModelService,
+      })
+    ).rejects.toThrow("Image data is required");
+
+    expect(mockVisionModelService.detectIngredients).not.toHaveBeenCalled();
+  });
+
+  it("should return an empty array when service returns only empty or whitespace strings", async () => {
+    vi.mocked(mockVisionModelService.detectIngredients).mockResolvedValue([
+      "",
+      "   ",
+      "  ",
+    ]);
+
+    const result = await detectIngredients(testImage, {
+      visionModelService: mockVisionModelService,
+    });
+
+    expect(result).toEqual([]);
+  });
+
   it("should handle malformed service response gracefully", async () => {
     vi.mocked(mockVisionModelService.detectIngredients).mockRejectedValue(
       new Error("Failed to parse model response")

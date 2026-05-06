@@ -499,6 +499,78 @@ Instalado y configurado:
 
 ---
 
+## Auditoría de Control de Errores
+
+> **Fecha**: Mayo 2026 — Análisis completo del estado actual del manejo de errores.
+
+### Estado actual por capa
+
+| Capa | Cobertura | Estado |
+|---|---|---|
+| Server Actions | 100% | ✅ Excelente |
+| Validación de inputs (Zod) | ~80% | ⚠️ Buenos pero con huecos |
+| Feedback de error en UI | ~90% | ⚠️ Bueno pero sin retry |
+| Repositories (DB) | ~40% | ❌ Necesita trabajo |
+| Servicios AI | ~50% | ❌ Parcial |
+| Error boundaries (Next.js) | 0% | ❌ No existe |
+| Logging / Telemetría | 0% | ❌ No existe |
+| Rate limiting | 0% | ❌ No existe |
+
+### Lo que YA está implementado ✅
+
+- **`ActionResponse<T>`** en `shared/types/common.ts` — el 100% de los server actions devuelve `{ success: true, data }` o `{ success: false, error }` de forma consistente.
+- **Validación Zod** en todos los server actions: tipos de archivo, UUIDs, arrays de ingredientes, email/password.
+- **Use-cases lanzan errores descriptivos** que los actions capturan y transforman correctamente.
+- **UI muestra errores** en `GenerateContent`, páginas de recetas y auth (alertas rojas, estados de error).
+- **AI clients lanzan error** si reciben respuesta nula o incompleta del modelo.
+- **Manejo de race condition Prisma P2002** en `recipeRepository` (unique constraint).
+- **Validación de entorno** en `shared/config/env.ts` — fail-fast al arrancar si falta variable.
+
+### Huecos identificados ❌
+
+#### Alta prioridad
+
+| Área | Problema | Archivo |
+|---|---|---|
+| **Error boundaries** | No existe ningún `error.tsx` — un crash en un componente puede tumbar toda la app | (no existe) |
+| **Vercel Blob upload** | La llamada `put()` en el image service no tiene try/catch — fallo silencioso posible | `modules/image-generation/services/imageGenerationService.ts` |
+| **Repositories** | Las llamadas a Prisma no manejan errores de red/BD ni timeouts | `modules/*/repositories/` |
+| **Race condition límite diario** | El check de recetas diarias no es atómico — se puede bypasear con requests paralelos | `modules/recipe/use-cases/generateRecipe.ts` |
+
+#### Media prioridad
+
+| Área | Problema | Archivo |
+|---|---|---|
+| **`authorize()` de NextAuth** | Sin try/catch — errores internos podrían exponerse al cliente | `shared/auth/auth.ts` |
+| **`logoutAction`** | Sin try/catch — `signOut()` puede fallar silenciosamente | `modules/auth/actions/logoutAction.ts` |
+| **Timeout en servicios AI** | Sin límite de tiempo en llamadas a OpenAI — puede colgar indefinidamente | `shared/ai/` |
+| **Transacciones BD** | Operaciones multi-paso (crear receta + vincular usuario) no son atómicas | `modules/recipe/repositories/recipeRepository.ts` |
+
+#### Baja prioridad
+
+| Área | Problema |
+|---|---|
+| **Sin logging/telemetría** | Sin Sentry ni equivalente — errores en producción son invisibles |
+| **Sin rate limiting** | No hay middleware que limite requests por usuario/IP |
+| **Retry en UI** | Los componentes no tienen lógica de reintento ante fallos de red |
+| **MIME type spoofing** | La validación de tipo de archivo es declarativa, no verifica los magic bytes reales |
+
+### Fase 7 — Control de Errores (Pendiente)
+
+> **Objetivo**: Cubrir los huecos críticos y medios identificados en la auditoría.
+> No aplica TDD estricto salvo en lógica de negocio nueva.
+
+- [x] Añadir `error.tsx` en `app/` y rutas clave (`app/generate/`, `app/recipes/`)
+- [x] Añadir try/catch al `put()` de Vercel Blob en `imageGenerationService`
+- [x] Envolver llamadas Prisma en repositories con manejo de errores de red
+- [x] Hacer atómico el límite diario de recetas (unique constraint o transaction)
+- [ ] Añadir try/catch en `authorize()` de NextAuth (`shared/auth/auth.ts`)
+- [ ] Añadir try/catch en `logoutAction`
+- [ ] Añadir timeout a llamadas de AI clients (`shared/ai/`)
+- [ ] Evaluar integración de Sentry u otro sistema de telemetría
+
+---
+
 ## Resumen Visual
 
 ```

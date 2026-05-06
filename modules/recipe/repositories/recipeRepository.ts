@@ -43,12 +43,15 @@ const recipeIncludes = {
 
 export const recipeRepository: RecipeRepository = {
   async findByIngredientHash(hash: string): Promise<RecipeDTO | null> {
-    const recipe = await prisma.recipe.findFirst({
-      where: { ingredientHash: hash },
-      include: recipeIncludes,
-    });
-
-    return recipe ? toRecipeDTO(recipe) : null;
+    try {
+      const recipe = await prisma.recipe.findFirst({
+        where: { ingredientHash: hash },
+        include: recipeIncludes,
+      });
+      return recipe ? toRecipeDTO(recipe) : null;
+    } catch {
+      throw new Error("Failed to search recipe cache");
+    }
   },
 
   async createRecipe(
@@ -89,34 +92,19 @@ export const recipeRepository: RecipeRepository = {
         error.code === "P2002";
 
       if (isPrismaUniqueError) {
-        const existing = await prisma.recipe.findFirst({
-          where: { ingredientHash },
-          include: recipeIncludes,
-        });
-        if (existing) {
-          return toRecipeDTO(existing);
+        try {
+          const existing = await prisma.recipe.findFirst({
+            where: { ingredientHash },
+            include: recipeIncludes,
+          });
+          if (existing) {
+            return toRecipeDTO(existing);
+          }
+        } catch {
+          throw new Error("Failed to create recipe");
         }
       }
-      throw error;
-    }
-  },
-
-  async linkUserToRecipe(userId: string, recipeId: string): Promise<void> {
-    try {
-      await prisma.userRecipe.create({
-        data: { userId, recipeId },
-      });
-    } catch (error) {
-      // Ignore unique constraint violation (user already linked)
-      const isPrismaError =
-        typeof error === "object" &&
-        error !== null &&
-        "code" in error &&
-        error.code === "P2002";
-      if (isPrismaError) {
-        return;
-      }
-      throw error;
+      throw new Error("Failed to create recipe");
     }
   },
 
@@ -124,43 +112,99 @@ export const recipeRepository: RecipeRepository = {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
 
-    return prisma.userRecipe.count({
-      where: {
-        userId,
-        savedAt: { gte: startOfDay },
-      },
-    });
+    try {
+      return await prisma.userRecipe.count({
+        where: {
+          userId,
+          savedAt: { gte: startOfDay },
+        },
+      });
+    } catch {
+      throw new Error("Failed to count daily recipes");
+    }
   },
 
   async findById(id: string): Promise<RecipeDTO | null> {
-    const recipe = await prisma.recipe.findUnique({
-      where: { id },
-      include: recipeIncludes,
-    });
-
-    return recipe ? toRecipeDTO(recipe) : null;
+    try {
+      const recipe = await prisma.recipe.findUnique({
+        where: { id },
+        include: recipeIncludes,
+      });
+      return recipe ? toRecipeDTO(recipe) : null;
+    } catch {
+      throw new Error("Failed to retrieve recipe");
+    }
   },
 
   async findByUserId(userId: string): Promise<RecipeDTO[]> {
-    const userRecipes = await prisma.userRecipe.findMany({
-      where: { userId },
-      orderBy: { savedAt: "desc" },
-      include: {
-        recipe: {
-          include: recipeIncludes,
+    try {
+      const userRecipes = await prisma.userRecipe.findMany({
+        where: { userId },
+        orderBy: { savedAt: "desc" },
+        include: {
+          recipe: {
+            include: recipeIncludes,
+          },
         },
-      },
-    });
-
-    return userRecipes.map((ur) => toRecipeDTO(ur.recipe));
+      });
+      return userRecipes.map((ur) => toRecipeDTO(ur.recipe));
+    } catch {
+      throw new Error("Failed to retrieve user recipes");
+    }
   },
 
   async isLinkedToUser(recipeId: string, userId: string): Promise<boolean> {
-    const link = await prisma.userRecipe.findUnique({
-      where: { userId_recipeId: { userId, recipeId } },
-      select: { id: true },
-    });
+    try {
+      const link = await prisma.userRecipe.findUnique({
+        where: { userId_recipeId: { userId, recipeId } },
+        select: { id: true },
+      });
+      return link !== null;
+    } catch {
+      throw new Error("Failed to check recipe ownership");
+    }
+  },
 
-    return link !== null;
+  async atomicLinkUserToRecipeWithDailyLimit(
+    userId: string,
+    recipeId: string,
+    dailyLimit: number
+  ): Promise<void> {
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+
+    try {
+      await prisma.$transaction(
+        async (tx) => {
+          const count = await tx.userRecipe.count({
+            where: { userId, savedAt: { gte: startOfDay } },
+          });
+
+          if (count >= dailyLimit) {
+            throw new Error("Daily recipe limit reached");
+          }
+
+          try {
+            await tx.userRecipe.create({ data: { userId, recipeId } });
+          } catch (error) {
+            const isPrismaUniqueError =
+              typeof error === "object" &&
+              error !== null &&
+              "code" in error &&
+              (error as { code: string }).code === "P2002";
+            if (isPrismaUniqueError) {
+              return; // Already linked, not a new recipe for today
+            }
+            throw error;
+          }
+        },
+        { isolationLevel: "Serializable" }
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error("Failed to link recipe to user");
+    }
   },
 };

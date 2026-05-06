@@ -48,4 +48,22 @@ describe("getRecipe", () => {
 
     expect(mockRecipeRepository.findById).not.toHaveBeenCalled();
   });
+
+  it("should throw an error when id contains only whitespace", async () => {
+    await expect(getRecipe("   ", deps)).rejects.toThrow(
+      "Recipe ID is required"
+    );
+
+    expect(mockRecipeRepository.findById).not.toHaveBeenCalled();
+  });
+
+  it("should propagate error when the repository fails", async () => {
+    vi.mocked(mockRecipeRepository.findById).mockRejectedValue(
+      new Error("Database connection lost")
+    );
+
+    await expect(getRecipe("recipe-uuid-123", deps)).rejects.toThrow(
+      "Database connection lost"
+    );
+  });
 });

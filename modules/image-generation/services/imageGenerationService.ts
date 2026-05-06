@@ -78,10 +78,15 @@ export const imageGenerationService: ImageGenerationService = {
     const imageId = crypto.randomUUID();
     const blobPath = `${environment}/dish-images/${recipeId}/${imageId}.png`;
 
-    const blob = await put(blobPath, imageBuffer, {
-      access: "public",
-      contentType: "image/png",
-    });
+    let blob;
+    try {
+      blob = await put(blobPath, imageBuffer, {
+        access: "public",
+        contentType: "image/png",
+      });
+    } catch {
+      throw new Error("Failed to upload dish image. Please try again.");
+    }
 
     return {
       imageUrl: blob.url,

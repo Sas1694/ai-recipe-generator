@@ -26,24 +26,30 @@ export const recipeImageRepository: RecipeImageRepository = {
     prompt: string;
     model: string;
   }): Promise<RecipeImageDTO> {
-    const image = await prisma.recipeImage.create({
-      data: {
-        recipeId: data.recipeId,
-        imageUrl: data.imageUrl,
-        prompt: data.prompt,
-        model: data.model,
-      },
-    });
-
-    return toRecipeImageDTO(image);
+    try {
+      const image = await prisma.recipeImage.create({
+        data: {
+          recipeId: data.recipeId,
+          imageUrl: data.imageUrl,
+          prompt: data.prompt,
+          model: data.model,
+        },
+      });
+      return toRecipeImageDTO(image);
+    } catch {
+      throw new Error("Failed to save recipe image");
+    }
   },
 
   async findByRecipeId(recipeId: string): Promise<RecipeImageDTO | null> {
-    const image = await prisma.recipeImage.findFirst({
-      where: { recipeId },
-      orderBy: { createdAt: "desc" },
-    });
-
-    return image ? toRecipeImageDTO(image) : null;
+    try {
+      const image = await prisma.recipeImage.findFirst({
+        where: { recipeId },
+        orderBy: { createdAt: "desc" },
+      });
+      return image ? toRecipeImageDTO(image) : null;
+    } catch {
+      throw new Error("Failed to retrieve recipe image");
+    }
   },
 };
