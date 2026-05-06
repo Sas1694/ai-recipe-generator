@@ -35,7 +35,7 @@ export default function RegisterPage() {
         }}
       />
       <div className="relative w-full max-w-sm space-y-8">
-        <AnimatedSection variant="fade-up" delay={0} className="flex flex-col items-center gap-3 text-center">
+        <AnimatedSection delay={0} className="flex flex-col items-center gap-3 text-center">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/15">
               <ChefHat className="h-5 w-5 text-orange-400" />
@@ -47,7 +47,7 @@ export default function RegisterPage() {
           <p className="text-sm text-zinc-500">Turn your fridge into a feast</p>
         </AnimatedSection>
 
-        <AnimatedSection variant="fade-up" delay={100} className="rounded-2xl border border-white/8 bg-zinc-900 p-7">
+        <AnimatedSection delay={100} className="rounded-2xl border border-white/8 bg-zinc-900 p-7">
           <h1 className="text-lg font-semibold text-zinc-100">Create your account</h1>
           <p className="mt-1 text-sm text-zinc-500">Start generating recipes with AI — it&apos;s free.</p>
 
@@ -117,7 +117,7 @@ export default function RegisterPage() {
           </form>
         </AnimatedSection>
 
-        <AnimatedSection variant="fade-up" delay={200} as="p" className="text-center text-sm text-zinc-600">
+        <AnimatedSection delay={200} as="p" className="text-center text-sm text-zinc-600">
           Already have an account?{" "}
           <Link href="/auth/login" className="font-medium text-orange-400 transition-colors hover:text-orange-300">
             Sign in

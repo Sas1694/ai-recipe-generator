@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 interface AnimatedSectionProps {
   children: React.ReactNode;
   className?: string;
-  variant?: "fade-up";
   delay?: number;
   as?: React.ElementType;
 }
@@ -19,8 +18,17 @@ export function AnimatedSection({
 }: AnimatedSectionProps) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setReducedMotion(prefersReducedMotion);
+
+    if (prefersReducedMotion || typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+
     const el = ref.current;
     if (!el) return;
 
@@ -46,7 +54,7 @@ export function AnimatedSection({
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
         className
       )}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={delay && !reducedMotion ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
     </Tag>

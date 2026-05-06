@@ -68,14 +68,14 @@ export default async function HomePage() {
             }}
           />
           <div className="relative mx-auto max-w-6xl px-4 py-28 text-center sm:px-6 sm:py-36 lg:py-44">
-            <AnimatedSection variant="fade-up" delay={0}>
+            <AnimatedSection delay={0}>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-1.5 text-xs font-medium text-orange-300">
                 <Sparkles className="h-3 w-3" />
                 Your AI sous-chef is ready
               </div>
             </AnimatedSection>
 
-            <AnimatedSection variant="fade-up" delay={100}>
+            <AnimatedSection delay={100}>
               <h1 className="mx-auto max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
                 Cook with what you{" "}
                 <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-200 bg-clip-text text-transparent">
@@ -84,7 +84,7 @@ export default async function HomePage() {
               </h1>
             </AnimatedSection>
 
-            <AnimatedSection variant="fade-up" delay={200}>
+            <AnimatedSection delay={200}>
               <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
                 Snap a photo of your fridge or pantry.{" "}
                 <span className="font-medium text-zinc-200">
@@ -94,7 +94,7 @@ export default async function HomePage() {
               </p>
             </AnimatedSection>
 
-            <AnimatedSection variant="fade-up" delay={300}>
+            <AnimatedSection delay={300}>
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link
                   href="/auth/register"
@@ -121,7 +121,7 @@ export default async function HomePage() {
         {/* ── How it works ── */}
         <section className="border-t border-white/6 bg-zinc-900/50 py-24">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <AnimatedSection variant="fade-up" className="mx-auto max-w-2xl text-center">
+            <AnimatedSection className="mx-auto max-w-2xl text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-400">
                 How it works
               </p>
@@ -162,7 +162,7 @@ export default async function HomePage() {
                     "Generate a stunning AI photo of the finished dish to spark inspiration.",
                 },
               ].map(({ icon: Icon, step, title, description }, i) => (
-                <AnimatedSection key={step} variant="fade-up" delay={i * 100} className="group flex flex-col items-center text-center">
+                <AnimatedSection key={step} delay={i * 100} className="group flex flex-col items-center text-center">
                   <div className="relative mb-5">
                     <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-500/15 bg-orange-500/8 transition-all duration-300 group-hover:border-orange-500/30 group-hover:bg-orange-500/15">
                       <Icon className="h-7 w-7 text-orange-400 transition-transform duration-300 group-hover:scale-110" />
@@ -182,7 +182,7 @@ export default async function HomePage() {
         {/* ── Why use it ── */}
         <section className="border-t border-white/6 py-24">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <AnimatedSection variant="fade-up" className="mx-auto max-w-2xl text-center">
+            <AnimatedSection className="mx-auto max-w-2xl text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-400">
                 Why use it
               </p>
@@ -217,7 +217,6 @@ export default async function HomePage() {
               ].map(({ icon: Icon, title, description }, i) => (
                 <AnimatedSection
                   key={title}
-                  variant="fade-up"
                   delay={i * 100}
                   className="group rounded-2xl border border-white/8 bg-zinc-900 p-7 transition-all duration-200 hover:-translate-y-0.5 hover:border-orange-500/25 hover:shadow-[0_12px_40px_rgba(249,115,22,0.1)]"
                 >
@@ -235,7 +234,7 @@ export default async function HomePage() {
         {/* ── Final CTA ── */}
         <section className="border-t border-white/6 py-24">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <AnimatedSection variant="fade-up" className="relative mx-auto max-w-2xl overflow-hidden rounded-3xl border border-orange-500/20 bg-gradient-to-br from-orange-500/10 via-zinc-900 to-amber-500/8 p-12 text-center">
+            <AnimatedSection className="relative mx-auto max-w-2xl overflow-hidden rounded-3xl border border-orange-500/20 bg-gradient-to-br from-orange-500/10 via-zinc-900 to-amber-500/8 p-12 text-center">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full blur-3xl"
