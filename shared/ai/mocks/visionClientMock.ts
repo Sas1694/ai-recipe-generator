@@ -8,5 +8,6 @@ export async function detectIngredientsFromImage(
   _mimeType: string
 ): Promise<string[]> {
   console.log("[MOCK] visionClient.detectIngredientsFromImage called");
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return ["tomato", "egg", "cheese", "onion", "olive oil"];
 }

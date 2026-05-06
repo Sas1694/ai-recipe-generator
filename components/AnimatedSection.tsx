@@ -17,17 +17,19 @@ export function AnimatedSection({
   as: Tag = "div",
 }: AnimatedSectionProps) {
   const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [reducedMotion] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
+
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    return prefersReducedMotion || typeof IntersectionObserver === "undefined";
+  });
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setReducedMotion(prefersReducedMotion);
-
-    if (prefersReducedMotion || typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    if (reducedMotion || typeof IntersectionObserver === "undefined") return;
 
     const el = ref.current;
     if (!el) return;
@@ -44,7 +46,7 @@ export function AnimatedSection({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <Tag
