@@ -3,8 +3,7 @@ import type {
   RecipeGeneratorService,
   RecipeRepository,
 } from "../types";
-
-const DAILY_RECIPE_LIMIT = 5;
+import { DAILY_RECIPE_LIMIT } from "@/shared/config/limits";
 
 export async function computeIngredientHash(
   ingredients: string[]
@@ -30,17 +29,12 @@ export async function generateRecipe(
     throw new Error("Ingredients are required");
   }
 
-  const todayCount = await deps.recipeRepository.countUserRecipesToday(userId);
-  if (todayCount >= DAILY_RECIPE_LIMIT) {
-    throw new Error("Daily recipe limit reached");
-  }
-
   const ingredientHash = await computeIngredientHash(ingredients);
 
   // Check cache
   const cached = await deps.recipeRepository.findByIngredientHash(ingredientHash);
   if (cached) {
-    await deps.recipeRepository.linkUserToRecipe(userId, cached.id);
+    await deps.recipeRepository.atomicLinkUserToRecipeWithDailyLimit(userId, cached.id, DAILY_RECIPE_LIMIT);
     return cached;
   }
 
@@ -54,8 +48,8 @@ export async function generateRecipe(
     ingredientHash
   );
 
-  // Link to user
-  await deps.recipeRepository.linkUserToRecipe(userId, savedRecipe.id);
+  // Link to user (atomic check included)
+  await deps.recipeRepository.atomicLinkUserToRecipeWithDailyLimit(userId, savedRecipe.id, DAILY_RECIPE_LIMIT);
 
   return savedRecipe;
 }

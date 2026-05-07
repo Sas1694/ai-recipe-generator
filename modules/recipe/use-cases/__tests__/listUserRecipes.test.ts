@@ -62,4 +62,22 @@ describe("listUserRecipes", () => {
 
     expect(mockRecipeRepository.findByUserId).not.toHaveBeenCalled();
   });
+
+  it("should throw an error when userId contains only whitespace", async () => {
+    await expect(listUserRecipes("   ", deps)).rejects.toThrow(
+      "User ID is required"
+    );
+
+    expect(mockRecipeRepository.findByUserId).not.toHaveBeenCalled();
+  });
+
+  it("should propagate error when the repository fails", async () => {
+    vi.mocked(mockRecipeRepository.findByUserId).mockRejectedValue(
+      new Error("Database connection lost")
+    );
+
+    await expect(listUserRecipes("user-123", deps)).rejects.toThrow(
+      "Database connection lost"
+    );
+  });
 });

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getRecipeAction } from "@/modules/recipe/actions/getRecipeAction";
 import { recipeImageRepository } from "@/modules/image-generation/repositories/recipeImageRepository";
 import { DishImageSection } from "./components/DishImageSection";
-import { AppHeader } from "@/components/AppHeader";
 import { ArrowLeft, Clock } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 
@@ -16,9 +15,7 @@ export default async function RecipeDetailPage({
 
   if (!result.success) {
     return (
-      <>
-        <AppHeader />
-        <main className="flex flex-1 items-start justify-center px-4 py-10">
+      <main className="flex flex-1 items-start justify-center px-4 py-10">
           <div className="w-full max-w-2xl space-y-4">
             <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {result.error}
@@ -31,8 +28,7 @@ export default async function RecipeDetailPage({
               Back to recipes
             </Link>
           </div>
-        </main>
-      </>
+      </main>
     );
   }
 
@@ -40,9 +36,7 @@ export default async function RecipeDetailPage({
   const existingImage = await recipeImageRepository.findByRecipeId(recipe.id);
 
   return (
-    <>
-      <AppHeader />
-      <main className="flex flex-1 items-start justify-center px-4 py-10">
+    <main className="flex flex-1 items-start justify-center px-4 py-10">
         <div className="w-full max-w-2xl space-y-8">
           {/* Back */}
           <AnimatedSection delay={0}>
@@ -120,6 +114,5 @@ export default async function RecipeDetailPage({
           </AnimatedSection>
         </div>
       </main>
-    </>
   );
 }

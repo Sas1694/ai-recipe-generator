@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { listUserRecipesAction } from "@/modules/recipe/actions/listUserRecipesAction";
-import { AppHeader } from "@/components/AppHeader";
 import { ChefHat, Plus, Clock, Layers } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 
@@ -8,9 +7,7 @@ export default async function RecipesPage() {
   const result = await listUserRecipesAction();
 
   return (
-    <>
-      <AppHeader />
-      <main className="flex flex-1 items-start justify-center px-4 py-10">
+    <main className="flex flex-1 items-start justify-center px-4 py-10">
         <div className="w-full max-w-2xl space-y-6">
           {/* Header */}
           <AnimatedSection className="flex items-center justify-between">
@@ -110,6 +107,5 @@ export default async function RecipesPage() {
           )}
         </div>
       </main>
-    </>
   );
 }

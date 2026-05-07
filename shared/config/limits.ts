@@ -4,3 +4,5 @@ export const SUPPORTED_MIME_TYPES = ["image/jpeg", "image/png", "image/gif", "im
 export const SUPPORTED_FORMATS_LABEL = SUPPORTED_MIME_TYPES.map((t) =>
   t.replace("image/", "").toUpperCase()
 ).join(", ");
+
+export const DAILY_RECIPE_LIMIT = 5;

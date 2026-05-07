@@ -1,10 +1,12 @@
 "use server";
 
 import { z } from "zod";
+import { auth } from "@/shared/auth/auth";
 import { detectIngredients } from "@/modules/ingredient-detection/use-cases/detectIngredients";
 import { visionModelService } from "@/modules/ingredient-detection/services/visionModelService";
+import { recipeRepository } from "@/modules/recipe/repositories/recipeRepository";
 import type { ActionResponse } from "@/shared/types/common";
-import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB, SUPPORTED_FORMATS_LABEL, SUPPORTED_MIME_TYPES } from "@/shared/config/limits";
+import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB, SUPPORTED_FORMATS_LABEL, SUPPORTED_MIME_TYPES, DAILY_RECIPE_LIMIT } from "@/shared/config/limits";
 
 const imageFileSchema = z
   .instanceof(File)
@@ -17,6 +19,16 @@ const imageFileSchema = z
 export async function detectIngredientsAction(
   formData: FormData
 ): Promise<ActionResponse<string[]>> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { success: false, error: "Authentication required" };
+  }
+
+  const todayCount = await recipeRepository.countUserRecipesToday(session.user.id);
+  if (todayCount >= DAILY_RECIPE_LIMIT) {
+    return { success: false, error: "Daily recipe limit reached" };
+  }
+
   const file = formData.get("image");
 
   const parsed = imageFileSchema.safeParse(file);
