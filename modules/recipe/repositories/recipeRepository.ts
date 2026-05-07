@@ -176,6 +176,15 @@ export const recipeRepository: RecipeRepository = {
     try {
       await prisma.$transaction(
         async (tx) => {
+          const existing = await tx.userRecipe.findUnique({
+            where: { userId_recipeId: { userId, recipeId } },
+            select: { id: true },
+          });
+
+          if (existing) {
+            return; // Already linked, no quota consumed
+          }
+
           const count = await tx.userRecipe.count({
             where: { userId, savedAt: { gte: startOfDay } },
           });
@@ -184,19 +193,7 @@ export const recipeRepository: RecipeRepository = {
             throw new Error("Daily recipe limit reached");
           }
 
-          try {
-            await tx.userRecipe.create({ data: { userId, recipeId } });
-          } catch (error) {
-            const isPrismaUniqueError =
-              typeof error === "object" &&
-              error !== null &&
-              "code" in error &&
-              (error as { code: string }).code === "P2002";
-            if (isPrismaUniqueError) {
-              return; // Already linked, not a new recipe for today
-            }
-            throw error;
-          }
+          await tx.userRecipe.create({ data: { userId, recipeId } });
         },
         { isolationLevel: "Serializable" }
       );

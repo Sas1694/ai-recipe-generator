@@ -60,7 +60,6 @@ describe("generateRecipe", () => {
   });
 
   it("should generate a new recipe, store it, and link it to the user", async () => {
-    vi.mocked(mockRecipeRepository.countUserRecipesToday).mockResolvedValue(0);
     vi.mocked(mockRecipeRepository.findByIngredientHash).mockResolvedValue(
       null
     );
@@ -79,9 +78,6 @@ describe("generateRecipe", () => {
     );
 
     expect(result).toEqual(sampleRecipeDTO);
-    expect(mockRecipeRepository.countUserRecipesToday).toHaveBeenCalledWith(
-      "user-123"
-    );
     expect(mockRecipeRepository.findByIngredientHash).toHaveBeenCalled();
     expect(mockRecipeGeneratorService.generateRecipe).toHaveBeenCalledWith([
       "egg",
@@ -97,7 +93,6 @@ describe("generateRecipe", () => {
   });
 
   it("should return a cached recipe without calling the LLM when ingredientHash matches", async () => {
-    vi.mocked(mockRecipeRepository.countUserRecipesToday).mockResolvedValue(0);
     vi.mocked(mockRecipeRepository.findByIngredientHash).mockResolvedValue(
       sampleRecipeDTO
     );
@@ -119,27 +114,13 @@ describe("generateRecipe", () => {
     );
   });
 
-  it("should throw an error when the user has reached the daily recipe limit", async () => {
-    vi.mocked(mockRecipeRepository.countUserRecipesToday).mockResolvedValue(5);
-
-    await expect(
-      generateRecipe(["egg", "tomato"], "user-123", deps)
-    ).rejects.toThrow("Daily recipe limit reached");
-
-    expect(mockRecipeRepository.findByIngredientHash).not.toHaveBeenCalled();
-    expect(mockRecipeGeneratorService.generateRecipe).not.toHaveBeenCalled();
-  });
-
   it("should throw an error when ingredients list is empty", async () => {
     await expect(generateRecipe([], "user-123", deps)).rejects.toThrow(
       "Ingredients are required"
     );
-
-    expect(mockRecipeRepository.countUserRecipesToday).not.toHaveBeenCalled();
   });
 
   it("should link a cached recipe to the user without duplicating UserRecipe", async () => {
-    vi.mocked(mockRecipeRepository.countUserRecipesToday).mockResolvedValue(2);
     vi.mocked(mockRecipeRepository.findByIngredientHash).mockResolvedValue(
       sampleRecipeDTO
     );
@@ -157,7 +138,6 @@ describe("generateRecipe", () => {
   });
 
   it("should propagate error when the LLM service fails", async () => {
-    vi.mocked(mockRecipeRepository.countUserRecipesToday).mockResolvedValue(0);
     vi.mocked(mockRecipeRepository.findByIngredientHash).mockResolvedValue(null);
     vi.mocked(mockRecipeGeneratorService.generateRecipe).mockRejectedValue(
       new Error("LLM service unavailable")
@@ -172,7 +152,6 @@ describe("generateRecipe", () => {
   });
 
   it("should propagate error when createRecipe repository call fails", async () => {
-    vi.mocked(mockRecipeRepository.countUserRecipesToday).mockResolvedValue(0);
     vi.mocked(mockRecipeRepository.findByIngredientHash).mockResolvedValue(null);
     vi.mocked(mockRecipeGeneratorService.generateRecipe).mockResolvedValue(sampleGeneratedRecipe);
     vi.mocked(mockRecipeRepository.createRecipe).mockRejectedValue(
@@ -187,7 +166,6 @@ describe("generateRecipe", () => {
   });
 
   it("should propagate error when atomicLinkUserToRecipeWithDailyLimit fails", async () => {
-    vi.mocked(mockRecipeRepository.countUserRecipesToday).mockResolvedValue(0);
     vi.mocked(mockRecipeRepository.findByIngredientHash).mockResolvedValue(null);
     vi.mocked(mockRecipeGeneratorService.generateRecipe).mockResolvedValue(sampleGeneratedRecipe);
     vi.mocked(mockRecipeRepository.createRecipe).mockResolvedValue(sampleRecipeDTO);

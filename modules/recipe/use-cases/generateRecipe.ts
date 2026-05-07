@@ -3,8 +3,7 @@ import type {
   RecipeGeneratorService,
   RecipeRepository,
 } from "../types";
-
-const DAILY_RECIPE_LIMIT = 5;
+import { DAILY_RECIPE_LIMIT } from "@/shared/config/limits";
 
 export async function computeIngredientHash(
   ingredients: string[]
@@ -28,11 +27,6 @@ export async function generateRecipe(
 ): Promise<RecipeDTO> {
   if (!ingredients.length) {
     throw new Error("Ingredients are required");
-  }
-
-  const todayCount = await deps.recipeRepository.countUserRecipesToday(userId);
-  if (todayCount >= DAILY_RECIPE_LIMIT) {
-    throw new Error("Daily recipe limit reached");
   }
 
   const ingredientHash = await computeIngredientHash(ingredients);
