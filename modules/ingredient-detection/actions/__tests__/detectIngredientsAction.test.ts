@@ -42,7 +42,7 @@ describe("detectIngredientsAction", () => {
   });
 
   it("should return an error when the user is not authenticated", async () => {
-    vi.mocked(auth).mockResolvedValue(null as any);
+    vi.mocked(auth).mockResolvedValue(null as Awaited<ReturnType<typeof auth>>);
 
     const result = await detectIngredientsAction(createImageFormData());
 
@@ -52,7 +52,7 @@ describe("detectIngredientsAction", () => {
   });
 
   it("should return an error when the daily recipe limit has been reached", async () => {
-    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as any);
+    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as Awaited<ReturnType<typeof auth>>);
     vi.mocked(recipeRepository.countUserRecipesToday).mockResolvedValue(
       DAILY_RECIPE_LIMIT
     );
@@ -70,7 +70,7 @@ describe("detectIngredientsAction", () => {
   });
 
   it("should return an error for an unsupported image format", async () => {
-    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as any);
+    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as Awaited<ReturnType<typeof auth>>);
     vi.mocked(recipeRepository.countUserRecipesToday).mockResolvedValue(0);
 
     const result = await detectIngredientsAction(
@@ -83,7 +83,7 @@ describe("detectIngredientsAction", () => {
   });
 
   it("should return an error when the image exceeds the size limit", async () => {
-    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as any);
+    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as Awaited<ReturnType<typeof auth>>);
     vi.mocked(recipeRepository.countUserRecipesToday).mockResolvedValue(0);
 
     const result = await detectIngredientsAction(
@@ -96,7 +96,7 @@ describe("detectIngredientsAction", () => {
   });
 
   it("should detect ingredients and return them when auth and limit are valid", async () => {
-    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as any);
+    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as Awaited<ReturnType<typeof auth>>);
     vi.mocked(recipeRepository.countUserRecipesToday).mockResolvedValue(0);
     vi.mocked(detectIngredients).mockResolvedValue(["egg", "tomato", "cheese"]);
 
@@ -107,7 +107,7 @@ describe("detectIngredientsAction", () => {
   });
 
   it("should return an error when ingredient detection fails", async () => {
-    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as any);
+    vi.mocked(auth).mockResolvedValue({ user: { id: "user-123" } } as Awaited<ReturnType<typeof auth>>);
     vi.mocked(recipeRepository.countUserRecipesToday).mockResolvedValue(0);
     vi.mocked(detectIngredients).mockRejectedValue(
       new Error("Vision model unavailable")
