@@ -17,15 +17,7 @@ export const userRepository: UserRepository = {
         select: { id: true, name: true, email: true },
       });
       return user;
-    } catch (error) {
-      const isPrismaUniqueError =
-        typeof error === "object" &&
-        error !== null &&
-        "code" in error &&
-        error.code === "P2002";
-      if (isPrismaUniqueError) {
-        throw new Error("Email already registered");
-      }
+    } catch {
       throw new Error("Failed to create user");
     }
   },

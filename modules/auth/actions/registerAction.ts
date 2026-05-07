@@ -34,9 +34,7 @@ export async function registerAction(
       authService,
     });
     return { success: true, data: user };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Registration failed";
-    return { success: false, error: message };
+  } catch {
+    return { success: false, error: "Registration failed" };
   }
 }
