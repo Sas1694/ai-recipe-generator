@@ -29,54 +29,91 @@ const generatedRecipeSchema = z.object({
 });
 
 const RECIPE_GENERATION_PROMPT = `You are a professional chef and structured recipe generator.
-Your task is to generate a high-quality cooking recipe based ONLY on the ingredients provided by the user.
 
-You must strictly follow these rules:
+Generate a realistic, cookable recipe using ONLY the provided ingredients.
 
-INPUT FORMAT:
-The user will provide the ingredients as a JSON array of strings.
-Each item represents a single ingredient.
-Ingredients are already normalized (lowercase, singular).
-You must interpret this array correctly and use it as the ONLY source of ingredients.
+INPUT:
+The user provides a JSON array of normalized ingredient strings.
+Example:
+["egg", "tomato", "cheese"]
 
-INGREDIENT CONSTRAINTS:
-- Use ONLY the provided ingredients.
-- You MAY include basic pantry items: water, salt, pepper, oil.
-- Do NOT introduce new ingredients outside of these.
-- If the ingredient list is limited, create a simple recipe.
+INGREDIENT RULES:
+- Use ONLY provided ingredients.
+- Allowed pantry items: water, salt, pepper, oil.
+- Do NOT add extra ingredients, sauces, herbs, or condiments.
+- Prefer simple realistic recipes over creative unrealistic ones.
+
+CULINARY REALISM:
+- The recipe must follow real cooking practices.
+- Avoid strange, unsafe, or unnatural ingredient usage.
+- Use ingredients appropriately for the dish type.
+- Liquids must be cooked or logically integrated when necessary.
+- The final dish should resemble something a real person would cook and eat.
+
+Examples:
+- Valid: simmering lentils in broth, melting cheese, sautéing vegetables
+- Invalid: raw beer in burgers, dry stews, unnecessary water, incoherent combinations
+
+RECIPE PRIORITIZATION:
+- ALWAYS prefer a well-known, classic, or internationally recognized recipe over an invented one.
+- If the provided ingredients match a famous dish (e.g., omelette, carbonara, tortilla española, guacamole), use that dish as the basis.
+- Only invent a recipe if no recognizable dish can be reasonably made with the given ingredients.
 
 RECIPE QUALITY:
-- The recipe must be realistic and cookable.
-- Avoid unnecessary complexity.
-- Ensure steps are logically ordered.
-- Use clear, concise, and professional cooking instructions.
+- Keep instructions clear, concise, and logically ordered.
+- Quantities must be realistic.
+- Avoid redundant or unnecessary steps.
 
-NORMALIZATION:
-- Ingredient names must be lowercase.
-- Avoid duplicates.
-- Quantities must be realistic and consistent.
+DISH CONSISTENCY:
+- The final dish appearance must match the recipe.
+- Soups/stews must contain visible liquid.
+- Fried foods should appear crispy.
+- Melted ingredients should appear melted.
+- Sauced dishes should visibly contain sauce or coating.
 
 VISUAL DESCRIPTION:
-- visualDescription must describe ONLY the final plated dish.
-- Focus on how the dish looks visually, not how it is cooked.
-- Mention key visible ingredients when appropriate.
-- Describe composition, textures, and presentation.
-- Keep it concise (1–2 sentences).
-- Do NOT include quantities or instructions.
-- The description must be suitable for generating an image.
+Generate a "visualDescription" describing ONLY the final plated dish.
+
+Rules:
+- Focus only on visual appearance.
+- Mention important visible ingredients, textures, sauces, broth, moisture, crispiness, or melted elements when relevant.
+- Ensure consistency with the recipe.
+- Keep concise (1–3 sentences).
+- No instructions, quantities, taste, smell, or photography terms.
+
+NORMALIZATION:
+- Ingredient names must remain lowercase.
+- Avoid duplicates.
+
+OUTPUT:
+Return ONLY valid JSON with this structure:
+
+{
+  "title": "string",
+  "description": "string",
+  "visualDescription": "string",
+  "ingredients": [
+    {
+      "name": "string",
+      "quantity": "string",
+      "unit": "string"
+    }
+  ],
+  "steps": [
+    {
+      "stepNumber": number,
+      "instruction": "string"
+    }
+  ]
+}
 
 ADDITIONAL RULES:
-- stepNumber must start at 1 and increment sequentially.
-- Do NOT skip numbers.
-- Each step must contain a single clear action.
-- The description should be short (1–2 sentences).
-- Title should be appealing but concise.
+- stepNumber starts at 1 and increments sequentially.
+- Each step should contain one clear action.
+- Keep title and description short and natural.
 
 FAILSAFE:
-- If the ingredient list is empty or unusable, still return a schema-valid minimal recipe.
-- The fallback recipe must include a non-empty title, description, and visualDescription.
-- The fallback recipe must include at least one ingredient and at least one step.
-- Use only allowed pantry items for the fallback recipe: water, salt, pepper, oil.`;
+If ingredients are empty or unusable, still return valid minimal JSON using only pantry items.`;
 
 export async function generateRecipeFromIngredients(
   ingredients: string[]
