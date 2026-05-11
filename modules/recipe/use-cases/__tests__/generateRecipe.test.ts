@@ -32,6 +32,7 @@ describe("generateRecipe", () => {
     description: "A simple and delicious omelette",
     visualDescription:
       "A golden omelette filled with melted cheese and fresh tomato slices",
+    servings: 4,
     ingredients: [
       { name: "egg", quantity: "3", unit: "units" },
       { name: "tomato", quantity: "1", unit: "unit" },
@@ -50,6 +51,7 @@ describe("generateRecipe", () => {
     description: sampleGeneratedRecipe.description,
     visualDescription: sampleGeneratedRecipe.visualDescription,
     ingredientHash: "some-hash",
+    servings: 4,
     createdAt: new Date("2026-04-13"),
     ingredients: sampleGeneratedRecipe.ingredients,
     steps: sampleGeneratedRecipe.steps,

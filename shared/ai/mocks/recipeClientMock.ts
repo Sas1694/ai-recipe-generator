@@ -16,6 +16,7 @@ export async function generateRecipeFromIngredients(
       "A quick and delicious mock omelette generated for development purposes.",
     visualDescription:
       "A golden folded omelette with melted cheese and fresh tomato chunks, served on a white ceramic plate.",
+    servings: 2,
     ingredients: ingredients.map((name, i) => ({
       name,
       quantity: String(i + 1),

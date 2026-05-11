@@ -6,7 +6,7 @@ import { ImageUploader } from "./ImageUploader";
 import { IngredientListEditor } from "./IngredientListEditor";
 import { detectIngredientsAction } from "@/modules/ingredient-detection/actions/detectIngredientsAction";
 import { generateRecipeAction } from "@/modules/recipe/actions/generateRecipeAction";
-import { ChefHat, CheckCircle2 } from "lucide-react";
+import { ChefHat, CheckCircle2, Users } from "lucide-react";
 import type { RecipeDTO } from "@/modules/recipe/types";
 import { AnimatedSection } from "@/components/AnimatedSection";
 
@@ -184,6 +184,10 @@ export function GenerateContent() {
             <div className="border-b border-zinc-100 bg-gradient-to-br from-orange-50 to-amber-50/50 px-6 py-5">
               <h2 className="text-xl font-bold text-zinc-900">{recipe.title}</h2>
               <p className="mt-1 text-sm text-zinc-600">{recipe.description}</p>
+              <p className="mt-2 flex items-center gap-1.5 text-xs text-zinc-400">
+                <Users className="h-3.5 w-3.5" />
+                Serves {recipe.servings} {recipe.servings === 1 ? "person" : "people"}
+              </p>
             </div>
 
             <div className="px-6 py-5 space-y-5">

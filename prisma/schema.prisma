@@ -31,6 +31,7 @@ model Recipe {
   description       String
   visualDescription String
   ingredientHash    String
+  servings          Int                @default(2)
   createdAt         DateTime           @default(now())
   users             UserRecipe[]
   ingredients       RecipeIngredient[]

@@ -11,6 +11,7 @@ function toRecipeDTO(recipe: {
   description: string;
   visualDescription: string;
   ingredientHash: string;
+  servings: number;
   createdAt: Date;
   ingredients: { name: string; quantity: string; unit: string }[];
   steps: { stepNumber: number; instruction: string }[];
@@ -21,6 +22,7 @@ function toRecipeDTO(recipe: {
     description: recipe.description,
     visualDescription: recipe.visualDescription,
     ingredientHash: recipe.ingredientHash,
+    servings: recipe.servings,
     createdAt: recipe.createdAt,
     ingredients: recipe.ingredients.map((i) => ({
       name: i.name,
@@ -65,6 +67,7 @@ export const recipeRepository: RecipeRepository = {
           description: data.description,
           visualDescription: data.visualDescription,
           ingredientHash,
+          servings: data.servings,
           ingredients: {
             create: data.ingredients.map((i) => ({
               name: i.name,
