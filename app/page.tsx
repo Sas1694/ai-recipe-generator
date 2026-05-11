@@ -37,13 +37,13 @@ export default async function HomePage() {
           <div className="flex items-center gap-2">
             <Link
               href="/auth/login"
-              className="rounded-lg px-3 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 sm:px-4"
+              className="rounded-lg px-3 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 sm:px-4 whitespace-nowrap"
             >
               Sign in
             </Link>
             <Link
               href="/auth/register"
-              className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-3 py-1.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/30 sm:px-4"
+              className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-3 py-1.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/30 sm:px-4 whitespace-nowrap"
             >
               Get started
               <ArrowRight className="h-3.5 w-3.5" />
