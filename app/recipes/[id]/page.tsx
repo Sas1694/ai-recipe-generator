@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getRecipeAction } from "@/modules/recipe/actions/getRecipeAction";
 import { recipeImageRepository } from "@/modules/image-generation/repositories/recipeImageRepository";
 import { DishImageSection } from "./components/DishImageSection";
-import { ArrowLeft, Clock } from "lucide-react";
+import { ArrowLeft, Clock, Users } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 
 export default async function RecipeDetailPage({
@@ -55,14 +55,20 @@ export default async function RecipeDetailPage({
               {recipe.title}
             </h1>
             <p className="text-zinc-500">{recipe.description}</p>
-            <p className="flex items-center gap-1.5 text-xs text-zinc-400">
-              <Clock className="h-3.5 w-3.5" />
-              {new Date(recipe.createdAt).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </p>
+            <div className="flex items-center gap-4">
+              <p className="flex items-center gap-1.5 text-xs text-zinc-400">
+                <Clock className="h-3.5 w-3.5" />
+                {new Date(recipe.createdAt).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </p>
+              <p className="flex items-center gap-1.5 text-xs text-zinc-400">
+                <Users className="h-3.5 w-3.5" />
+                Serves {recipe.servings} {recipe.servings === 1 ? "person" : "people"}
+              </p>
+            </div>
           </AnimatedSection>
 
           {/* Ingredients */}

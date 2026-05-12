@@ -15,6 +15,7 @@ export interface GeneratedRecipe {
   title: string;
   description: string;
   visualDescription: string;
+  servings: number;
   ingredients: GeneratedRecipeIngredient[];
   steps: GeneratedRecipeStep[];
 }
@@ -27,6 +28,7 @@ export interface RecipeDTO {
   description: string;
   visualDescription: string;
   ingredientHash: string;
+  servings: number;
   createdAt: Date;
   ingredients: GeneratedRecipeIngredient[];
   steps: GeneratedRecipeStep[];

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { listUserRecipesAction } from "@/modules/recipe/actions/listUserRecipesAction";
-import { ChefHat, Plus, Clock, Layers } from "lucide-react";
+import { ChefHat, Plus, Clock, Layers, Users } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 
 export default async function RecipesPage() {
@@ -91,6 +91,10 @@ export default async function RecipesPage() {
                     <span className="flex items-center gap-1">
                       <Clock className="h-3.5 w-3.5" />
                       {recipe.steps.length} steps
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Users className="h-3.5 w-3.5" />
+                      Serves {recipe.servings}
                     </span>
                     <span className="ml-auto">
                       {new Date(recipe.createdAt).toLocaleDateString("en-US", {

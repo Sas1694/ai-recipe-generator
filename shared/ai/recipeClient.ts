@@ -9,6 +9,7 @@ const generatedRecipeSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
   visualDescription: z.string().min(1),
+  servings: z.number().int().min(1).max(12),
   ingredients: z
     .array(
       z.object({
@@ -81,6 +82,12 @@ Rules:
 - Keep concise (1–3 sentences).
 - No instructions, quantities, taste, smell, or photography terms.
 
+SERVINGS:
+- Estimate the realistic number of people the recipe serves based on the quantities and dish type.
+- Use a number between 1 and 6 for household recipes.
+- Common values: 1–2 for individual/couple dishes, 4 for family meals, 6 for larger batches.
+- Be consistent with the ingredient quantities in the recipe.
+
 NORMALIZATION:
 - Ingredient names must remain lowercase.
 - Avoid duplicates.
@@ -92,6 +99,7 @@ Return ONLY valid JSON with this structure:
   "title": "string",
   "description": "string",
   "visualDescription": "string",
+  "servings": number,
   "ingredients": [
     {
       "name": "string",

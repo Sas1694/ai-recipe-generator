@@ -15,6 +15,7 @@ describe("getRecipe", () => {
     description: "A simple and delicious omelette",
     visualDescription: "A golden omelette with cheese and tomato",
     ingredientHash: "some-hash",
+    servings: 4,
     createdAt: new Date("2026-04-13"),
     ingredients: [{ name: "egg", quantity: "3", unit: "units" }],
     steps: [{ stepNumber: 1, instruction: "Beat the eggs" }],
