@@ -89,6 +89,9 @@
     "changePh": "Elegir una foto diferente",
     "dropZonePre": "Arrastra aquí una foto o",
     "dropZoneBrowse": "busca",
+    "dropZoneMobilePre": "Toca aquí para",
+    "dropZoneMobileHighlight": "elegir",
+    "dropZoneMobilePost": "una foto",
     "hint": "{formats} · máx. {size}MB",
     "errorFormat": "Formato no compatible. Usa {formats}.",
     "errorSize": "La imagen debe ser menor de {size}MB."

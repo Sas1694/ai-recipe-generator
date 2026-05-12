@@ -122,7 +122,12 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
             />
           </div>
           <div className="text-center">
-            <p className="text-sm font-semibold text-zinc-700">
+            <p className="text-sm font-semibold text-zinc-700 sm:hidden">
+              {t("dropZoneMobilePre")}{" "}
+              <span className="text-orange-500">{t("dropZoneMobileHighlight")}</span>{" "}
+              {t("dropZoneMobilePost")}
+            </p>
+            <p className="hidden text-sm font-semibold text-zinc-700 sm:block">
               {t("dropZonePre")}{" "}
               <span className="text-orange-500">{t("dropZoneBrowse")}</span>
             </p>
