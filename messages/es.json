@@ -169,6 +169,7 @@
     "dailyLimitReached": "Límite diario de recetas alcanzado",
     "ingredientDetectionFailed": "La detección de ingredientes falló",
     "recipeGenerationFailed": "La generación de recetas falló",
+    "recipeFetchFailed": "Error al cargar las recetas",
     "invalidCredentials": "Email o contraseña incorrectos",
     "registrationFailed": "El registro falló",
     "imageGenerationFailed": "La generación de imagen falló",

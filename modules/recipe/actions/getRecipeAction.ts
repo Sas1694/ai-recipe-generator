@@ -21,7 +21,10 @@ export async function getRecipeAction(
   try {
     const recipe = await getRecipe(parsed.data.id, { recipeRepository });
     return { success: true, data: recipe };
-  } catch {
-    return { success: false, error: "invalidRecipeId" };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Recipe not found") {
+      return { success: false, error: "invalidRecipeId" };
+    }
+    return { success: false, error: "recipeFetchFailed" };
   }
 }

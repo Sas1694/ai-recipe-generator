@@ -169,6 +169,7 @@
     "dailyLimitReached": "Daily recipe limit reached",
     "ingredientDetectionFailed": "Ingredient detection failed",
     "recipeGenerationFailed": "Recipe generation failed",
+    "recipeFetchFailed": "Failed to load recipes",
     "invalidCredentials": "Invalid email or password",
     "registrationFailed": "Registration failed",
     "imageGenerationFailed": "Image generation failed",

@@ -20,6 +20,6 @@ export async function listUserRecipesAction(): Promise<
     });
     return { success: true, data: recipes };
   } catch {
-    return { success: false, error: "recipeGenerationFailed" };
+    return { success: false, error: "recipeFetchFailed" };
   }
 }
