@@ -81,11 +81,10 @@ describe("generateRecipe", () => {
 
     expect(result).toEqual(sampleRecipeDTO);
     expect(mockRecipeRepository.findByIngredientHash).toHaveBeenCalled();
-    expect(mockRecipeGeneratorService.generateRecipe).toHaveBeenCalledWith([
-      "egg",
-      "tomato",
-      "cheese",
-    ]);
+    expect(mockRecipeGeneratorService.generateRecipe).toHaveBeenCalledWith(
+      ["egg", "tomato", "cheese"],
+      "en"
+    );
     expect(mockRecipeRepository.createRecipe).toHaveBeenCalled();
     expect(mockRecipeRepository.atomicLinkUserToRecipeWithDailyLimit).toHaveBeenCalledWith(
       "user-123",

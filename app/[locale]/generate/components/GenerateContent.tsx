@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { ImageUploader } from "./ImageUploader";
 import { IngredientListEditor } from "./IngredientListEditor";
 import { detectIngredientsAction } from "@/modules/ingredient-detection/actions/detectIngredientsAction";
@@ -12,14 +13,14 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 
 type Step = "upload" | "review" | "generating" | "result";
 
-const STEPS: { key: Step; label: string }[] = [
-  { key: "upload", label: "Upload" },
-  { key: "review", label: "Review" },
-  { key: "generating", label: "Generate" },
-  { key: "result", label: "Done" },
-];
-
 function StepIndicator({ current }: { current: Step }) {
+  const t = useTranslations("generate.steps");
+  const STEPS: { key: Step; label: string }[] = [
+    { key: "upload", label: t("upload") },
+    { key: "review", label: t("review") },
+    { key: "generating", label: t("generate") },
+    { key: "result", label: t("done") },
+  ];
   const idx = STEPS.findIndex((s) => s.key === current);
   return (
     <div className="flex items-center justify-center gap-1">
@@ -62,6 +63,8 @@ function StepIndicator({ current }: { current: Step }) {
 
 export function GenerateContent() {
   const router = useRouter();
+  const t = useTranslations("generate");
+  const tErrors = useTranslations("errors");
   const [step, setStep] = useState<Step>("upload");
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -78,7 +81,7 @@ export function GenerateContent() {
       setIngredients(result.data);
       setStep("review");
     } else {
-      setError(result.error);
+      setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
     }
     setLoading(false);
   }
@@ -91,7 +94,7 @@ export function GenerateContent() {
       setRecipe(result.data);
       setStep("result");
     } else {
-      setError(result.error);
+      setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
       setStep("review");
     }
   }
@@ -115,7 +118,7 @@ export function GenerateContent() {
       {/* Header */}
       <AnimatedSection className="space-y-4 text-center">
         <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
-          Generate a Recipe
+          {t("title")}
         </h1>
         <StepIndicator current={step} />
       </AnimatedSection>
@@ -146,7 +149,7 @@ export function GenerateContent() {
             onClick={handleBack}
             className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 cursor-pointer"
           >
-            ← Upload different photo
+            {t("backButton")}
           </button>
         </AnimatedSection>
       )}
@@ -159,8 +162,8 @@ export function GenerateContent() {
               <ChefHat className="h-8 w-8 animate-pulse text-orange-500" />
             </div>
             <div className="text-center">
-              <p className="font-semibold text-zinc-800">Crafting your recipe…</p>
-              <p className="mt-1 text-sm text-zinc-500">This takes a few seconds</p>
+              <p className="font-semibold text-zinc-800">{t("loading.title")}</p>
+              <p className="mt-1 text-sm text-zinc-500">{t("loading.subtitle")}</p>
             </div>
           </div>
           <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm space-y-4">
@@ -186,14 +189,14 @@ export function GenerateContent() {
               <p className="mt-1 text-sm text-zinc-600">{recipe.description}</p>
               <p className="mt-2 flex items-center gap-1.5 text-xs text-zinc-400">
                 <Users className="h-3.5 w-3.5" />
-                Serves {recipe.servings} {recipe.servings === 1 ? "person" : "people"}
+                {t("result.serves", { servings: recipe.servings })}
               </p>
             </div>
 
             <div className="px-6 py-5 space-y-5">
               <div>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-400">
-                  Ingredients
+                  {t("result.ingredients")}
                 </h3>
                 <ul className="space-y-1.5">
                   {recipe.ingredients.map((ing, i) => (
@@ -210,7 +213,7 @@ export function GenerateContent() {
 
               <div>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-400">
-                  Steps
+                  {t("result.steps")}
                 </h3>
                 <ol className="space-y-3">
                   {recipe.steps.map((s) => (
@@ -233,13 +236,13 @@ export function GenerateContent() {
               onClick={() => router.push(`/recipes/${recipe.id}`)}
               className="flex-1 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 cursor-pointer"
             >
-              View Full Recipe
+              {t("result.viewFullRecipe")}
             </button>
             <button
               onClick={handleStartOver}
               className="flex-1 rounded-xl border border-zinc-200 bg-white py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 cursor-pointer"
             >
-              Start Over
+              {t("result.startOver")}
             </button>
           </div>
         </AnimatedSection>
@@ -247,3 +250,4 @@ export function GenerateContent() {
     </div>
   );
 }
+

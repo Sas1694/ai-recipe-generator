@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "title": "SousChef AI",
+    "description": "Upload a photo of your ingredients and get a personalized AI-generated recipe in seconds."
+  },
+  "landing": {
+    "brand": "SousChef AI",
+    "nav": {
+      "signIn": "Sign in",
+      "getStarted": "Get started"
+    },
+    "hero": {
+      "badge": "Your AI sous-chef is ready",
+      "h1Start": "Cook with what you",
+      "h1Highlight": "already have",
+      "descriptionPart1": "Snap a photo of your fridge or pantry.",
+      "descriptionBold": "Our AI detects your ingredients",
+      "descriptionPart2": "and crafts a personalized recipe — in seconds.",
+      "ctaFree": "Start for free",
+      "ctaSignIn": "Sign in",
+      "disclaimer": "No credit card required · Free to use"
+    },
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "title": "From fridge to plate in 4 steps",
+      "subtitle": "No meal planning needed. Just a photo.",
+      "step1Title": "Snap a photo",
+      "step1Desc": "Point your camera at your fridge, pantry, or counter. Anything visible counts.",
+      "step2Title": "Review ingredients",
+      "step2Desc": "AI lists what it sees. Remove mistakes, add what's missing — you stay in control.",
+      "step3Title": "Get your recipe",
+      "step3Desc": "A real, cookable recipe is generated using only what you confirmed.",
+      "step4Title": "See the dish",
+      "step4Desc": "Generate a stunning AI photo of the finished dish to spark inspiration."
+    },
+    "whyUseIt": {
+      "eyebrow": "Why use it",
+      "title": "Smart cooking, zero waste",
+      "subtitle": "Built for real kitchens, real ingredients, real people.",
+      "feature1Title": "Use what you have",
+      "feature1Desc": "No grocery runs. No wasted ingredients. Just open your fridge and start.",
+      "feature2Title": "Reduce food waste",
+      "feature2Desc": "Turn forgotten ingredients into a full meal before they go bad.",
+      "feature3Title": "Ready in seconds",
+      "feature3Desc": "From photo to plated recipe in under a minute."
+    },
+    "cta": {
+      "title": "Ready to cook something amazing?",
+      "subtitle": "Join home cooks who waste less and eat better.",
+      "button": "Create your free account",
+      "disclaimer": "Takes 30 seconds to sign up"
+    },
+    "footer": {
+      "brand": "SousChef AI",
+      "copyright": "© {year} · Built with Next.js & OpenAI"
+    }
+  },
+  "appHeader": {
+    "brand": "SousChef AI",
+    "mockBadge": "Mock AI",
+    "generate": "Generate",
+    "myRecipes": "My Recipes",
+    "signOut": "Sign out"
+  },
+  "generate": {
+    "title": "Generate a Recipe",
+    "steps": {
+      "upload": "Upload",
+      "review": "Review",
+      "generate": "Generate",
+      "done": "Done"
+    },
+    "loading": {
+      "title": "Crafting your recipe…",
+      "subtitle": "This takes a few seconds"
+    },
+    "result": {
+      "serves": "{servings, plural, one {Serves # person} other {Serves # people}}",
+      "ingredients": "Ingredients",
+      "steps": "Steps",
+      "viewFullRecipe": "View Full Recipe",
+      "startOver": "Start Over"
+    },
+    "backButton": "← Upload different photo"
+  },
+  "imageUploader": {
+    "alt": "Ingredient preview",
+    "detecting": "Detecting ingredients…",
+    "changePh": "Choose a different photo",
+    "dropZonePre": "Drop a photo here, or",
+    "dropZoneBrowse": "browse",
+    "hint": "{formats} · max {size}MB",
+    "errorFormat": "Unsupported format. Use {formats}.",
+    "errorSize": "Image must be under {size}MB."
+  },
+  "ingredientEditor": {
+    "title": "Confirm your ingredients",
+    "subtitle": "Remove anything that doesn't belong or add what's missing",
+    "empty": "No ingredients yet. Add some below.",
+    "placeholder": "Add an ingredient…",
+    "addAriaLabel": "Add ingredient",
+    "removeAriaLabel": "Remove {ingredient}",
+    "confirmButton": "{count, plural, one {Generate recipe with # ingredient →} other {Generate recipe with # ingredients →}}"
+  },
+  "recipes": {
+    "title": "My Recipes",
+    "count": "{count, plural, one {# recipe saved} other {# recipes saved}}",
+    "newRecipe": "New Recipe",
+    "empty": {
+      "title": "No recipes yet",
+      "description": "Upload a photo of your ingredients and let AI turn them into a delicious recipe.",
+      "cta": "Generate your first recipe"
+    },
+    "card": {
+      "ingredients": "{count} ingredients",
+      "steps": "{count} steps",
+      "serves": "Serves {count}"
+    }
+  },
+  "recipeDetail": {
+    "back": "My Recipes",
+    "backError": "Back to recipes",
+    "serves": "{servings, plural, one {Serves # person} other {Serves # people}}",
+    "ingredients": "Ingredients",
+    "steps": "Steps"
+  },
+  "dishImage": {
+    "title": "Dish Image",
+    "loading": "AI is painting your dish…",
+    "alt": "AI-generated dish image",
+    "empty": {
+      "title": "See how your dish looks",
+      "description": "Generate a photorealistic AI image of the finished dish.",
+      "button": "Generate Dish Image"
+    }
+  },
+  "auth": {
+    "brand": "SousChef AI",
+    "tagline": "Turn your fridge into a feast",
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Enter your credentials to continue.",
+      "successBanner": "Account created — you can sign in now.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "passwordLabel": "Password",
+      "signingIn": "Signing in…",
+      "signIn": "Sign in",
+      "noAccount": "Don't have an account?",
+      "createOne": "Create one"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Start generating recipes with AI — it's free.",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "At least 6 characters",
+      "creating": "Creating account…",
+      "create": "Create account",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in"
+    }
+  },
+  "errors": {
+    "authRequired": "Authentication required",
+    "dailyLimitReached": "Daily recipe limit reached",
+    "ingredientDetectionFailed": "Ingredient detection failed",
+    "recipeGenerationFailed": "Recipe generation failed",
+    "invalidCredentials": "Invalid email or password",
+    "registrationFailed": "Registration failed",
+    "imageGenerationFailed": "Image generation failed",
+    "invalidInput": "Invalid input",
+    "invalidEmail": "Invalid email",
+    "passwordRequired": "Password is required",
+    "nameRequired": "Name is required",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "tooManyIngredients": "Too many ingredients (max 20)",
+    "ingredientEmpty": "Ingredient cannot be empty",
+    "atLeastOneIngredient": "At least one ingredient is required",
+    "invalidRecipeId": "Invalid recipe ID"
+  }
+}

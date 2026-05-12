@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { UploadCloud } from "lucide-react";
 import {
   MAX_IMAGE_SIZE_BYTES,
@@ -16,6 +17,7 @@ interface ImageUploaderProps {
 }
 
 export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) {
+  const t = useTranslations("imageUploader");
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -30,11 +32,11 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
   function processFile(file: File) {
     setError(null);
     if (!SUPPORTED_MIME_TYPES.includes(file.type)) {
-      setError(`Unsupported format. Use ${SUPPORTED_FORMATS_LABEL}.`);
+      setError(t("errorFormat", { formats: SUPPORTED_FORMATS_LABEL }));
       return;
     }
     if (file.size > MAX_IMAGE_SIZE_BYTES) {
-      setError(`Image must be under ${MAX_IMAGE_SIZE_MB}MB.`);
+      setError(t("errorSize", { size: MAX_IMAGE_SIZE_MB }));
       return;
     }
     const objectUrl = URL.createObjectURL(file);
@@ -70,7 +72,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
           <div className="relative h-64 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
             <Image
               src={preview}
-              alt="Ingredient preview"
+              alt={t("alt")}
               fill
               unoptimized
               className="object-cover"
@@ -79,7 +81,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/80 backdrop-blur-sm">
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-200 border-t-orange-500" />
                 <p className="text-xs font-medium text-zinc-600">
-                  Detecting ingredients…
+                  {t("detecting")}
                 </p>
               </div>
             )}
@@ -90,7 +92,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
               onClick={handleReset}
               className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 cursor-pointer"
             >
-              Choose a different photo
+              {t("changePh")}
             </button>
           )}
         </div>
@@ -121,10 +123,12 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
           </div>
           <div className="text-center">
             <p className="text-sm font-semibold text-zinc-700">
-              Drop a photo here, or{" "}
-              <span className="text-orange-500">browse</span>
+              {t("dropZonePre")}{" "}
+              <span className="text-orange-500">{t("dropZoneBrowse")}</span>
             </p>
-            <p className="mt-1 text-xs text-zinc-400">{`${SUPPORTED_FORMATS_LABEL} · max ${MAX_IMAGE_SIZE_MB}MB`}</p>
+            <p className="mt-1 text-xs text-zinc-400">
+              {t("hint", { formats: SUPPORTED_FORMATS_LABEL, size: MAX_IMAGE_SIZE_MB })}
+            </p>
           </div>
           {error && (
             <p className="rounded-lg bg-red-50 px-3 py-1.5 text-xs text-red-600">
@@ -143,3 +147,5 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
     </div>
   );
 }
+
+

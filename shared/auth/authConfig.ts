@@ -9,9 +9,12 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
+      const pathname = nextUrl.pathname;
+
+      // Match /generate, /recipes (default locale) and /{locale}/generate, /{locale}/recipes
       const isProtected =
-        nextUrl.pathname.startsWith("/generate") ||
-        nextUrl.pathname.startsWith("/recipes");
+        /^\/(generate|recipes)(\/.*)?$/.test(pathname) ||
+        /^\/[a-z]{2}\/(generate|recipes)(\/.*)?$/.test(pathname);
 
       if (isProtected && !isLoggedIn) {
         return Response.redirect(new URL("/auth/login", nextUrl));

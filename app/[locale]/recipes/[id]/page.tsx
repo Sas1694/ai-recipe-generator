@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getRecipeAction } from "@/modules/recipe/actions/getRecipeAction";
 import { recipeImageRepository } from "@/modules/image-generation/repositories/recipeImageRepository";
 import { DishImageSection } from "./components/DishImageSection";
+import { getTranslations } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { ArrowLeft, Clock, Users } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 
@@ -12,6 +14,8 @@ export default async function RecipeDetailPage({
 }) {
   const { id } = await params;
   const result = await getRecipeAction(id);
+  const t = await getTranslations("recipeDetail");
+  const locale = await getLocale();
 
   if (!result.success) {
     return (
@@ -25,7 +29,7 @@ export default async function RecipeDetailPage({
               className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800"
             >
               <ArrowLeft className="h-4 w-4" />
-              Back to recipes
+              {t("backError")}
             </Link>
           </div>
       </main>
@@ -45,7 +49,7 @@ export default async function RecipeDetailPage({
               className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800"
             >
               <ArrowLeft className="h-4 w-4" />
-              My Recipes
+              {t("back")}
             </Link>
           </AnimatedSection>
 
@@ -58,7 +62,7 @@ export default async function RecipeDetailPage({
             <div className="flex items-center gap-4">
               <p className="flex items-center gap-1.5 text-xs text-zinc-400">
                 <Clock className="h-3.5 w-3.5" />
-                {new Date(recipe.createdAt).toLocaleDateString("en-US", {
+                {new Date(recipe.createdAt).toLocaleDateString(locale, {
                   month: "long",
                   day: "numeric",
                   year: "numeric",
@@ -66,7 +70,7 @@ export default async function RecipeDetailPage({
               </p>
               <p className="flex items-center gap-1.5 text-xs text-zinc-400">
                 <Users className="h-3.5 w-3.5" />
-                Serves {recipe.servings} {recipe.servings === 1 ? "person" : "people"}
+                {t("serves", { servings: recipe.servings })}
               </p>
             </div>
           </AnimatedSection>
@@ -74,7 +78,7 @@ export default async function RecipeDetailPage({
           {/* Ingredients */}
           <AnimatedSection delay={150}>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-400">
-              Ingredients
+              {t("ingredients")}
             </h2>
             <ul className="grid gap-2 sm:grid-cols-2">
               {recipe.ingredients.map((ing, i) => (
@@ -95,7 +99,7 @@ export default async function RecipeDetailPage({
           {/* Steps */}
           <AnimatedSection delay={200}>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-400">
-              Steps
+              {t("steps")}
             </h2>
             <ol className="space-y-3">
               {recipe.steps.map((s) => (
@@ -122,3 +126,5 @@ export default async function RecipeDetailPage({
       </main>
   );
 }
+
+

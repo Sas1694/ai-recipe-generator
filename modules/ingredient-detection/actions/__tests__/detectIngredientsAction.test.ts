@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
+vi.mock("next-intl/server", () => ({
+  getLocale: vi.fn().mockResolvedValue("en"),
+}));
+
 vi.mock("@/shared/auth/auth", () => ({
   auth: vi.fn(),
 }));
@@ -49,7 +53,7 @@ describe("detectIngredientsAction", () => {
 
     const result = await detectIngredientsAction(createImageFormData());
 
-    expect(result).toEqual({ success: false, error: "Authentication required" });
+    expect(result).toEqual({ success: false, error: "authRequired" });
     expect(recipeRepository.countUserRecipesToday).not.toHaveBeenCalled();
     expect(detectIngredients).not.toHaveBeenCalled();
   });
@@ -64,7 +68,7 @@ describe("detectIngredientsAction", () => {
 
     expect(result).toEqual({
       success: false,
-      error: "Daily recipe limit reached",
+      error: "dailyLimitReached",
     });
     expect(recipeRepository.countUserRecipesToday).toHaveBeenCalledWith(
       "user-123"
@@ -81,7 +85,7 @@ describe("detectIngredientsAction", () => {
     );
 
     expect(result.success).toBe(false);
-    expect(result.success === false && result.error).toMatch(/unsupported image format/i);
+    expect(result.success === false && result.error).toBe("invalidInput");
     expect(detectIngredients).not.toHaveBeenCalled();
   });
 
@@ -94,7 +98,7 @@ describe("detectIngredientsAction", () => {
     );
 
     expect(result.success).toBe(false);
-    expect(result.success === false && result.error).toMatch(/too large/i);
+    expect(result.success === false && result.error).toBe("invalidInput");
     expect(detectIngredients).not.toHaveBeenCalled();
   });
 
@@ -120,7 +124,7 @@ describe("detectIngredientsAction", () => {
 
     expect(result).toEqual({
       success: false,
-      error: "Vision model unavailable",
+      error: "ingredientDetectionFailed",
     });
   });
 });

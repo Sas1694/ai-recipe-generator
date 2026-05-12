@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { registerAction } from "@/modules/auth/actions/registerAction";
 import Link from "next/link";
 import { ChefHat } from "lucide-react";
@@ -9,6 +10,8 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const t = useTranslations("auth");
+  const tErrors = useTranslations("errors");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +22,7 @@ export default function RegisterPage() {
     if (result.success) {
       router.push("/auth/login?registered=true");
     } else {
-      setError(result.error);
+      setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
       setLoading(false);
     }
   }
@@ -41,15 +44,15 @@ export default function RegisterPage() {
               <ChefHat className="h-5 w-5 text-orange-400" />
             </div>
             <span className="text-xl font-bold tracking-tight text-zinc-100">
-              AI Recipe Generator
+              {t("brand")}
             </span>
           </Link>
-          <p className="text-sm text-zinc-500">Turn your fridge into a feast</p>
+          <p className="text-sm text-zinc-500">{t("tagline")}</p>
         </AnimatedSection>
 
         <AnimatedSection delay={100} className="rounded-2xl border border-white/8 bg-zinc-900 p-7">
-          <h1 className="text-lg font-semibold text-zinc-100">Create your account</h1>
-          <p className="mt-1 text-sm text-zinc-500">Start generating recipes with AI — it&apos;s free.</p>
+          <h1 className="text-lg font-semibold text-zinc-100">{t("register.title")}</h1>
+          <p className="mt-1 text-sm text-zinc-500">{t("register.subtitle")}</p>
 
           <form action={handleSubmit} className="mt-6 space-y-4">
             {error && (
@@ -59,40 +62,40 @@ export default function RegisterPage() {
             )}
             <div className="space-y-1.5">
               <label htmlFor="name" className="text-sm font-medium text-zinc-300">
-                Name
+                {t("register.nameLabel")}
               </label>
               <input
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Your name"
+                placeholder={t("register.namePlaceholder")}
                 required
                 className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
             </div>
             <div className="space-y-1.5">
               <label htmlFor="email" className="text-sm font-medium text-zinc-300">
-                Email
+                {t("register.emailLabel")}
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="name@example.com"
+                placeholder={t("register.emailPlaceholder")}
                 required
                 className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
             </div>
             <div className="space-y-1.5">
               <label htmlFor="password" className="text-sm font-medium text-zinc-300">
-                Password
+                {t("register.passwordLabel")}
               </label>
               <input
                 id="password"
                 name="password"
                 type="password"
                 minLength={6}
-                placeholder="At least 6 characters"
+                placeholder={t("register.passwordPlaceholder")}
                 required
                 className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
@@ -108,22 +111,24 @@ export default function RegisterPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  Creating account…
+                  {t("register.creating")}
                 </>
               ) : (
-                "Create account"
+                t("register.create")
               )}
             </button>
           </form>
         </AnimatedSection>
 
         <AnimatedSection delay={200} as="p" className="text-center text-sm text-zinc-600">
-          Already have an account?{" "}
+          {t("register.hasAccount")}{" "}
           <Link href="/auth/login" className="font-medium text-orange-400 transition-colors hover:text-orange-300">
-            Sign in
+            {t("register.signIn")}
           </Link>
         </AnimatedSection>
       </div>
     </main>
   );
 }
+
+

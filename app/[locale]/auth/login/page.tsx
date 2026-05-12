@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { loginAction } from "@/modules/auth/actions/loginAction";
 import Link from "next/link";
 import { ChefHat } from "lucide-react";
@@ -11,6 +12,8 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const registered = searchParams.get("registered");
+  const t = useTranslations("auth");
+  const tErrors = useTranslations("errors");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +24,7 @@ function LoginForm() {
     if (result.success) {
       router.push("/generate");
     } else {
-      setError(result.error);
+      setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
       setLoading(false);
     }
   }
@@ -43,20 +46,20 @@ function LoginForm() {
               <ChefHat className="h-5 w-5 text-orange-400" />
             </div>
             <span className="text-xl font-bold tracking-tight text-zinc-100">
-              AI Recipe Generator
+              {t("brand")}
             </span>
           </Link>
-          <p className="text-sm text-zinc-500">Turn your fridge into a feast</p>
+          <p className="text-sm text-zinc-500">{t("tagline")}</p>
         </AnimatedSection>
 
         <AnimatedSection delay={100} className="rounded-2xl border border-white/8 bg-zinc-900 p-7">
-          <h1 className="text-lg font-semibold text-zinc-100">Welcome back</h1>
-          <p className="mt-1 text-sm text-zinc-500">Enter your credentials to continue.</p>
+          <h1 className="text-lg font-semibold text-zinc-100">{t("login.title")}</h1>
+          <p className="mt-1 text-sm text-zinc-500">{t("login.subtitle")}</p>
 
           <form action={handleSubmit} className="mt-6 space-y-4">
             {registered && (
               <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3 text-sm text-emerald-400">
-                Account created — you can sign in now.
+                {t("login.successBanner")}
               </div>
             )}
             {error && (
@@ -66,20 +69,20 @@ function LoginForm() {
             )}
             <div className="space-y-1.5">
               <label htmlFor="email" className="text-sm font-medium text-zinc-300">
-                Email
+                {t("login.emailLabel")}
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="name@example.com"
+                placeholder={t("login.emailPlaceholder")}
                 required
                 className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
             </div>
             <div className="space-y-1.5">
               <label htmlFor="password" className="text-sm font-medium text-zinc-300">
-                Password
+                {t("login.passwordLabel")}
               </label>
               <input
                 id="password"
@@ -100,19 +103,19 @@ function LoginForm() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  Signing in…
+                  {t("login.signingIn")}
                 </>
               ) : (
-                "Sign in"
+                t("login.signIn")
               )}
             </button>
           </form>
         </AnimatedSection>
 
         <AnimatedSection delay={200} as="p" className="text-center text-sm text-zinc-600">
-          Don&apos;t have an account?{" "}
+          {t("login.noAccount")}{" "}
           <Link href="/auth/register" className="font-medium text-orange-400 transition-colors hover:text-orange-300">
-            Create one
+            {t("login.createOne")}
           </Link>
         </AnimatedSection>
       </div>
@@ -127,3 +130,5 @@ export default function LoginPage() {
     </Suspense>
   );
 }
+
+

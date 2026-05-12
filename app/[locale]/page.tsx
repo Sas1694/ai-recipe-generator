@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/shared/auth/auth";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { getTranslations } from "next-intl/server";
 import {
   Camera,
   ChefHat,
@@ -20,6 +21,8 @@ export default async function HomePage() {
     redirect("/generate");
   }
 
+  const t = await getTranslations("landing");
+
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
 
@@ -31,7 +34,7 @@ export default async function HomePage() {
               <ChefHat className="h-4 w-4 text-orange-400" />
             </div>
             <span className="whitespace-nowrap text-sm font-semibold tracking-tight text-zinc-100 sm:text-base">
-              AI Recipe Generator
+              {t("brand")}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -39,13 +42,13 @@ export default async function HomePage() {
               href="/auth/login"
               className="rounded-lg px-3 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 sm:px-4 whitespace-nowrap"
             >
-              Sign in
+              {t("nav.signIn")}
             </Link>
             <Link
               href="/auth/register"
               className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-3 py-1.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/30 sm:px-4 whitespace-nowrap"
             >
-              Get started
+              {t("nav.getStarted")}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -71,26 +74,26 @@ export default async function HomePage() {
             <AnimatedSection delay={0}>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-1.5 text-xs font-medium text-orange-300">
                 <Sparkles className="h-3 w-3" />
-                Your AI sous-chef is ready
+                {t("hero.badge")}
               </div>
             </AnimatedSection>
 
             <AnimatedSection delay={100}>
               <h1 className="mx-auto max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-                Cook with what you{" "}
+                {t("hero.h1Start")}{" "}
                 <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-200 bg-clip-text text-transparent">
-                  already have
+                  {t("hero.h1Highlight")}
                 </span>
               </h1>
             </AnimatedSection>
 
             <AnimatedSection delay={200}>
               <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-                Snap a photo of your fridge or pantry.{" "}
+                {t("hero.descriptionPart1")}{" "}
                 <span className="font-medium text-zinc-200">
-                  Our AI detects your ingredients
+                  {t("hero.descriptionBold")}
                 </span>{" "}
-                and crafts a personalized recipe — in seconds.
+                {t("hero.descriptionPart2")}
               </p>
             </AnimatedSection>
 
@@ -101,18 +104,18 @@ export default async function HomePage() {
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px sm:w-auto"
                 >
                   <Sparkles className="h-4 w-4" />
-                  Start for free
+                  {t("hero.ctaFree")}
                 </Link>
                 <Link
                   href="/auth/login"
                   className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/6 px-8 py-3 text-sm font-medium text-zinc-300 backdrop-blur-sm transition-all duration-200 hover:border-white/20 hover:bg-white/10 hover:text-zinc-100 sm:w-auto"
                 >
-                  Sign in
+                  {t("hero.ctaSignIn")}
                   <ArrowRight className="h-4 w-4 text-zinc-500" />
                 </Link>
               </div>
               <p className="mt-5 text-xs text-zinc-600">
-                No credit card required · Free to use
+                {t("hero.disclaimer")}
               </p>
             </AnimatedSection>
           </div>
@@ -123,56 +126,34 @@ export default async function HomePage() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <AnimatedSection className="mx-auto max-w-2xl text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-400">
-                How it works
+                {t("howItWorks.eyebrow")}
               </p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-                From fridge to plate in 4 steps
+                {t("howItWorks.title")}
               </h2>
-              <p className="mt-4 text-zinc-400">No meal planning needed. Just a photo.</p>
+              <p className="mt-4 text-zinc-400">{t("howItWorks.subtitle")}</p>
             </AnimatedSection>
 
             <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  icon: Camera,
-                  step: "1",
-                  title: "Snap a photo",
-                  description:
-                    "Point your camera at your fridge, pantry, or counter. Anything visible counts.",
-                },
-                {
-                  icon: Edit3,
-                  step: "2",
-                  title: "Review ingredients",
-                  description:
-                    "AI lists what it sees. Remove mistakes, add what's missing — you stay in control.",
-                },
-                {
-                  icon: ChefHat,
-                  step: "3",
-                  title: "Get your recipe",
-                  description:
-                    "A real, cookable recipe is generated using only what you confirmed.",
-                },
-                {
-                  icon: ImageIcon,
-                  step: "4",
-                  title: "See the dish",
-                  description:
-                    "Generate a stunning AI photo of the finished dish to spark inspiration.",
-                },
-              ].map(({ icon: Icon, step, title, description }, i) => (
-                <AnimatedSection key={step} delay={i * 100} className="group flex flex-col items-center text-center">
+              {(
+                [
+                  { icon: Camera, stepKey: "1", titleKey: "howItWorks.step1Title", descKey: "howItWorks.step1Desc" },
+                  { icon: Edit3,  stepKey: "2", titleKey: "howItWorks.step2Title", descKey: "howItWorks.step2Desc" },
+                  { icon: ChefHat, stepKey: "3", titleKey: "howItWorks.step3Title", descKey: "howItWorks.step3Desc" },
+                  { icon: ImageIcon, stepKey: "4", titleKey: "howItWorks.step4Title", descKey: "howItWorks.step4Desc" },
+                ] as const
+              ).map(({ icon: Icon, stepKey, titleKey, descKey }, i) => (
+                <AnimatedSection key={stepKey} delay={i * 100} className="group flex flex-col items-center text-center">
                   <div className="relative mb-5">
                     <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-500/15 bg-orange-500/8 transition-all duration-300 group-hover:border-orange-500/30 group-hover:bg-orange-500/15">
                       <Icon className="h-7 w-7 text-orange-400 transition-transform duration-300 group-hover:scale-110" />
                     </div>
                     <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400 text-[10px] font-bold text-white shadow-md shadow-orange-500/30">
-                      {step}
+                      {stepKey}
                     </span>
                   </div>
-                  <h3 className="text-sm font-semibold text-zinc-100">{title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-500">{description}</p>
+                  <h3 className="text-sm font-semibold text-zinc-100">{t(titleKey)}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-500">{t(descKey)}</p>
                 </AnimatedSection>
               ))}
             </div>
@@ -184,47 +165,34 @@ export default async function HomePage() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <AnimatedSection className="mx-auto max-w-2xl text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-400">
-                Why use it
+                {t("whyUseIt.eyebrow")}
               </p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-                Smart cooking, zero waste
+                {t("whyUseIt.title")}
               </h2>
               <p className="mt-4 text-zinc-400">
-                Built for real kitchens, real ingredients, real people.
+                {t("whyUseIt.subtitle")}
               </p>
             </AnimatedSection>
 
             <div className="mt-16 grid gap-5 sm:grid-cols-3">
-              {[
-                {
-                  icon: UtensilsCrossed,
-                  title: "Use what you have",
-                  description:
-                    "No more wasted groceries. Turn what's already in your kitchen into a delicious meal.",
-                },
-                {
-                  icon: Leaf,
-                  title: "Reduce food waste",
-                  description:
-                    "Make the most of every ingredient. Help the environment while enjoying great food.",
-                },
-                {
-                  icon: Zap,
-                  title: "Ready in seconds",
-                  description:
-                    "From photo upload to complete recipe in under 30 seconds. AI does the heavy lifting.",
-                },
-              ].map(({ icon: Icon, title, description }, i) => (
+              {(
+                [
+                  { icon: UtensilsCrossed, titleKey: "whyUseIt.feature1Title", descKey: "whyUseIt.feature1Desc" },
+                  { icon: Leaf, titleKey: "whyUseIt.feature2Title", descKey: "whyUseIt.feature2Desc" },
+                  { icon: Zap, titleKey: "whyUseIt.feature3Title", descKey: "whyUseIt.feature3Desc" },
+                ] as const
+              ).map(({ icon: Icon, titleKey, descKey }, i) => (
                 <AnimatedSection
-                  key={title}
+                  key={titleKey}
                   delay={i * 100}
                   className="group rounded-2xl border border-white/8 bg-zinc-900 p-7 transition-all duration-200 hover:-translate-y-0.5 hover:border-orange-500/25 hover:shadow-[0_12px_40px_rgba(249,115,22,0.1)]"
                 >
                   <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-orange-500/15 bg-orange-500/10 transition-colors duration-200 group-hover:bg-orange-500/15">
                     <Icon className="h-5 w-5 text-orange-400" />
                   </div>
-                  <h3 className="font-semibold text-zinc-100">{title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-500">{description}</p>
+                  <h3 className="font-semibold text-zinc-100">{t(titleKey)}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-500">{t(descKey)}</p>
                 </AnimatedSection>
               ))}
             </div>
@@ -248,19 +216,19 @@ export default async function HomePage() {
               <div className="relative">
                 <span className="text-5xl" role="img" aria-label="plate">🍽️</span>
                 <h2 className="mt-6 text-3xl font-bold tracking-tight text-zinc-100">
-                  Ready to cook something amazing?
+                  {t("cta.title")}
                 </h2>
                 <p className="mt-4 text-zinc-400">
-                  Join home cooks who waste less, cook more, and actually enjoy figuring out dinner.
+                  {t("cta.subtitle")}
                 </p>
                 <Link
                   href="/auth/register"
                   className="mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px"
                 >
                   <Sparkles className="h-4 w-4" />
-                  Create your free account
+                  {t("cta.button")}
                 </Link>
-                <p className="mt-4 text-xs text-zinc-600">Takes 30 seconds to sign up</p>
+                <p className="mt-4 text-xs text-zinc-600">{t("cta.disclaimer")}</p>
               </div>
             </AnimatedSection>
           </div>
@@ -272,13 +240,14 @@ export default async function HomePage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 sm:flex-row sm:px-6">
           <div className="flex items-center gap-2">
             <ChefHat className="h-4 w-4 text-zinc-600" />
-            <span className="text-sm font-medium text-zinc-600">AI Recipe Generator</span>
+            <span className="text-sm font-medium text-zinc-600">{t("footer.brand")}</span>
           </div>
           <p className="text-sm text-zinc-700">
-            © {new Date().getFullYear()} · Built with Next.js &amp; OpenAI
+            {t("footer.copyright", { year: new Date().getFullYear() })}
           </p>
         </div>
       </footer>
     </div>
   );
 }
+

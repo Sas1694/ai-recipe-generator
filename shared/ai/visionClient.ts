@@ -8,6 +8,11 @@ const ingredientDetectionSchema = z.object({
   ingredients: z.array(z.string()),
 });
 
+const LANGUAGE_INSTRUCTION: Record<string, string> = {
+  es: "IMPORTANT: Return all ingredient names in Spanish (e.g. 'tomate', 'huevo', 'queso').",
+  en: "Return all ingredient names in English.",
+};
+
 const INGREDIENT_DETECTION_PROMPT = `You are a food ingredient detection system. Given an image, analyze its contents to detect and list all observable food ingredients using the following strict rules:
 
 - Only include edible ingredients visible or clearly indicated in the image (e.g., via packaging text).
@@ -23,18 +28,22 @@ Return a JSON object with an "ingredients" field containing the detected ingredi
 
 export async function detectIngredientsFromImage(
   imageBase64: string,
-  mimeType: string
+  mimeType: string,
+  locale = "en"
 ): Promise<string[]> {
   if (process.env.MOCK_AI === "true") {
     return detectIngredientsMock(imageBase64, mimeType);
   }
+
+  const languageInstruction = LANGUAGE_INSTRUCTION[locale] ?? LANGUAGE_INSTRUCTION.en;
+  const prompt = `${INGREDIENT_DETECTION_PROMPT}\n\n${languageInstruction}`;
 
   const response = await openai.responses.parse({
     model: "gpt-4o-mini",
     input: [{
         role: "user",
         content: [
-            { type: "input_text", text: INGREDIENT_DETECTION_PROMPT },
+            { type: "input_text", text: prompt },
             {
                 type: "input_image",
                 image_url: `data:${mimeType};base64,${imageBase64}`,
@@ -53,3 +62,4 @@ export async function detectIngredientsFromImage(
 
   return response.output_parsed.ingredients;
 }
+

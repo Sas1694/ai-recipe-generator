@@ -7,7 +7,7 @@ import type { ActionResponse } from "@/shared/types/common";
 import type { RecipeDTO } from "@/modules/recipe/types";
 
 const getRecipeSchema = z.object({
-  id: z.string().uuid("Invalid recipe ID"),
+  id: z.string().uuid(),
 });
 
 export async function getRecipeAction(
@@ -15,16 +15,13 @@ export async function getRecipeAction(
 ): Promise<ActionResponse<RecipeDTO>> {
   const parsed = getRecipeSchema.safeParse({ id });
   if (!parsed.success) {
-    const firstError = parsed.error.issues[0]?.message ?? "Invalid input";
-    return { success: false, error: firstError };
+    return { success: false, error: "invalidRecipeId" };
   }
 
   try {
     const recipe = await getRecipe(parsed.data.id, { recipeRepository });
     return { success: true, data: recipe };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Failed to get recipe";
-    return { success: false, error: message };
+  } catch {
+    return { success: false, error: "invalidRecipeId" };
   }
 }

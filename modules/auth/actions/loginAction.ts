@@ -5,8 +5,8 @@ import { signIn } from "@/shared/auth/auth";
 import type { ActionResponse } from "@/shared/types/common";
 
 const loginSchema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(1, "Password is required"),
+  email: z.string().email(),
+  password: z.string().min(1),
 });
 
 export async function loginAction(
@@ -19,8 +19,7 @@ export async function loginAction(
 
   const parsed = loginSchema.safeParse(raw);
   if (!parsed.success) {
-    const firstError = parsed.error.issues[0]?.message ?? "Invalid input";
-    return { success: false, error: firstError };
+    return { success: false, error: "invalidInput" };
   }
 
   try {
@@ -30,7 +29,7 @@ export async function loginAction(
       redirect: false,
     });
   } catch {
-    return { success: false, error: "Invalid email or password" };
+    return { success: false, error: "invalidCredentials" };
   }
 
   return { success: true, data: null };
