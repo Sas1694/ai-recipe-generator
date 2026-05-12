@@ -8,9 +8,9 @@ import type { ActionResponse } from "@/shared/types/common";
 import type { AuthUser } from "@/modules/auth/types";
 
 const registerSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  name: z.string().min(1),
+  email: z.string().email(),
+  password: z.string().min(6),
 });
 
 export async function registerAction(
@@ -24,8 +24,7 @@ export async function registerAction(
 
   const parsed = registerSchema.safeParse(raw);
   if (!parsed.success) {
-    const firstError = parsed.error.issues[0]?.message ?? "Invalid input";
-    return { success: false, error: firstError };
+    return { success: false, error: "invalidInput" };
   }
 
   try {
@@ -35,6 +34,6 @@ export async function registerAction(
     });
     return { success: true, data: user };
   } catch {
-    return { success: false, error: "Registration failed" };
+    return { success: false, error: "registrationFailed" };
   }
 }

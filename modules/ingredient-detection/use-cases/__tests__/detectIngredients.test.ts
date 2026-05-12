@@ -27,7 +27,8 @@ describe("detectIngredients", () => {
     });
 
     expect(mockVisionModelService.detectIngredients).toHaveBeenCalledWith(
-      testImage
+      testImage,
+      "en"
     );
     expect(result).toEqual(["egg", "tomato", "cheese", "eggs"]);
   });

@@ -4,5 +4,5 @@ export interface ImageData {
 }
 
 export interface VisionModelService {
-  detectIngredients(image: ImageData): Promise<string[]>;
+  detectIngredients(image: ImageData, locale?: string): Promise<string[]>;
 }

@@ -10,7 +10,7 @@ import type { ActionResponse } from "@/shared/types/common";
 import type { RecipeImageDTO } from "@/modules/image-generation/types";
 
 const generateDishImageSchema = z.object({
-  recipeId: z.string().uuid("Invalid recipe ID"),
+  recipeId: z.string().uuid(),
 });
 
 export async function generateDishImageAction(
@@ -18,13 +18,12 @@ export async function generateDishImageAction(
 ): Promise<ActionResponse<RecipeImageDTO>> {
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: "Authentication required" };
+    return { success: false, error: "authRequired" };
   }
 
   const parsed = generateDishImageSchema.safeParse({ recipeId });
   if (!parsed.success) {
-    const firstError = parsed.error.issues[0]?.message ?? "Invalid input";
-    return { success: false, error: firstError };
+    return { success: false, error: "invalidInput" };
   }
 
   try {
@@ -34,9 +33,7 @@ export async function generateDishImageAction(
       recipeImageRepository,
     });
     return { success: true, data: image };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Image generation failed";
-    return { success: false, error: message };
+  } catch {
+    return { success: false, error: "imageGenerationFailed" };
   }
 }

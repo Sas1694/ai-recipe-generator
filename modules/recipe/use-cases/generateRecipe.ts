@@ -6,10 +6,11 @@ import type {
 import { DAILY_RECIPE_LIMIT } from "@/shared/config/limits";
 
 export async function computeIngredientHash(
-  ingredients: string[]
+  ingredients: string[],
+  locale = "en"
 ): Promise<string> {
   const normalized = ingredients.map((i) => i.toLowerCase().trim()).sort();
-  const joined = normalized.join(",");
+  const joined = `${locale}:${normalized.join(",")}`;
   const encoder = new TextEncoder();
   const data = encoder.encode(joined);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
@@ -23,13 +24,14 @@ export async function generateRecipe(
   deps: {
     recipeGeneratorService: RecipeGeneratorService;
     recipeRepository: RecipeRepository;
-  }
+  },
+  locale = "en"
 ): Promise<RecipeDTO> {
   if (!ingredients.length) {
     throw new Error("Ingredients are required");
   }
 
-  const ingredientHash = await computeIngredientHash(ingredients);
+  const ingredientHash = await computeIngredientHash(ingredients, locale);
 
   // Check cache
   const cached = await deps.recipeRepository.findByIngredientHash(ingredientHash);
@@ -40,7 +42,7 @@ export async function generateRecipe(
 
   // Generate via LLM
   const generatedRecipe =
-    await deps.recipeGeneratorService.generateRecipe(ingredients);
+    await deps.recipeGeneratorService.generateRecipe(ingredients, locale);
 
   // Persist
   const savedRecipe = await deps.recipeRepository.createRecipe(

@@ -1,0 +1,186 @@
+{
+  "metadata": {
+    "title": "SousChef AI",
+    "description": "Sube una foto de tus ingredientes y obtén una receta personalizada generada por IA en segundos."
+  },
+  "landing": {
+    "brand": "SousChef AI",
+    "nav": {
+      "signIn": "Iniciar sesión",
+      "getStarted": "Empezar"
+    },
+    "hero": {
+      "badge": "Tu chef con IA ya está listo",
+      "h1Start": "Cocina con lo que ya",
+      "h1Highlight": "tienes",
+      "descriptionPart1": "Fotografía tu nevera o despensa.",
+      "descriptionBold": "Nuestra IA detecta los ingredientes",
+      "descriptionPart2": "y crea una receta personalizada — en segundos.",
+      "ctaFree": "Empezar gratis",
+      "ctaSignIn": "Iniciar sesión",
+      "disclaimer": "Sin tarjeta de crédito · Gratis"
+    },
+    "howItWorks": {
+      "eyebrow": "Cómo funciona",
+      "title": "De la nevera al plato en 4 pasos",
+      "subtitle": "Sin planificación de comidas. Solo una foto.",
+      "step1Title": "Haz una foto",
+      "step1Desc": "Apunta la cámara a tu nevera, despensa o encimera. Todo lo visible cuenta.",
+      "step2Title": "Revisa los ingredientes",
+      "step2Desc": "La IA lista lo que ve. Elimina errores, añade lo que falta — tú tienes el control.",
+      "step3Title": "Obtén tu receta",
+      "step3Desc": "Se genera una receta real usando solo lo que confirmaste.",
+      "step4Title": "Ve el plato",
+      "step4Desc": "Genera una impresionante foto de IA del plato terminado para inspirarte."
+    },
+    "whyUseIt": {
+      "eyebrow": "Por qué usarlo",
+      "title": "Cocina inteligente, cero desperdicio",
+      "subtitle": "Diseñado para cocinas reales, ingredientes reales, personas reales.",
+      "feature1Title": "Usa lo que tienes",
+      "feature1Desc": "Sin ir al supermercado. Sin ingredientes desperdiciados. Solo abre la nevera y empieza.",
+      "feature2Title": "Reduce el desperdicio",
+      "feature2Desc": "Convierte los ingredientes olvidados en una comida completa antes de que caduquen.",
+      "feature3Title": "Listo en segundos",
+      "feature3Desc": "De la foto a la receta en menos de un minuto."
+    },
+    "cta": {
+      "title": "¿Listo para cocinar algo increíble?",
+      "subtitle": "Únete a cocineros que desperdician menos y comen mejor.",
+      "button": "Crear cuenta gratis",
+      "disclaimer": "Solo 30 segundos para registrarse"
+    },
+    "footer": {
+      "brand": "SousChef AI",
+      "copyright": "© {year} · Creado con Next.js y OpenAI"
+    }
+  },
+  "appHeader": {
+    "brand": "SousChef AI",
+    "mockBadge": "IA simulada",
+    "generate": "Generar",
+    "myRecipes": "Mis Recetas",
+    "signOut": "Cerrar sesión"
+  },
+  "generate": {
+    "title": "Generar Receta",
+    "steps": {
+      "upload": "Subir",
+      "review": "Revisar",
+      "generate": "Generar",
+      "done": "Listo"
+    },
+    "loading": {
+      "title": "Creando tu receta…",
+      "subtitle": "Esto tarda unos segundos"
+    },
+    "result": {
+      "serves": "{servings, plural, one {Para # persona} other {Para # personas}}",
+      "ingredients": "Ingredientes",
+      "steps": "Pasos",
+      "viewFullRecipe": "Ver receta completa",
+      "startOver": "Empezar de nuevo"
+    },
+    "backButton": "← Subir una foto diferente"
+  },
+  "imageUploader": {
+    "alt": "Vista previa de ingredientes",
+    "detecting": "Detectando ingredientes…",
+    "changePh": "Elegir una foto diferente",
+    "dropZonePre": "Arrastra aquí una foto o",
+    "dropZoneBrowse": "busca",
+    "hint": "{formats} · máx. {size}MB",
+    "errorFormat": "Formato no compatible. Usa {formats}.",
+    "errorSize": "La imagen debe ser menor de {size}MB."
+  },
+  "ingredientEditor": {
+    "title": "Confirma tus ingredientes",
+    "subtitle": "Elimina lo que no corresponde o añade lo que falta",
+    "empty": "Sin ingredientes aún. Añade algunos abajo.",
+    "placeholder": "Añadir un ingrediente…",
+    "addAriaLabel": "Añadir ingrediente",
+    "removeAriaLabel": "Eliminar {ingredient}",
+    "confirmButton": "{count, plural, one {Generar receta con # ingrediente →} other {Generar receta con # ingredientes →}}"
+  },
+  "recipes": {
+    "title": "Mis Recetas",
+    "count": "{count, plural, one {# receta guardada} other {# recetas guardadas}}",
+    "newRecipe": "Nueva Receta",
+    "empty": {
+      "title": "Aún no tienes recetas",
+      "description": "Sube una foto de tus ingredientes y deja que la IA las convierta en una receta deliciosa.",
+      "cta": "Genera tu primera receta"
+    },
+    "card": {
+      "ingredients": "{count} ingredientes",
+      "steps": "{count} pasos",
+      "serves": "Para {count}"
+    }
+  },
+  "recipeDetail": {
+    "back": "Mis Recetas",
+    "backError": "Volver a las recetas",
+    "serves": "{servings, plural, one {Para # persona} other {Para # personas}}",
+    "ingredients": "Ingredientes",
+    "steps": "Pasos"
+  },
+  "dishImage": {
+    "title": "Imagen del Plato",
+    "loading": "La IA está pintando tu plato…",
+    "alt": "Imagen del plato generada por IA",
+    "empty": {
+      "title": "Ve cómo queda tu plato",
+      "description": "Genera una imagen realista de IA del plato terminado.",
+      "button": "Generar imagen del plato"
+    }
+  },
+  "auth": {
+    "brand": "SousChef AI",
+    "tagline": "Convierte tu nevera en un festín",
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Introduce tus credenciales para continuar.",
+      "successBanner": "Cuenta creada — puedes iniciar sesión ahora.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "nombre@ejemplo.com",
+      "passwordLabel": "Contraseña",
+      "signingIn": "Iniciando sesión…",
+      "signIn": "Iniciar sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "createOne": "Crear una"
+    },
+    "register": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Empieza a generar recetas con IA — es gratis.",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Email",
+      "emailPlaceholder": "nombre@ejemplo.com",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Al menos 6 caracteres",
+      "creating": "Creando cuenta…",
+      "create": "Crear cuenta",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Iniciar sesión"
+    }
+  },
+  "errors": {
+    "authRequired": "Autenticación requerida",
+    "dailyLimitReached": "Límite diario de recetas alcanzado",
+    "ingredientDetectionFailed": "La detección de ingredientes falló",
+    "recipeGenerationFailed": "La generación de recetas falló",
+    "recipeFetchFailed": "Error al cargar las recetas",
+    "invalidCredentials": "Email o contraseña incorrectos",
+    "registrationFailed": "El registro falló",
+    "imageGenerationFailed": "La generación de imagen falló",
+    "invalidInput": "Entrada no válida",
+    "invalidEmail": "Email no válido",
+    "passwordRequired": "La contraseña es obligatoria",
+    "nameRequired": "El nombre es obligatorio",
+    "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
+    "tooManyIngredients": "Demasiados ingredientes (máx. 20)",
+    "ingredientEmpty": "El ingrediente no puede estar vacío",
+    "atLeastOneIngredient": "Se requiere al menos un ingrediente",
+    "invalidRecipeId": "ID de receta no válido"
+  }
+}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { generateDishImageAction } from "@/modules/image-generation/actions/generateDishImageAction";
 import { Sparkles } from "lucide-react";
 import type { RecipeImageDTO } from "@/modules/image-generation/types";
@@ -15,6 +16,8 @@ export function DishImageSection({
   recipeId,
   initialImage,
 }: DishImageSectionProps) {
+  const t = useTranslations("dishImage");
+  const tErrors = useTranslations("errors");
   const [image, setImage] = useState<RecipeImageDTO | null>(initialImage);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +29,7 @@ export function DishImageSection({
     if (result.success) {
       setImage(result.data);
     } else {
-      setError(result.error);
+      setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
     }
     setIsLoading(false);
   }
@@ -34,7 +37,7 @@ export function DishImageSection({
   return (
     <div className="space-y-4">
       <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-        Dish Image
+        {t("title")}
       </h2>
 
       {isLoading && (
@@ -42,7 +45,7 @@ export function DishImageSection({
           <div className="aspect-square w-full animate-pulse bg-gradient-to-br from-orange-50 to-amber-50" />
           <div className="border-t border-zinc-100 px-5 py-3.5">
             <p className="text-center text-sm font-medium text-zinc-500">
-              AI is painting your dish…
+              {t("loading")}
             </p>
           </div>
         </div>
@@ -52,7 +55,7 @@ export function DishImageSection({
         <div className="overflow-hidden rounded-2xl border border-zinc-200 shadow-md">
           <Image
             src={image.imageUrl}
-            alt="AI-generated dish image"
+            alt={t("alt")}
             width={1024}
             height={1024}
             className="w-full object-cover"
@@ -66,9 +69,9 @@ export function DishImageSection({
             <Sparkles className="h-6 w-6 text-orange-400" />
           </div>
           <div>
-            <p className="font-semibold text-zinc-800">See how your dish looks</p>
+            <p className="font-semibold text-zinc-800">{t("empty.title")}</p>
             <p className="mx-auto mt-1 max-w-xs text-sm text-zinc-500">
-              Generate a photorealistic AI image of the finished dish.
+              {t("empty.description")}
             </p>
           </div>
           <button
@@ -76,7 +79,7 @@ export function DishImageSection({
             className="flex items-center gap-2 rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 cursor-pointer"
           >
             <Sparkles className="h-4 w-4" />
-            Generate Dish Image
+            {t("empty.button")}
           </button>
         </div>
       )}
@@ -89,3 +92,5 @@ export function DishImageSection({
     </div>
   );
 }
+
+

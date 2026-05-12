@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { listUserRecipesAction } from "@/modules/recipe/actions/listUserRecipesAction";
+import { getTranslations } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { ChefHat, Plus, Clock, Layers, Users } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 
 export default async function RecipesPage() {
   const result = await listUserRecipesAction();
+  const t = await getTranslations("recipes");
+  const locale = await getLocale();
 
   return (
     <main className="flex flex-1 items-start justify-center px-4 py-10">
@@ -13,12 +17,11 @@ export default async function RecipesPage() {
           <AnimatedSection className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
-                My Recipes
+                {t("title")}
               </h1>
               {result.success && result.data.length > 0 && (
                 <p className="mt-0.5 text-sm text-zinc-500">
-                  {result.data.length} recipe
-                  {result.data.length !== 1 ? "s" : ""} saved
+                  {t("count", { count: result.data.length })}
                 </p>
               )}
             </div>
@@ -27,7 +30,7 @@ export default async function RecipesPage() {
               className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400"
             >
               <Plus className="h-4 w-4" />
-              New Recipe
+              {t("newRecipe")}
             </Link>
           </AnimatedSection>
 
@@ -45,10 +48,9 @@ export default async function RecipesPage() {
                 <ChefHat className="h-8 w-8 text-orange-400" />
               </div>
               <div>
-                <p className="font-semibold text-zinc-800">No recipes yet</p>
+                <p className="font-semibold text-zinc-800">{t("empty.title")}</p>
                 <p className="mx-auto mt-1 max-w-xs text-sm text-zinc-500">
-                  Upload a photo of your ingredients and let AI turn them into a
-                  delicious recipe.
+                  {t("empty.description")}
                 </p>
               </div>
               <Link
@@ -56,7 +58,7 @@ export default async function RecipesPage() {
                 className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400"
               >
                 <Plus className="h-4 w-4" />
-                Generate your first recipe
+                {t("empty.cta")}
               </Link>
             </AnimatedSection>
           )}
@@ -86,18 +88,18 @@ export default async function RecipesPage() {
                   <div className="mt-4 flex items-center gap-3 text-xs text-zinc-400">
                     <span className="flex items-center gap-1">
                       <Layers className="h-3.5 w-3.5" />
-                      {recipe.ingredients.length} ingredients
+                      {t("card.ingredients", { count: recipe.ingredients.length })}
                     </span>
                     <span className="flex items-center gap-1">
                       <Clock className="h-3.5 w-3.5" />
-                      {recipe.steps.length} steps
+                      {t("card.steps", { count: recipe.steps.length })}
                     </span>
                     <span className="flex items-center gap-1">
                       <Users className="h-3.5 w-3.5" />
-                      Serves {recipe.servings}
+                      {t("card.serves", { count: recipe.servings })}
                     </span>
                     <span className="ml-auto">
-                      {new Date(recipe.createdAt).toLocaleDateString("en-US", {
+                      {new Date(recipe.createdAt).toLocaleDateString(locale, {
                         month: "short",
                         day: "numeric",
                         year: "numeric",
@@ -113,3 +115,5 @@ export default async function RecipesPage() {
       </main>
   );
 }
+
+

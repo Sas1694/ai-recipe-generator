@@ -11,7 +11,7 @@ export async function listUserRecipesAction(): Promise<
 > {
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: "Authentication required" };
+    return { success: false, error: "authRequired" };
   }
 
   try {
@@ -19,9 +19,7 @@ export async function listUserRecipesAction(): Promise<
       recipeRepository,
     });
     return { success: true, data: recipes };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Failed to list recipes";
-    return { success: false, error: message };
+  } catch {
+    return { success: false, error: "recipeFetchFailed" };
   }
 }

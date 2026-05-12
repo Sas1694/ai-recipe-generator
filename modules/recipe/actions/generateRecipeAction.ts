@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { auth } from "@/shared/auth/auth";
+import { getLocale } from "next-intl/server";
 import { generateRecipe } from "@/modules/recipe/use-cases/generateRecipe";
 import { recipeGeneratorService } from "@/modules/recipe/services/recipeGeneratorService";
 import { recipeRepository } from "@/modules/recipe/repositories/recipeRepository";
@@ -10,9 +11,9 @@ import type { RecipeDTO } from "@/modules/recipe/types";
 
 const generateRecipeSchema = z.object({
   ingredients: z
-    .array(z.string().min(1, "Ingredient cannot be empty"))
-    .min(1, "At least one ingredient is required")
-    .max(20, "Too many ingredients (max 20)"),
+    .array(z.string().min(1))
+    .min(1)
+    .max(20),
 });
 
 export async function generateRecipeAction(
@@ -20,25 +21,25 @@ export async function generateRecipeAction(
 ): Promise<ActionResponse<RecipeDTO>> {
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: "Authentication required" };
+    return { success: false, error: "authRequired" };
   }
 
   const parsed = generateRecipeSchema.safeParse({ ingredients });
   if (!parsed.success) {
-    const firstError = parsed.error.issues[0]?.message ?? "Invalid input";
-    return { success: false, error: firstError };
+    return { success: false, error: "invalidInput" };
   }
+
+  const locale = await getLocale();
 
   try {
     const recipe = await generateRecipe(
       parsed.data.ingredients,
       session.user.id,
-      { recipeGeneratorService, recipeRepository }
+      { recipeGeneratorService, recipeRepository },
+      locale
     );
     return { success: true, data: recipe };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Recipe generation failed";
-    return { success: false, error: message };
+  } catch {
+    return { success: false, error: "recipeGenerationFailed" };
   }
 }

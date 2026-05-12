@@ -37,7 +37,7 @@ export interface RecipeDTO {
 // ─── Service Interface ──────────────────────────────────────────────────────
 
 export interface RecipeGeneratorService {
-  generateRecipe(ingredients: string[]): Promise<GeneratedRecipe>;
+  generateRecipe(ingredients: string[], locale?: string): Promise<GeneratedRecipe>;
 }
 
 // ─── Repository Interface ───────────────────────────────────────────────────

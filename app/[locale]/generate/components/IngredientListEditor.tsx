@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { X, Plus, Sparkles } from "lucide-react";
 
 interface IngredientListEditorProps {
@@ -12,6 +13,7 @@ export function IngredientListEditor({
   ingredients: initialIngredients,
   onConfirm,
 }: IngredientListEditorProps) {
+  const t = useTranslations("ingredientEditor");
   const [ingredients, setIngredients] = useState<string[]>(initialIngredients);
   const [newIngredient, setNewIngredient] = useState("");
 
@@ -38,10 +40,10 @@ export function IngredientListEditor({
     <div className="space-y-5">
       <div className="text-center">
         <h2 className="text-lg font-bold text-zinc-900">
-          Confirm your ingredients
+          {t("title")}
         </h2>
         <p className="mt-1 text-sm text-zinc-500">
-          Remove anything that doesn&apos;t belong or add what&apos;s missing
+          {t("subtitle")}
         </p>
       </div>
 
@@ -50,7 +52,7 @@ export function IngredientListEditor({
         {ingredients.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-4 text-center">
             <Sparkles className="h-5 w-5 text-zinc-300" />
-            <p className="text-sm text-zinc-400">No ingredients yet. Add some below.</p>
+            <p className="text-sm text-zinc-400">{t("empty")}</p>
           </div>
         ) : (
           <div className="flex flex-wrap gap-2">
@@ -63,7 +65,7 @@ export function IngredientListEditor({
                 <button
                   type="button"
                   onClick={() => handleRemove(index)}
-                  aria-label={`Remove ${ingredient}`}
+                  aria-label={t("removeAriaLabel", { ingredient })}
                   className="mt-px text-orange-400 transition-colors hover:text-orange-600 cursor-pointer"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -81,14 +83,14 @@ export function IngredientListEditor({
           value={newIngredient}
           onChange={(e) => setNewIngredient(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Add an ingredient…"
+          placeholder={t("placeholder")}
           className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 placeholder:text-zinc-400 outline-none transition-colors focus:border-orange-400 focus:ring-2 focus:ring-orange-400/15"
         />
         <button
           type="button"
           onClick={handleAdd}
           disabled={!newIngredient.trim()}
-          aria-label="Add ingredient"
+          aria-label={t("addAriaLabel")}
           className="flex h-[42px] w-[42px] items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-500 transition-colors hover:border-orange-400 hover:text-orange-500 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
         >
           <Plus className="h-4 w-4" />
@@ -102,9 +104,10 @@ export function IngredientListEditor({
         disabled={ingredients.length === 0}
         className="w-full rounded-xl bg-orange-500 py-3 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-orange-400 disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
       >
-        Generate recipe with {ingredients.length} ingredient
-        {ingredients.length !== 1 ? "s" : ""} →
+        {t("confirmButton", { count: ingredients.length })}
       </button>
     </div>
   );
 }
+
+

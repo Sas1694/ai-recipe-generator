@@ -123,19 +123,28 @@ ADDITIONAL RULES:
 FAILSAFE:
 If ingredients are empty or unusable, still return valid minimal JSON using only pantry items.`;
 
+const LANGUAGE_INSTRUCTION: Record<string, string> = {
+  es: "IMPORTANT: Respond entirely in Spanish. The title, description, visualDescription, ingredient names, and step instructions must all be in Spanish.",
+  en: "Respond in English.",
+};
+
 export async function generateRecipeFromIngredients(
-  ingredients: string[]
+  ingredients: string[],
+  locale = "en"
 ): Promise<GeneratedRecipe> {
   if (process.env.MOCK_AI === "true") {
     return generateRecipeMock(ingredients);
   }
+
+  const languageInstruction = LANGUAGE_INSTRUCTION[locale] ?? LANGUAGE_INSTRUCTION.en;
+  const systemPrompt = `${RECIPE_GENERATION_PROMPT}\n\n${languageInstruction}`;
 
   const response = await openai.responses.parse({
     model: "gpt-4o-mini",
     input: [
       {
         role: "developer",
-        content: RECIPE_GENERATION_PROMPT,
+        content: systemPrompt,
       },
       {
         role: "user",

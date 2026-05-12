@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { auth } from "@/shared/auth/auth";
+import { getLocale } from "next-intl/server";
 import { detectIngredients } from "@/modules/ingredient-detection/use-cases/detectIngredients";
 import { visionModelService } from "@/modules/ingredient-detection/services/visionModelService";
 import { recipeRepository } from "@/modules/recipe/repositories/recipeRepository";
@@ -21,21 +22,22 @@ export async function detectIngredientsAction(
 ): Promise<ActionResponse<string[]>> {
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: "Authentication required" };
+    return { success: false, error: "authRequired" };
   }
 
   const todayCount = await recipeRepository.countUserRecipesToday(session.user.id);
   if (todayCount >= DAILY_RECIPE_LIMIT) {
-    return { success: false, error: "Daily recipe limit reached" };
+    return { success: false, error: "dailyLimitReached" };
   }
 
   const file = formData.get("image");
 
   const parsed = imageFileSchema.safeParse(file);
   if (!parsed.success) {
-    const firstError = parsed.error.issues[0]?.message ?? "Invalid input";
-    return { success: false, error: firstError };
+    return { success: false, error: "invalidInput" };
   }
+
+  const locale = await getLocale();
 
   try {
     const buffer = Buffer.from(await parsed.data.arrayBuffer());
@@ -43,12 +45,11 @@ export async function detectIngredientsAction(
 
     const ingredients = await detectIngredients(
       { base64, mimeType: parsed.data.type },
-      { visionModelService }
+      { visionModelService },
+      locale
     );
     return { success: true, data: ingredients };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Ingredient detection failed";
-    return { success: false, error: message };
+  } catch {
+    return { success: false, error: "ingredientDetectionFailed" };
   }
 }
