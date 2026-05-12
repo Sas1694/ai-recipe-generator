@@ -89,6 +89,9 @@
     "changePh": "Choose a different photo",
     "dropZonePre": "Drop a photo here, or",
     "dropZoneBrowse": "browse",
+    "dropZoneMobilePre": "Tap here to",
+    "dropZoneMobileHighlight": "choose",
+    "dropZoneMobilePost": "a photo",
     "hint": "{formats} · max {size}MB",
     "errorFormat": "Unsupported format. Use {formats}.",
     "errorSize": "Image must be under {size}MB."
