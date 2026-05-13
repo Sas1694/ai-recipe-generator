@@ -103,7 +103,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 focus:bg-orange-400 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
+              className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 active:bg-orange-400 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -122,7 +122,7 @@ export default function RegisterPage() {
 
         <AnimatedSection delay={200} as="p" className="text-center text-sm text-zinc-600">
           {t("register.hasAccount")}{" "}
-          <Link href="/auth/login" className="font-medium text-orange-400 transition-colors hover:text-orange-300 focus:text-orange-300">
+          <Link href="/auth/login" className="font-medium text-orange-400 transition-colors hover:text-orange-300 active:text-orange-300">
             {t("register.signIn")}
           </Link>
         </AnimatedSection>
