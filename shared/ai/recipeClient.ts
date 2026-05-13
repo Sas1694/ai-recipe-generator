@@ -124,8 +124,8 @@ FAILSAFE:
 If ingredients are empty or unusable, still return valid minimal JSON using only pantry items.`;
 
 const LANGUAGE_INSTRUCTION: Record<string, string> = {
-  es: "IMPORTANT: Respond entirely in Spanish. The title, description, visualDescription, ingredient names, and step instructions must all be in Spanish.",
-  en: "Respond in English.",
+  es: "IMPORTANT: Respond entirely in Spanish. The title, description, visualDescription, ingredient names, and step instructions must all be in Spanish. Use metric units for all ingredient quantities (grams, kilograms, milliliters, liters). For countable items use whole units (e.g. '2 unidades', '1 unidad'). Do NOT use cups, tablespoons, teaspoons, ounces, pounds, or any other imperial or US volume measures.",
+  en: "Respond in English. Use standard US measurements for ingredient quantities (cups, tablespoons, teaspoons, ounces, pounds). For countable items use whole units (e.g. '2 units', '1 unit').",
 };
 
 export async function generateRecipeFromIngredients(
