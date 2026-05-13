@@ -8,6 +8,7 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 export default async function RecipesPage() {
   const result = await listUserRecipesAction();
   const t = await getTranslations("recipes");
+  const tErrors = await getTranslations("errors");
   const locale = await getLocale();
 
   return (
@@ -37,7 +38,7 @@ export default async function RecipesPage() {
           {/* Error */}
           {!result.success && (
             <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              {result.error}
+              {tErrors(result.error)}
             </div>
           )}
 

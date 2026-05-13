@@ -15,6 +15,7 @@ export default async function RecipeDetailPage({
   const { id } = await params;
   const result = await getRecipeAction(id);
   const t = await getTranslations("recipeDetail");
+  const tErrors = await getTranslations("errors");
   const locale = await getLocale();
 
   if (!result.success) {
@@ -22,7 +23,7 @@ export default async function RecipeDetailPage({
       <main className="flex flex-1 items-start justify-center px-4 py-10">
           <div className="w-full max-w-2xl space-y-4">
             <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              {result.error}
+              {tErrors(result.error)}
             </div>
             <Link
               href="/recipes"
