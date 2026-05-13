@@ -31,11 +31,11 @@ export async function AppHeader() {
             )}
           </div>
           <nav className="flex gap-1">
-            <Link href="/generate" className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 sm:px-3">
+            <Link href="/generate" className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 active:text-zinc-100 sm:px-3">
               <Sparkles className="h-4 w-4 shrink-0 sm:hidden" />
               <span className="hidden sm:inline">{t("generate")}</span>
             </Link>
-            <Link href="/recipes" className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 sm:px-3">
+            <Link href="/recipes" className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 active:text-zinc-100 sm:px-3">
               <BookOpen className="h-4 w-4 shrink-0 sm:hidden" />
               <span className="hidden sm:inline">{t("myRecipes")}</span>
             </Link>
@@ -50,7 +50,7 @@ export async function AppHeader() {
           <form action={logoutAction}>
             <button
               type="submit"
-              className="cursor-pointer whitespace-nowrap rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-zinc-400 transition-all duration-200 hover:border-white/18 hover:bg-white/8 hover:text-zinc-100 sm:px-4"
+              className="cursor-pointer whitespace-nowrap rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-zinc-400 transition-all duration-200 hover:border-white/18 hover:bg-white/8 hover:text-zinc-100 active:border-white/18 active:bg-white/8 active:text-zinc-100 sm:px-4"
             >
               {t("signOut")}
             </button>

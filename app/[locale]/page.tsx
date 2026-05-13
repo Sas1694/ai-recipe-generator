@@ -40,13 +40,13 @@ export default async function HomePage() {
           <div className="flex items-center gap-2">
             <Link
               href="/auth/login"
-              className="rounded-lg px-3 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 sm:px-4 whitespace-nowrap"
+              className="rounded-lg px-3 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 active:text-zinc-100 sm:px-4 whitespace-nowrap"
             >
               {t("nav.signIn")}
             </Link>
             <Link
               href="/auth/register"
-              className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-3 py-1.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/30 sm:px-4 whitespace-nowrap"
+              className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-3 py-1.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/30 active:bg-orange-400 active:shadow-orange-400/30 sm:px-4 whitespace-nowrap"
             >
               {t("nav.getStarted")}
               <ArrowRight className="h-3.5 w-3.5" />
@@ -101,14 +101,14 @@ export default async function HomePage() {
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link
                   href="/auth/register"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px sm:w-auto"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px active:bg-orange-400 active:shadow-orange-400/35 active:-translate-y-px sm:w-auto"
                 >
                   <Sparkles className="h-4 w-4" />
                   {t("hero.ctaFree")}
                 </Link>
                 <Link
                   href="/auth/login"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/6 px-8 py-3 text-sm font-medium text-zinc-300 backdrop-blur-sm transition-all duration-200 hover:border-white/20 hover:bg-white/10 hover:text-zinc-100 sm:w-auto"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/6 px-8 py-3 text-sm font-medium text-zinc-300 backdrop-blur-sm transition-all duration-200 hover:border-white/20 hover:bg-white/10 hover:text-zinc-100 active:border-white/20 active:bg-white/10 active:text-zinc-100 sm:w-auto"
                 >
                   {t("hero.ctaSignIn")}
                   <ArrowRight className="h-4 w-4 text-zinc-500" />
@@ -223,7 +223,7 @@ export default async function HomePage() {
                 </p>
                 <Link
                   href="/auth/register"
-                  className="mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px"
+                  className="mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-400 hover:shadow-orange-400/35 hover:-translate-y-px active:bg-orange-400 active:shadow-orange-400/35 active:-translate-y-px"
                 >
                   <Sparkles className="h-4 w-4" />
                   {t("cta.button")}

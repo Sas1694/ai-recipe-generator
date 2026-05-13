@@ -66,7 +66,7 @@ export function IngredientListEditor({
                   type="button"
                   onClick={() => handleRemove(index)}
                   aria-label={t("removeAriaLabel", { ingredient })}
-                  className="mt-px text-orange-400 transition-colors hover:text-orange-600 cursor-pointer"
+                  className="mt-px text-orange-400 transition-colors hover:text-orange-600 active:text-orange-600 cursor-pointer"
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>
@@ -91,7 +91,7 @@ export function IngredientListEditor({
           onClick={handleAdd}
           disabled={!newIngredient.trim()}
           aria-label={t("addAriaLabel")}
-          className="flex h-[42px] w-[42px] items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-500 transition-colors hover:border-orange-400 hover:text-orange-500 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
+          className="flex h-[42px] w-[42px] items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-500 transition-colors hover:border-orange-400 hover:text-orange-500 active:border-orange-400 active:text-orange-500 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
         >
           <Plus className="h-4 w-4" />
         </button>
@@ -102,7 +102,7 @@ export function IngredientListEditor({
         type="button"
         onClick={() => onConfirm(ingredients)}
         disabled={ingredients.length === 0}
-        className="w-full rounded-xl bg-orange-500 py-3 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-orange-400 disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
+        className="w-full rounded-xl bg-orange-500 py-3 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-orange-400 active:bg-orange-400 disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
       >
         {t("confirmButton", { count: ingredients.length })}
       </button>

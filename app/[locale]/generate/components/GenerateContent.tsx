@@ -147,7 +147,7 @@ export function GenerateContent() {
           <button
             type="button"
             onClick={handleBack}
-            className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 cursor-pointer"
+            className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 active:border-zinc-300 active:text-zinc-800 cursor-pointer"
           >
             {t("backButton")}
           </button>
@@ -234,13 +234,13 @@ export function GenerateContent() {
           <div className="flex gap-3">
             <button
               onClick={() => router.push(`/recipes/${recipe.id}`)}
-              className="flex-1 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 cursor-pointer"
+              className="flex-1 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 active:bg-orange-400 cursor-pointer"
             >
               {t("result.viewFullRecipe")}
             </button>
             <button
               onClick={handleStartOver}
-              className="flex-1 rounded-xl border border-zinc-200 bg-white py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 cursor-pointer"
+              className="flex-1 rounded-xl border border-zinc-200 bg-white py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 active:border-zinc-300 active:text-zinc-800 cursor-pointer"
             >
               {t("result.startOver")}
             </button>

@@ -27,7 +27,7 @@ export default async function RecipeDetailPage({
             </div>
             <Link
               href="/recipes"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800 active:text-zinc-800"
             >
               <ArrowLeft className="h-4 w-4" />
               {t("backError")}
@@ -47,7 +47,7 @@ export default async function RecipeDetailPage({
           <AnimatedSection delay={0}>
             <Link
               href="/recipes"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800 active:text-zinc-800"
             >
               <ArrowLeft className="h-4 w-4" />
               {t("back")}
