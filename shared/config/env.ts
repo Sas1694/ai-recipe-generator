@@ -15,6 +15,8 @@ const envSchema = z.object({
   MOCK_AI: z.enum(["true", "false"]).optional(),
   NEXT_PUBLIC_SENTRY_DSN: z.string().url().optional(),
   SENTRY_SEND_PII: z.enum(["true", "false"]).optional(),
+  SENTRY_TRACES_SAMPLE_RATE: z.coerce.number().min(0).max(1).optional(),
+  NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: z.coerce.number().min(0).max(1).optional(),
 });
 
 function validateEnv() {
