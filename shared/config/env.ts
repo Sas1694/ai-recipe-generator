@@ -13,6 +13,8 @@ const envSchema = z.object({
     ? z.string().optional().default("mock")
     : z.string().min(1, "BLOB_READ_WRITE_TOKEN is required"),
   MOCK_AI: z.enum(["true", "false"]).optional(),
+  NEXT_PUBLIC_SENTRY_DSN: z.string().url().optional(),
+  SENTRY_SEND_PII: z.enum(["true", "false"]).optional(),
 });
 
 function validateEnv() {
