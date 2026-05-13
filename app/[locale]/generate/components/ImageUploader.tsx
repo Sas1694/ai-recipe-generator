@@ -90,7 +90,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
             <button
               type="button"
               onClick={handleReset}
-              className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 active:border-zinc-300 active:text-zinc-800 cursor-pointer"
+              className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 focus:border-zinc-300 focus:text-zinc-800 cursor-pointer"
             >
               {t("changePh")}
             </button>
@@ -101,7 +101,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
           className={`flex cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed p-12 transition-all duration-200 ${
             isDragging
               ? "border-orange-400 bg-orange-50"
-              : "border-zinc-200 bg-white hover:border-orange-300 hover:bg-orange-50/40 active:border-orange-300 active:bg-orange-50/40"
+              : "border-zinc-200 bg-white hover:border-orange-300 hover:bg-orange-50/40 focus:border-orange-300 focus:bg-orange-50/40"
           }`}
           onDragOver={(e) => {
             e.preventDefault();

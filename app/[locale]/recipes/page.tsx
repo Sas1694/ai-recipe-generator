@@ -28,7 +28,7 @@ export default async function RecipesPage() {
             </div>
             <Link
               href="/generate"
-              className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 active:bg-orange-400"
+              className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 focus:bg-orange-400"
             >
               <Plus className="h-4 w-4" />
               {t("newRecipe")}
@@ -56,7 +56,7 @@ export default async function RecipesPage() {
               </div>
               <Link
                 href="/generate"
-                className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 active:bg-orange-400"
+                className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 focus:bg-orange-400"
               >
                 <Plus className="h-4 w-4" />
                 {t("empty.cta")}
@@ -71,18 +71,18 @@ export default async function RecipesPage() {
                 <AnimatedSection key={recipe.id} delay={i * 60}>
                   <Link
                     href={`/recipes/${recipe.id}`}
-                    className="group block rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-all duration-200 hover:border-orange-200 hover:shadow-[0_4px_20px_rgba(249,115,22,0.08)] active:border-orange-200 active:shadow-[0_4px_20px_rgba(249,115,22,0.08)]"
+                    className="group block rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-all duration-200 hover:border-orange-200 hover:shadow-[0_4px_20px_rgba(249,115,22,0.08)] focus:border-orange-200 focus:shadow-[0_4px_20px_rgba(249,115,22,0.08)]"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <h2 className="truncate font-semibold text-zinc-900 transition-colors group-hover:text-orange-600 group-active:text-orange-600">
+                      <h2 className="truncate font-semibold text-zinc-900 transition-colors group-hover:text-orange-600 group-focus:text-orange-600">
                         {recipe.title}
                       </h2>
                       <p className="mt-1 line-clamp-2 text-sm text-zinc-500">
                         {recipe.description}
                       </p>
                     </div>
-                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-50 transition-colors group-hover:bg-orange-100 group-active:bg-orange-100">
+                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-50 transition-colors group-hover:bg-orange-100 group-focus:bg-orange-100">
                       <ChefHat className="h-4 w-4 text-orange-400" />
                     </div>
                   </div>

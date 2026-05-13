@@ -76,7 +76,7 @@ export function DishImageSection({
           </div>
           <button
             onClick={handleGenerate}
-            className="flex items-center gap-2 rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 active:bg-orange-400 cursor-pointer"
+            className="flex items-center gap-2 rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 focus:bg-orange-400 cursor-pointer"
           >
             <Sparkles className="h-4 w-4" />
             {t("empty.button")}
