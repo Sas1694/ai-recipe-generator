@@ -4,9 +4,19 @@ import { getTranslations } from "next-intl/server";
 import { getLocale } from "next-intl/server";
 import { ChefHat, Plus, Clock, Layers, Users } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { RecipeSearchInput } from "./components/RecipeSearchInput";
+import { RecipesPagination } from "./components/RecipesPagination";
 
-export default async function RecipesPage() {
-  const result = await listUserRecipesAction();
+export default async function RecipesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; q?: string }>;
+}) {
+  const { page: pageParam, q } = await searchParams;
+  const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
+  const query = q?.trim() || undefined;
+
+  const result = await listUserRecipesAction({ page, query });
   const t = await getTranslations("recipes");
   const tErrors = await getTranslations("errors");
   const locale = await getLocale();
@@ -20,9 +30,9 @@ export default async function RecipesPage() {
               <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
                 {t("title")}
               </h1>
-              {result.success && result.data.length > 0 && (
+              {result.success && result.data.total > 0 && (
                 <p className="mt-0.5 text-sm text-zinc-500">
-                  {t("count", { count: result.data.length })}
+                  {t("count", { count: result.data.total })}
                 </p>
               )}
             </div>
@@ -35,6 +45,11 @@ export default async function RecipesPage() {
             </Link>
           </AnimatedSection>
 
+          {/* Search */}
+          <AnimatedSection delay={50}>
+            <RecipeSearchInput />
+          </AnimatedSection>
+
           {/* Error */}
           {!result.success && (
             <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -42,8 +57,8 @@ export default async function RecipesPage() {
             </div>
           )}
 
-          {/* Empty state */}
-          {result.success && result.data.length === 0 && (
+          {/* Empty state — no recipes at all */}
+          {result.success && result.data.total === 0 && !query && (
             <AnimatedSection delay={100} className="flex flex-col items-center gap-5 rounded-2xl border-2 border-dashed border-zinc-200 py-20 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-50">
                 <ChefHat className="h-8 w-8 text-orange-400" />
@@ -64,10 +79,20 @@ export default async function RecipesPage() {
             </AnimatedSection>
           )}
 
+          {/* Empty state — no results for query */}
+          {result.success && result.data.recipes.length === 0 && query && (
+            <AnimatedSection delay={100} className="flex flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-zinc-200 py-16 text-center">
+              <p className="font-semibold text-zinc-800">
+                {t("search.noResults", { query })}
+              </p>
+              <p className="text-sm text-zinc-500">{t("search.noResultsHint")}</p>
+            </AnimatedSection>
+          )}
+
           {/* Recipe list */}
-          {result.success && result.data.length > 0 && (
+          {result.success && result.data.recipes.length > 0 && (
             <div className="space-y-3">
-              {result.data.map((recipe, i) => (
+              {result.data.recipes.map((recipe, i) => (
                 <AnimatedSection key={recipe.id} delay={i * 60}>
                   <Link
                     href={`/recipes/${recipe.id}`}
@@ -111,6 +136,18 @@ export default async function RecipesPage() {
                 </AnimatedSection>
               ))}
             </div>
+          )}
+
+          {/* Pagination */}
+          {result.success && result.data.totalPages > 1 && (
+            <AnimatedSection delay={300}>
+              <RecipesPagination
+                page={result.data.page}
+                totalPages={result.data.totalPages}
+                query={query}
+                basePath="/recipes"
+              />
+            </AnimatedSection>
           )}
         </div>
       </main>

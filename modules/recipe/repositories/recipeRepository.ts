@@ -1,7 +1,10 @@
 import { prisma } from "@/lib/prisma";
+import { RECIPES_PER_PAGE } from "@/shared/config/limits";
 import type {
   GeneratedRecipe,
+  PaginatedRecipeList,
   RecipeDTO,
+  RecipeListParams,
   RecipeRepository,
 } from "../types";
 
@@ -139,18 +142,40 @@ export const recipeRepository: RecipeRepository = {
     }
   },
 
-  async findByUserId(userId: string): Promise<RecipeDTO[]> {
+  async findByUserId(
+    userId: string,
+    params?: RecipeListParams
+  ): Promise<PaginatedRecipeList> {
+    const page = params?.page ?? 1;
+    const query = params?.query;
+
+    const where = {
+      userId,
+      ...(query ? { recipe: { title: { contains: query, mode: "insensitive" as const } } } : {}),
+    };
+
     try {
-      const userRecipes = await prisma.userRecipe.findMany({
-        where: { userId },
-        orderBy: { savedAt: "desc" },
-        include: {
-          recipe: {
-            include: recipeIncludes,
+      const [userRecipes, total] = await Promise.all([
+        prisma.userRecipe.findMany({
+          where,
+          orderBy: { savedAt: "desc" },
+          skip: (page - 1) * RECIPES_PER_PAGE,
+          take: RECIPES_PER_PAGE,
+          include: {
+            recipe: {
+              include: recipeIncludes,
+            },
           },
-        },
-      });
-      return userRecipes.map((ur) => toRecipeDTO(ur.recipe));
+        }),
+        prisma.userRecipe.count({ where }),
+      ]);
+
+      return {
+        recipes: userRecipes.map((ur) => toRecipeDTO(ur.recipe)),
+        total,
+        page,
+        totalPages: Math.ceil(total / RECIPES_PER_PAGE),
+      };
     } catch {
       throw new Error("Failed to retrieve user recipes");
     }
