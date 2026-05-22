@@ -12,11 +12,19 @@ export function RecipeSearchInput() {
   const searchParams = useSearchParams();
 
   const [value, setValue] = useState(searchParams.get("q") ?? "");
+  const [prevSearchParams, setPrevSearchParams] = useState(searchParams);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
+  if (prevSearchParams !== searchParams) {
+    setPrevSearchParams(searchParams);
     setValue(searchParams.get("q") ?? "");
-  }, [searchParams]);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, []);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const next = e.target.value;
@@ -60,7 +68,7 @@ export function RecipeSearchInput() {
           type="button"
           onClick={handleClear}
           className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
-          aria-label="Clear search"
+          aria-label={t("clear")}
         >
           <X className="h-4 w-4" />
         </button>

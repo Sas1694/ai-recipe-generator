@@ -10,9 +10,16 @@ export async function listUserRecipes(
   }
 
   const normalizedPage = !params?.page || params.page <= 0 ? 1 : params.page;
-
-  return deps.recipeRepository.findByUserId(userId, {
+  const repoParams = {
     page: normalizedPage,
     ...(params?.query !== undefined && { query: params.query }),
-  });
+  };
+
+  const result = await deps.recipeRepository.findByUserId(userId, repoParams);
+
+  if (result.totalPages > 0 && normalizedPage > result.totalPages) {
+    return deps.recipeRepository.findByUserId(userId, { ...repoParams, page: 1 });
+  }
+
+  return result;
 }

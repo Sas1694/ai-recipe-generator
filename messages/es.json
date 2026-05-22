@@ -121,6 +121,7 @@
     },
     "search": {
       "placeholder": "Buscar recetas\u2026",
+      "clear": "Limpiar b\u00fasqueda",
       "noResults": "No se encontraron recetas para \u201c{query}\u201d",
       "noResultsHint": "Prueba con otro t\u00e9rmino de b\u00fasqueda."
     },

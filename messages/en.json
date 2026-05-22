@@ -121,6 +121,7 @@
     },
     "search": {
       "placeholder": "Search recipes…",
+      "clear": "Clear search",
       "noResults": "No recipes found for \u201c{query}\u201d",
       "noResultsHint": "Try a different search term."
     },
