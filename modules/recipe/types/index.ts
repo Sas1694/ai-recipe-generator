@@ -34,6 +34,20 @@ export interface RecipeDTO {
   steps: GeneratedRecipeStep[];
 }
 
+// ─── Pagination & Search ────────────────────────────────────────────────────
+
+export interface RecipeListParams {
+  page?: number;
+  query?: string;
+}
+
+export interface PaginatedRecipeList {
+  recipes: RecipeDTO[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
+
 // ─── Service Interface ──────────────────────────────────────────────────────
 
 export interface RecipeGeneratorService {
@@ -55,6 +69,6 @@ export interface RecipeRepository {
   ): Promise<void>;
   countUserRecipesToday(userId: string): Promise<number>;
   findById(id: string): Promise<RecipeDTO | null>;
-  findByUserId(userId: string): Promise<RecipeDTO[]>;
+  findByUserId(userId: string, params?: RecipeListParams): Promise<PaginatedRecipeList>;
   isLinkedToUser(recipeId: string, userId: string): Promise<boolean>;
 }

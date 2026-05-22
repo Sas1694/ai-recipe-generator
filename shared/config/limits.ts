@@ -6,3 +6,4 @@ export const SUPPORTED_FORMATS_LABEL = SUPPORTED_MIME_TYPES.map((t) =>
 ).join(", ");
 
 export const DAILY_RECIPE_LIMIT = 5;
+export const RECIPES_PER_PAGE = 10;
