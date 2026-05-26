@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getRecipeAction } from "@/modules/recipe/actions/getRecipeAction";
 import { recipeImageRepository } from "@/modules/image-generation/repositories/recipeImageRepository";
 import { DishImageSection } from "./components/DishImageSection";
@@ -6,6 +7,31 @@ import { getTranslations } from "next-intl/server";
 import { getLocale } from "next-intl/server";
 import { ArrowLeft, Clock, Users } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const result = await getRecipeAction(id);
+
+  if (!result.success) {
+    return { robots: { index: false, follow: false } };
+  }
+
+  const { title, description } = result.data;
+  return {
+    title,
+    description,
+    robots: { index: false, follow: false },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+  };
+}
 
 export default async function RecipeDetailPage({
   params,

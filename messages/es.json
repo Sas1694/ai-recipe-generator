@@ -1,7 +1,9 @@
 {
   "metadata": {
     "title": "SousChef AI",
-    "description": "Sube una foto de tus ingredientes y obtén una receta personalizada generada por IA en segundos."
+    "description": "Sube una foto de tus ingredientes y obtén una receta personalizada generada por IA en segundos.",
+    "siteName": "SousChef AI",
+    "ogImageAlt": "SousChef AI — Generador de recetas con inteligencia artificial"
   },
   "landing": {
     "brand": "SousChef AI",
