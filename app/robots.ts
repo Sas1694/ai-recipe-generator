@@ -1,14 +1,25 @@
 import type { MetadataRoute } from "next";
 
+import { env } from "@/shared/config/env";
+
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const baseUrl = env.NEXT_PUBLIC_APP_URL;
 
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/generate", "/recipes", "/auth", "/api", "/monitoring"],
+        disallow: [
+          "/generate",
+          "/recipes",
+          "/auth",
+          "/api",
+          "/monitoring",
+          "/es/generate",
+          "/es/recipes",
+          "/es/auth",
+        ],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

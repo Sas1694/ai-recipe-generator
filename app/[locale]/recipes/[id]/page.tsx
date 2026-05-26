@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cache } from "react";
 import type { Metadata } from "next";
 import { getRecipeAction } from "@/modules/recipe/actions/getRecipeAction";
 import { recipeImageRepository } from "@/modules/image-generation/repositories/recipeImageRepository";
@@ -8,13 +9,15 @@ import { getLocale } from "next-intl/server";
 import { ArrowLeft, Clock, Users } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 
+const getRecipeCached = cache(getRecipeAction);
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const result = await getRecipeAction(id);
+  const result = await getRecipeCached(id);
 
   if (!result.success) {
     return { robots: { index: false, follow: false } };
@@ -39,7 +42,7 @@ export default async function RecipeDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const result = await getRecipeAction(id);
+  const result = await getRecipeCached(id);
   const t = await getTranslations("recipeDetail");
   const tErrors = await getTranslations("errors");
   const locale = await getLocale();

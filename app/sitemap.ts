@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 
+import { env } from "@/shared/config/env";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const baseUrl = env.NEXT_PUBLIC_APP_URL;
 
   return [
     {
       url: `${baseUrl}/`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
       alternates: {
@@ -18,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/es`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
       alternates: {

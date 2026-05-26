@@ -12,6 +12,10 @@ const envSchema = z.object({
   BLOB_READ_WRITE_TOKEN: isMockAI
     ? z.string().optional().default("mock")
     : z.string().min(1, "BLOB_READ_WRITE_TOKEN is required"),
+  NEXT_PUBLIC_APP_URL:
+    process.env.VERCEL
+      ? z.string().url().min(1, "NEXT_PUBLIC_APP_URL is required in production")
+      : z.string().url().optional().default("http://localhost:3000"),
   MOCK_AI: z.enum(["true", "false"]).optional(),
   NEXT_PUBLIC_SENTRY_DSN: z.string().url().optional(),
   SENTRY_SEND_PII: z.enum(["true", "false"]).optional(),
