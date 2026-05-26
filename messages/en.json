@@ -1,9 +1,9 @@
 {
   "metadata": {
     "title": "SousChef AI",
-    "description": "Upload a photo of your ingredients and get a personalized AI-generated recipe in seconds.",
+    "description": "Upload a photo of your ingredients and get a personalized recipe in seconds.",
     "siteName": "SousChef AI",
-    "ogImageAlt": "SousChef AI — AI-powered recipe generator",
+    "ogImageAlt": "SousChef AI — Smart recipe generator",
     "generateTitle": "Generate Recipe",
     "recipesTitle": "My Recipes",
     "loginTitle": "Sign In",
@@ -16,11 +16,11 @@
       "getStarted": "Get started"
     },
     "hero": {
-      "badge": "Your AI sous-chef is ready",
+      "badge": "Your sous-chef is ready",
       "h1Start": "Cook with what you",
       "h1Highlight": "already have",
       "descriptionPart1": "Snap a photo of your fridge or pantry.",
-      "descriptionBold": "Our AI detects your ingredients",
+      "descriptionBold": "We detect your ingredients",
       "descriptionPart2": "and crafts a personalized recipe — in seconds.",
       "ctaFree": "Start for free",
       "ctaSignIn": "Sign in",
@@ -33,11 +33,11 @@
       "step1Title": "Snap a photo",
       "step1Desc": "Point your camera at your fridge, pantry, or counter. Anything visible counts.",
       "step2Title": "Review ingredients",
-      "step2Desc": "AI lists what it sees. Remove mistakes, add what's missing — you stay in control.",
+      "step2Desc": "Your ingredients are listed automatically. Remove mistakes, add what's missing — you stay in control.",
       "step3Title": "Get your recipe",
       "step3Desc": "A real, cookable recipe is generated using only what you confirmed.",
       "step4Title": "See the dish",
-      "step4Desc": "Generate a stunning AI photo of the finished dish to spark inspiration."
+      "step4Desc": "Generate a stunning image of the finished dish to spark inspiration."
     },
     "whyUseIt": {
       "eyebrow": "Why use it",
@@ -58,12 +58,12 @@
     },
     "footer": {
       "brand": "SousChef AI",
-      "copyright": "© {year} · Built with Next.js & OpenAI"
+      "copyright": "© {year}"
     }
   },
   "appHeader": {
     "brand": "SousChef AI",
-    "mockBadge": "Mock AI",
+    "mockBadge": "Demo mode",
     "generate": "Generate",
     "myRecipes": "My Recipes",
     "signOut": "Sign out"
@@ -117,7 +117,7 @@
     "newRecipe": "New Recipe",
     "empty": {
       "title": "No recipes yet",
-      "description": "Upload a photo of your ingredients and let AI turn them into a delicious recipe.",
+      "description": "Upload a photo of your ingredients and turn them into a delicious recipe.",
       "cta": "Generate your first recipe"
     },
     "card": {
@@ -146,11 +146,11 @@
   },
   "dishImage": {
     "title": "Dish Image",
-    "loading": "AI is painting your dish…",
-    "alt": "AI-generated dish image",
+    "loading": "Creating your dish image…",
+    "alt": "Dish image",
     "empty": {
       "title": "See how your dish looks",
-      "description": "Generate a photorealistic AI image of the finished dish.",
+      "description": "Generate a photorealistic image of the finished dish.",
       "button": "Generate Dish Image"
     }
   },
@@ -171,7 +171,7 @@
     },
     "register": {
       "title": "Create your account",
-      "subtitle": "Start generating recipes with AI — it's free.",
+      "subtitle": "Start generating recipes instantly — it's free.",
       "nameLabel": "Name",
       "namePlaceholder": "Your name",
       "emailLabel": "Email",

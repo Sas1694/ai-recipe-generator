@@ -1,9 +1,9 @@
 {
   "metadata": {
     "title": "SousChef AI",
-    "description": "Sube una foto de tus ingredientes y obtén una receta personalizada generada por IA en segundos.",
+    "description": "Sube una foto de tus ingredientes y obtén una receta personalizada en segundos.",
     "siteName": "SousChef AI",
-    "ogImageAlt": "SousChef AI — Generador de recetas con inteligencia artificial",
+    "ogImageAlt": "SousChef AI — Generador de recetas inteligente",
     "generateTitle": "Generar receta",
     "recipesTitle": "Mis recetas",
     "loginTitle": "Iniciar sesión",
@@ -16,12 +16,12 @@
       "getStarted": "Empezar"
     },
     "hero": {
-      "badge": "Tu chef con IA ya está listo",
+      "badge": "Tu chef ya está listo",
       "h1Start": "Cocina con lo que ya",
       "h1Highlight": "tienes",
       "descriptionPart1": "Fotografía tu nevera o despensa.",
-      "descriptionBold": "Nuestra IA detecta los ingredientes",
-      "descriptionPart2": "y crea una receta personalizada — en segundos.",
+      "descriptionBold": "Detectamos tus ingredientes",
+      "descriptionPart2": "y creamos recetas personalizadas — en segundos.",
       "ctaFree": "Empezar gratis",
       "ctaSignIn": "Iniciar sesión",
       "disclaimer": "Sin tarjeta de crédito · Gratis"
@@ -33,11 +33,11 @@
       "step1Title": "Haz una foto",
       "step1Desc": "Apunta la cámara a tu nevera, despensa o encimera. Todo lo visible cuenta.",
       "step2Title": "Revisa los ingredientes",
-      "step2Desc": "La IA lista lo que ve. Elimina errores, añade lo que falta — tú tienes el control.",
+      "step2Desc": "Se listan los ingredientes automáticamente. Elimina errores, añade lo que falta — tú tienes el control.",
       "step3Title": "Obtén tu receta",
       "step3Desc": "Se genera una receta real usando solo lo que confirmaste.",
       "step4Title": "Ve el plato",
-      "step4Desc": "Genera una impresionante foto de IA del plato terminado para inspirarte."
+      "step4Desc": "Genera una impresionante imagen del plato terminado para inspirarte."
     },
     "whyUseIt": {
       "eyebrow": "Por qué usarlo",
@@ -58,12 +58,12 @@
     },
     "footer": {
       "brand": "SousChef AI",
-      "copyright": "© {year} · Creado con Next.js y OpenAI"
+      "copyright": "© {year}"
     }
   },
   "appHeader": {
     "brand": "SousChef AI",
-    "mockBadge": "IA simulada",
+    "mockBadge": "Modo demo",
     "generate": "Generar",
     "myRecipes": "Mis Recetas",
     "signOut": "Cerrar sesión"
@@ -117,7 +117,7 @@
     "newRecipe": "Nueva Receta",
     "empty": {
       "title": "Aún no tienes recetas",
-      "description": "Sube una foto de tus ingredientes y deja que la IA las convierta en una receta deliciosa.",
+      "description": "Sube una foto de tus ingredientes y conviértelos en una receta deliciosa.",
       "cta": "Genera tu primera receta"
     },
     "card": {
@@ -146,11 +146,11 @@
   },
   "dishImage": {
     "title": "Imagen del Plato",
-    "loading": "La IA está pintando tu plato…",
-    "alt": "Imagen del plato generada por IA",
+    "loading": "Generando la imagen de tu plato…",
+    "alt": "Imagen del plato",
     "empty": {
       "title": "Ve cómo queda tu plato",
-      "description": "Genera una imagen realista de IA del plato terminado.",
+      "description": "Genera una imagen realista del plato terminado.",
       "button": "Generar imagen del plato"
     }
   },
@@ -171,7 +171,7 @@
     },
     "register": {
       "title": "Crea tu cuenta",
-      "subtitle": "Empieza a generar recetas con IA — es gratis.",
+      "subtitle": "Empieza a generar recetas al instante — es gratis.",
       "nameLabel": "Nombre",
       "namePlaceholder": "Tu nombre",
       "emailLabel": "Email",
