@@ -1,16 +1,16 @@
 {
   "metadata": {
-    "title": "SousChef AI",
+    "title": "SousChef",
     "description": "Sube una foto de tus ingredientes y obtén una receta personalizada en segundos.",
-    "siteName": "SousChef AI",
-    "ogImageAlt": "SousChef AI — Generador de recetas inteligente",
+    "siteName": "SousChef",
+    "ogImageAlt": "SousChef — Generador de recetas inteligente",
     "generateTitle": "Generar receta",
     "recipesTitle": "Mis recetas",
     "loginTitle": "Iniciar sesión",
     "registerTitle": "Crear cuenta"
   },
   "landing": {
-    "brand": "SousChef AI",
+    "brand": "SousChef",
     "nav": {
       "signIn": "Iniciar sesión",
       "getStarted": "Empezar"
@@ -57,12 +57,12 @@
       "disclaimer": "Solo 30 segundos para registrarse"
     },
     "footer": {
-      "brand": "SousChef AI",
+      "brand": "SousChef",
       "copyright": "© {year}"
     }
   },
   "appHeader": {
-    "brand": "SousChef AI",
+    "brand": "SousChef",
     "mockBadge": "Modo demo",
     "generate": "Generar",
     "myRecipes": "Mis Recetas",
@@ -155,7 +155,7 @@
     }
   },
   "auth": {
-    "brand": "SousChef AI",
+    "brand": "SousChef",
     "tagline": "Convierte tu nevera en un festín",
     "login": {
       "title": "Bienvenido de nuevo",
