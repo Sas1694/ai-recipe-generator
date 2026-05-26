@@ -29,6 +29,7 @@ export interface UserRepository {
     passwordHash: string;
   }): Promise<AuthUser>;
   findByEmail(email: string): Promise<UserWithPassword | null>;
+  deleteUser(id: string): Promise<void>;
 }
 
 export interface AuthService {

@@ -265,9 +265,19 @@ export default async function HomePage() {
             <ChefHat className="h-4 w-4 text-zinc-600" />
             <span className="text-sm font-medium text-zinc-600">{t("footer.brand")}</span>
           </div>
-          <p className="text-sm text-zinc-700">
-            {t("footer.copyright", { year: new Date().getFullYear() })}
-          </p>
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+            <div className="flex items-center gap-4">
+              <Link href="/legal/privacy" className="text-xs text-zinc-600 transition-colors hover:text-zinc-400">
+                {t("footer.privacy")}
+              </Link>
+              <Link href="/legal/terms" className="text-xs text-zinc-600 transition-colors hover:text-zinc-400">
+                {t("footer.terms")}
+              </Link>
+            </div>
+            <p className="text-sm text-zinc-700">
+              {t("footer.copyright", { year: new Date().getFullYear() })}
+            </p>
+          </div>
         </div>
       </footer>
     </div>

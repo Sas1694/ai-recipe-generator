@@ -7,7 +7,10 @@
     "generateTitle": "Generar receta",
     "recipesTitle": "Mis recetas",
     "loginTitle": "Iniciar sesión",
-    "registerTitle": "Crear cuenta"
+    "registerTitle": "Crear cuenta",
+    "settingsTitle": "Ajustes",
+    "privacyTitle": "Política de Privacidad",
+    "termsTitle": "Términos de Uso"
   },
   "landing": {
     "brand": "SousChef AI",
@@ -58,7 +61,9 @@
     },
     "footer": {
       "brand": "SousChef AI",
-      "copyright": "© {year}"
+      "copyright": "© {year}",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Uso"
     }
   },
   "appHeader": {
@@ -66,7 +71,8 @@
     "mockBadge": "Modo demo",
     "generate": "Generar",
     "myRecipes": "Mis Recetas",
-    "signOut": "Cerrar sesión"
+    "signOut": "Cerrar sesión",
+    "settings": "Ajustes"
   },
   "generate": {
     "title": "Generar Receta",
@@ -181,7 +187,11 @@
       "creating": "Creando cuenta…",
       "create": "Crear cuenta",
       "hasAccount": "¿Ya tienes una cuenta?",
-      "signIn": "Iniciar sesión"
+      "signIn": "Iniciar sesión",
+      "termsConsent": "He leído y acepto los",
+      "termsLink": "Términos de Uso",
+      "andThe": "y la",
+      "privacyLink": "Política de Privacidad"
     }
   },
   "errors": {
@@ -201,6 +211,69 @@
     "tooManyIngredients": "Demasiados ingredientes (máx. 20)",
     "ingredientEmpty": "El ingrediente no puede estar vacío",
     "atLeastOneIngredient": "Se requiere al menos un ingrediente",
-    "invalidRecipeId": "ID de receta no válido"
+    "invalidRecipeId": "ID de receta no válido",
+    "termsRequired": "Debes aceptar los Términos de Uso y la Política de Privacidad"
+  },
+  "cookieBanner": {
+    "text": "Usamos cookies de sesión estrictamente necesarias y analíticas sin seguimiento personal. Al usar este servicio, reconoces nuestra",
+    "privacyLink": "Política de Privacidad",
+    "accept": "Entendido"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "backButton": "← Volver",
+    "accountSection": "Información de la cuenta",
+    "nameLabel": "Nombre",
+    "emailLabel": "Email",
+    "dangerZoneSection": "Zona de peligro",
+    "deleteTitle": "Eliminar tu cuenta",
+    "deleteDescription": "Elimina permanentemente tu nombre y email de nuestros servidores. Las recetas generadas permanecen en la plataforma como contenido compartido.",
+    "deleteButton": "Eliminar cuenta",
+    "confirmTitle": "¿Eliminar tu cuenta?",
+    "confirmDescription": "Tu nombre y email serán eliminados de forma permanente. Esta acción no se puede deshacer.",
+    "confirmButton": "Sí, eliminar mi cuenta",
+    "cancelButton": "Cancelar",
+    "deleting": "Eliminando…"
+  },
+  "legal": {
+    "backLink": "← Volver",
+    "privacy": {
+      "title": "Política de Privacidad",
+      "lastUpdated": "Última actualización: mayo de 2026",
+      "s1Title": "1. Responsable del Tratamiento",
+      "s1": "SousChef AI es gestionado por [NOMBRE DEL RESPONSABLE], [DIRECCIÓN], [EMAIL DE CONTACTO]. Sustituye estos marcadores con tus datos reales antes de publicar.",
+      "s2Title": "2. Datos que Recogemos",
+      "s2": "Al crear una cuenta recogemos tu nombre, dirección de email y un hash criptográfico (bcrypt) de tu contraseña, así como la fecha de creación de la cuenta. Las imágenes que cargas para la detección de ingredientes se procesan en memoria y nunca se almacenan en nuestros servidores.",
+      "s3Title": "3. Base Jurídica del Tratamiento",
+      "s3": "El tratamiento se basa en el Art. 6.1.b) RGPD (ejecución del contrato) para los datos de cuenta, y en el Art. 6.1.f) RGPD (interés legítimo) para las analíticas de uso anónimas.",
+      "s4Title": "4. Conservación de los Datos",
+      "s4": "Tus datos personales (nombre y email) se conservan hasta que elimines tu cuenta, momento en el que se borran de forma inmediata y permanente. Las recetas generadas por IA permanecen como contenido compartido y anonimizado.",
+      "s5Title": "5. Destinatarios y Terceros",
+      "s5": "Utilizamos Vercel Inc. para alojamiento e infraestructura, incluyendo Vercel Analytics y Vercel Speed Insights. Vercel Analytics no usa cookies ni almacena datos personales identificables. No vendemos tus datos a terceros.",
+      "s6Title": "6. Tus Derechos",
+      "s6": "En virtud del RGPD y la LOPDGDD tienes derecho a acceder, rectificar, suprimir, limitar u oponerte al tratamiento de tus datos, así como el derecho a la portabilidad. Puedes ejercer estos derechos escribiendo a [EMAIL DE CONTACTO]. También puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) en www.aepd.es.",
+      "s7Title": "7. Cookies",
+      "s7": "Este servicio únicamente utiliza cookies de sesión HTTP-only estrictamente necesarias, gestionadas por NextAuth.js, para mantener tu sesión activa. Estas cookies no requieren consentimiento conforme al Art. 22 LSSI-CE. No se instalan cookies de seguimiento ni publicidad.",
+      "s8Title": "8. Cambios en esta Política",
+      "s8": "Podemos actualizar esta política periódicamente. El uso continuado del servicio tras los cambios implica la aceptación de la política revisada."
+    },
+    "terms": {
+      "title": "Términos de Uso",
+      "lastUpdated": "Última actualización: mayo de 2026",
+      "s1Title": "1. Prestador del Servicio",
+      "s1": "SousChef AI es gestionado por [NOMBRE DEL RESPONSABLE], [DIRECCIÓN], [EMAIL DE CONTACTO]. Este documento constituye el aviso legal exigido por el Art. 10 de la LSSI-CE (Ley 34/2002).",
+      "s2Title": "2. Descripción del Servicio",
+      "s2": "SousChef AI es una aplicación web gratuita que usa inteligencia artificial para detectar ingredientes en fotografías y generar recetas de cocina. El servicio se presta 'tal cual' y puede modificarse o interrumpirse en cualquier momento.",
+      "s3Title": "3. Cuentas de Usuario",
+      "s3": "Debes tener al menos 14 años para crear una cuenta. Eres responsable de mantener la confidencialidad de tus credenciales y de toda la actividad bajo tu cuenta.",
+      "s4Title": "4. Contenido Generado por IA",
+      "s4": "Las recetas y listas de ingredientes son generadas por modelos de inteligencia artificial y se proporcionan únicamente con carácter informativo. No garantizamos su exactitud, seguridad o idoneidad. Verifica siempre las recetas en función de restricciones dietéticas o alergias antes de consumirlas.",
+      "s5Title": "5. Uso Aceptable",
+      "s5": "Te comprometes a no cargar contenido ilegal, no intentar eludir medidas de seguridad ni usar el servicio de forma que pueda dañar o sobrecargar nuestra infraestructura.",
+      "s6Title": "6. Limitación de Responsabilidad",
+      "s6": "En la medida máxima permitida por la ley española, no somos responsables de ningún daño indirecto, incidental o consecuente derivado del uso del servicio o de la confianza depositada en el contenido generado por IA.",
+      "s7Title": "7. Ley Aplicable",
+      "s7": "Estos Términos se rigen por la legislación española. Cualquier controversia se someterá a los tribunales de [CIUDAD], España, salvo que la normativa de protección al consumidor exija otra cosa."
+    }
   }
 }

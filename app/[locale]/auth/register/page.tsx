@@ -100,6 +100,25 @@ export default function RegisterPage() {
                 className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
             </div>
+            <div className="flex items-start gap-2.5 pt-1">
+              <input
+                id="termsAccepted"
+                name="termsAccepted"
+                type="checkbox"
+                required
+                className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border border-white/20 bg-zinc-800 accent-orange-500"
+              />
+              <label htmlFor="termsAccepted" className="text-xs leading-relaxed text-zinc-400">
+                {t("register.termsConsent")}{" "}
+                <Link href="/legal/terms" className="font-medium text-orange-400 underline underline-offset-2 transition-colors hover:text-orange-300">
+                  {t("register.termsLink")}
+                </Link>{" "}
+                {t("register.andThe")}{" "}
+                <Link href="/legal/privacy" className="font-medium text-orange-400 underline underline-offset-2 transition-colors hover:text-orange-300">
+                  {t("register.privacyLink")}
+                </Link>
+              </label>
+            </div>
             <button
               type="submit"
               disabled={loading}

@@ -3,7 +3,7 @@ import { auth } from "@/shared/auth/auth";
 import { logoutAction } from "@/modules/auth/actions/logoutAction";
 import { env } from "@/shared/config/env";
 import { getTranslations } from "next-intl/server";
-import { ChefHat, Sparkles, BookOpen, FlaskConical } from "lucide-react";
+import { ChefHat, Sparkles, BookOpen, FlaskConical, Settings, LogOut } from "lucide-react";
 
 export async function AppHeader() {
   const session = await auth();
@@ -47,12 +47,21 @@ export async function AppHeader() {
               {session.user.name.charAt(0).toUpperCase()}
             </div>
           )}
+          <Link
+            href="/settings"
+            className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-zinc-400 transition-all duration-200 hover:border-white/18 hover:bg-white/8 hover:text-zinc-100 active:border-white/18 active:bg-white/8 active:text-zinc-100"
+            aria-label={t("settings")}
+          >
+            <Settings className="h-4 w-4" />
+          </Link>
           <form action={logoutAction}>
             <button
               type="submit"
-              className="cursor-pointer whitespace-nowrap rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-zinc-400 transition-all duration-200 hover:border-white/18 hover:bg-white/8 hover:text-zinc-100 active:border-white/18 active:bg-white/8 active:text-zinc-100 sm:px-4"
+              className="cursor-pointer flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-zinc-400 transition-all duration-200 hover:border-white/18 hover:bg-white/8 hover:text-zinc-100 active:border-white/18 active:bg-white/8 active:text-zinc-100 sm:px-4"
+              aria-label={t("signOut")}
             >
-              {t("signOut")}
+              <LogOut className="h-4 w-4 sm:hidden" />
+              <span className="hidden sm:inline whitespace-nowrap">{t("signOut")}</span>
             </button>
           </form>
         </div>

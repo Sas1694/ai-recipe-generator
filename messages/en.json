@@ -7,7 +7,10 @@
     "generateTitle": "Generate Recipe",
     "recipesTitle": "My Recipes",
     "loginTitle": "Sign In",
-    "registerTitle": "Create Account"
+    "registerTitle": "Create Account",
+    "settingsTitle": "Settings",
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms of Service"
   },
   "landing": {
     "brand": "SousChef AI",
@@ -58,7 +61,9 @@
     },
     "footer": {
       "brand": "SousChef AI",
-      "copyright": "© {year}"
+      "copyright": "© {year}",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
     }
   },
   "appHeader": {
@@ -66,7 +71,8 @@
     "mockBadge": "Demo mode",
     "generate": "Generate",
     "myRecipes": "My Recipes",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "settings": "Settings"
   },
   "generate": {
     "title": "Generate a Recipe",
@@ -181,7 +187,11 @@
       "creating": "Creating account…",
       "create": "Create account",
       "hasAccount": "Already have an account?",
-      "signIn": "Sign in"
+      "signIn": "Sign in",
+      "termsConsent": "I have read and accept the",
+      "termsLink": "Terms of Service",
+      "andThe": "and the",
+      "privacyLink": "Privacy Policy"
     }
   },
   "errors": {
@@ -201,6 +211,69 @@
     "tooManyIngredients": "Too many ingredients (max 20)",
     "ingredientEmpty": "Ingredient cannot be empty",
     "atLeastOneIngredient": "At least one ingredient is required",
-    "invalidRecipeId": "Invalid recipe ID"
+    "invalidRecipeId": "Invalid recipe ID",
+    "termsRequired": "You must accept the Terms of Service and Privacy Policy"
+  },
+  "cookieBanner": {
+    "text": "We use strictly necessary session cookies and privacy-friendly analytics. By using this service, you acknowledge our",
+    "privacyLink": "Privacy Policy",
+    "accept": "Got it"
+  },
+  "settings": {
+    "title": "Settings",
+    "backButton": "← Back",
+    "accountSection": "Account Information",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "dangerZoneSection": "Danger Zone",
+    "deleteTitle": "Delete your account",
+    "deleteDescription": "Permanently removes your name and email from our servers. AI-generated recipes remain on the platform as shared content.",
+    "deleteButton": "Delete account",
+    "confirmTitle": "Delete your account?",
+    "confirmDescription": "Your name and email will be permanently deleted. This action cannot be undone.",
+    "confirmButton": "Yes, delete my account",
+    "cancelButton": "Cancel",
+    "deleting": "Deleting…"
+  },
+  "legal": {
+    "backLink": "← Back",
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: May 2026",
+      "s1Title": "1. Data Controller",
+      "s1": "SousChef AI is operated by [OPERATOR NAME], [ADDRESS], [CONTACT EMAIL]. Replace these placeholders with your real details before publishing.",
+      "s2Title": "2. Data We Collect",
+      "s2": "When you create an account we collect your name, email address, and a cryptographic hash (bcrypt) of your password, plus the date your account was created. Images you upload for ingredient detection are processed in memory and are never stored on our servers.",
+      "s3Title": "3. Legal Basis for Processing",
+      "s3": "Processing is based on Article 6(1)(b) GDPR (performance of the contract) for account data, and Article 6(1)(f) GDPR (legitimate interest) for anonymous usage analytics.",
+      "s4Title": "4. Data Retention",
+      "s4": "Your personal data (name and email) is retained until you delete your account, at which point it is immediately and permanently erased. AI-generated recipes are retained as anonymised shared content.",
+      "s5Title": "5. Third Parties and Recipients",
+      "s5": "We use Vercel Inc. for hosting and infrastructure, including Vercel Analytics and Vercel Speed Insights. Vercel Analytics does not use cookies and does not store personally identifiable data. We do not sell your data to any third party.",
+      "s6Title": "6. Your Rights",
+      "s6": "Under GDPR and LOPDGDD you have the right to access, rectify, erase, restrict, or object to the processing of your data, as well as the right to data portability. Exercise these rights by emailing [CONTACT EMAIL]. You may also lodge a complaint with the Spanish Data Protection Authority (AEPD) at www.aepd.es.",
+      "s7Title": "7. Cookies",
+      "s7": "This service uses only strictly necessary HTTP-only session cookies managed by NextAuth.js to keep you authenticated. These cookies do not require consent under Article 22 LOPDGDD. No tracking or advertising cookies are set.",
+      "s8Title": "8. Changes to this Policy",
+      "s8": "We may update this policy periodically. Continued use of the service after changes constitutes acceptance of the revised policy."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated: May 2026",
+      "s1Title": "1. Service Provider",
+      "s1": "SousChef AI is operated by [OPERATOR NAME], [ADDRESS], [CONTACT EMAIL]. This document constitutes the legal notice required by Article 10 of Spain's LSSI-CE (Law 34/2002).",
+      "s2Title": "2. Description of Service",
+      "s2": "SousChef AI is a free web application that uses artificial intelligence to detect ingredients from photographs and generate cooking recipes. The service is provided 'as is' and may be modified or discontinued at any time.",
+      "s3Title": "3. User Accounts",
+      "s3": "You must be at least 14 years of age to create an account. You are responsible for maintaining the confidentiality of your credentials and for all activity under your account.",
+      "s4Title": "4. AI-Generated Content",
+      "s4": "Recipes and ingredient lists are generated by AI models and are provided for informational purposes only. We do not guarantee their accuracy, safety, or suitability. Always verify recipes against any dietary restrictions or allergies before consuming.",
+      "s5Title": "5. Acceptable Use",
+      "s5": "You agree not to upload illegal content, attempt to circumvent security measures, or use the service in a way that could damage or overload our infrastructure.",
+      "s6Title": "6. Limitation of Liability",
+      "s6": "To the maximum extent permitted by Spanish law, we are not liable for any indirect, incidental, or consequential damages arising from your use of the service or reliance on AI-generated content.",
+      "s7Title": "7. Applicable Law",
+      "s7": "These Terms are governed by Spanish law. Any disputes shall be submitted to the courts of [CITY], Spain, unless mandatory consumer protection law requires otherwise."
+    }
   }
 }

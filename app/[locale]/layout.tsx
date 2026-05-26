@@ -3,6 +3,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { CookieNoticeBanner } from "@/components/CookieNoticeBanner";
 
 const ogLocaleMap: Record<string, string> = {
   en: "en_US",
@@ -64,6 +65,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider>
       {children}
+      <CookieNoticeBanner />
     </NextIntlClientProvider>
   );
 }
