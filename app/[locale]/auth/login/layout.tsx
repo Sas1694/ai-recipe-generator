@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { AppHeader } from "@/components/AppHeader";
 
 export async function generateMetadata({
   params,
@@ -10,20 +9,15 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
   return {
-    title: t("recipesTitle"),
+    title: t("loginTitle"),
     robots: { index: false, follow: false },
   };
 }
 
-export default function RecipesLayout({
+export default function LoginLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <AppHeader />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

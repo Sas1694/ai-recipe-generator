@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import { auth } from "@/shared/auth/auth";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { getTranslations } from "next-intl/server";
@@ -14,6 +15,28 @@ import {
   Zap,
   ArrowRight,
 } from "lucide-react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const canonical = locale === "en" ? "/" : "/es";
+  return {
+    title: { absolute: "SousChef AI" },
+    alternates: {
+      canonical,
+      languages: {
+        en: "/",
+        es: "/es",
+      },
+    },
+    openGraph: {
+      url: canonical,
+    },
+  };
+}
 
 export default async function HomePage() {
   const session = await auth();
