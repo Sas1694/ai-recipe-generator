@@ -10,6 +10,11 @@ import { generateRecipeAction } from "@/modules/recipe/actions/generateRecipeAct
 import { ChefHat, CheckCircle2, Users } from "lucide-react";
 import type { RecipeDTO } from "@/modules/recipe/types";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import {
+  saveGenerateState,
+  getGenerateState,
+  clearGenerateState,
+} from "@/lib/localStorage";
 
 type Step = "upload" | "review" | "generating" | "result";
 
@@ -66,12 +71,33 @@ function StepIndicator({ current }: { current: Step }) {
   );
 }
 
-export function GenerateContent() {
+interface GenerateContentProps {
+  userId: string;
+}
+
+export function GenerateContent({ userId }: GenerateContentProps) {
   const router = useRouter();
   const t = useTranslations("generate");
   const tErrors = useTranslations("errors");
-  const [step, setStep] = useState<Step>("upload");
-  const [ingredients, setIngredients] = useState<string[]>([]);
+  
+  // Initialize state with localStorage restore logic
+  const initialState = () => {
+    const savedState = getGenerateState(userId);
+    if (savedState && savedState.ingredients.length > 0) {
+      return {
+        step: "review" as Step,
+        ingredients: savedState.ingredients,
+      };
+    }
+    return {
+      step: "upload" as Step,
+      ingredients: [] as string[],
+    };
+  };
+
+  const { step: initialStep, ingredients: initialIngredients } = initialState();
+  const [step, setStep] = useState<Step>(initialStep);
+  const [ingredients, setIngredients] = useState<string[]>(initialIngredients);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recipe, setRecipe] = useState<RecipeDTO | null>(null);
@@ -89,6 +115,7 @@ export function GenerateContent() {
     const result = await detectIngredientsAction(formData);
     if (result.success) {
       setIngredients(result.data);
+      saveGenerateState({ userId, ingredients: result.data });
       setStep("review");
     } else {
       setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
@@ -102,6 +129,7 @@ export function GenerateContent() {
     const result = await generateRecipeAction(confirmedIngredients);
     if (result.success) {
       setRecipe(result.data);
+      clearGenerateState();
       setStep("result");
     } else {
       setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
@@ -110,6 +138,7 @@ export function GenerateContent() {
   }
 
   function handleBack() {
+    clearGenerateState();
     setStep("upload");
     setIngredients([]);
     setError(null);
@@ -117,6 +146,7 @@ export function GenerateContent() {
   }
 
   function handleStartOver() {
+    clearGenerateState();
     setStep("upload");
     setIngredients([]);
     setError(null);
