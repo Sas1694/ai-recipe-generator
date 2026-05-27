@@ -41,8 +41,8 @@ export function DishImageSection({
       </h2>
 
       {isLoading && (
-        <div className="overflow-hidden rounded-2xl border border-zinc-100 bg-zinc-50">
-          <div className="aspect-square w-full animate-pulse bg-gradient-to-br from-orange-50 to-amber-50" />
+        <div role="status" aria-live="polite" aria-label={t("loadingStatus")} className="overflow-hidden rounded-2xl border border-zinc-100 bg-zinc-50">
+          <div aria-hidden="true" className="aspect-square w-full animate-pulse bg-gradient-to-br from-orange-50 to-amber-50" />
           <div className="border-t border-zinc-100 px-5 py-3.5">
             <p className="text-center text-sm font-medium text-zinc-500">
               {t("loading")}
@@ -66,7 +66,7 @@ export function DishImageSection({
       {!isLoading && !image && (
         <div className="flex flex-col items-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 py-12 text-center">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50">
-            <Sparkles className="h-6 w-6 text-orange-400" />
+            <Sparkles aria-hidden="true" className="h-6 w-6 text-orange-400" />
           </div>
           <div>
             <p className="font-semibold text-zinc-800">{t("empty.title")}</p>
@@ -75,17 +75,18 @@ export function DishImageSection({
             </p>
           </div>
           <button
+            type="button"
             onClick={handleGenerate}
             className="flex items-center gap-2 rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 active:bg-orange-400 cursor-pointer"
           >
-            <Sparkles className="h-4 w-4" />
+            <Sparkles aria-hidden="true" className="h-4 w-4" />
             {t("empty.button")}
           </button>
         </div>
       )}
 
       {error && (
-        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
         </div>
       )}

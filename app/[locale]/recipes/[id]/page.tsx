@@ -49,16 +49,16 @@ export default async function RecipeDetailPage({
 
   if (!result.success) {
     return (
-      <main className="flex flex-1 items-start justify-center px-4 py-10">
+      <main id="main-content" className="flex flex-1 items-start justify-center px-4 py-10">
           <div className="w-full max-w-2xl space-y-4">
-            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {tErrors(result.error)}
             </div>
             <Link
               href="/recipes"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800 active:text-zinc-800"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft aria-hidden="true" className="h-4 w-4" />
               {t("backError")}
             </Link>
           </div>
@@ -70,7 +70,7 @@ export default async function RecipeDetailPage({
   const existingImage = await recipeImageRepository.findByRecipeId(recipe.id);
 
   return (
-    <main className="flex flex-1 items-start justify-center px-4 py-10">
+    <main id="main-content" className="flex flex-1 items-start justify-center px-4 py-10">
         <div className="w-full max-w-2xl space-y-8">
           {/* Back */}
           <AnimatedSection delay={0}>
@@ -78,7 +78,7 @@ export default async function RecipeDetailPage({
               href="/recipes"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-800 active:text-zinc-800"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft aria-hidden="true" className="h-4 w-4" />
               {t("back")}
             </Link>
           </AnimatedSection>
@@ -91,7 +91,7 @@ export default async function RecipeDetailPage({
             <p className="text-zinc-500">{recipe.description}</p>
             <div className="flex items-center gap-4">
               <p className="flex items-center gap-1.5 text-xs text-zinc-400">
-                <Clock className="h-3.5 w-3.5" />
+                <Clock aria-hidden="true" className="h-3.5 w-3.5" />
                 {new Date(recipe.createdAt).toLocaleDateString(locale, {
                   month: "long",
                   day: "numeric",
@@ -99,7 +99,7 @@ export default async function RecipeDetailPage({
                 })}
               </p>
               <p className="flex items-center gap-1.5 text-xs text-zinc-400">
-                <Users className="h-3.5 w-3.5" />
+                <Users aria-hidden="true" className="h-3.5 w-3.5" />
                 {t("serves", { servings: recipe.servings })}
               </p>
             </div>
