@@ -24,7 +24,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const canonical = locale === "en" ? "/" : "/es";
   return {
-    title: { absolute: "SousChef AI" },
+    title: { absolute: "SousChef" },
     alternates: {
       canonical,
       languages: {

@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "title": "SousChef AI",
+    "title": "SousChef",
     "description": "Upload a photo of your ingredients and get a personalized recipe in seconds.",
-    "siteName": "SousChef AI",
-    "ogImageAlt": "SousChef AI — Smart recipe generator",
+    "siteName": "SousChef",
+    "ogImageAlt": "SousChef — Smart recipe generator",
     "generateTitle": "Generate Recipe",
     "recipesTitle": "My Recipes",
     "loginTitle": "Sign In",
@@ -13,7 +13,7 @@
     "termsTitle": "Terms of Service"
   },
   "landing": {
-    "brand": "SousChef AI",
+    "brand": "SousChef",
     "nav": {
       "signIn": "Sign in",
       "getStarted": "Get started"
@@ -67,7 +67,7 @@
     }
   },
   "appHeader": {
-    "brand": "SousChef AI",
+    "brand": "SousChef",
     "mockBadge": "Demo mode",
     "generate": "Generate",
     "myRecipes": "My Recipes",
@@ -161,7 +161,7 @@
     }
   },
   "auth": {
-    "brand": "SousChef AI",
+    "brand": "SousChef",
     "tagline": "Turn your fridge into a feast",
     "login": {
       "title": "Welcome back",
