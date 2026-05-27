@@ -154,6 +154,30 @@ describe("localStorage utility", () => {
 
       expect(result).toEqual({ userId: TEST_USER_ID, ingredients: [] });
     });
+
+    it("should return null when ingredients array contains non-string elements (objects)", () => {
+      localStorageMock[STORAGE_KEY] = JSON.stringify({ userId: TEST_USER_ID, ingredients: [{}] });
+
+      const result = getGenerateState(TEST_USER_ID);
+
+      expect(result).toBeNull();
+    });
+
+    it("should return null when ingredients array contains non-string elements (numbers)", () => {
+      localStorageMock[STORAGE_KEY] = JSON.stringify({ userId: TEST_USER_ID, ingredients: [1, 2, 3] });
+
+      const result = getGenerateState(TEST_USER_ID);
+
+      expect(result).toBeNull();
+    });
+
+    it("should return null when ingredients array contains mixed types", () => {
+      localStorageMock[STORAGE_KEY] = JSON.stringify({ userId: TEST_USER_ID, ingredients: ["tomato", 123, null] });
+
+      const result = getGenerateState(TEST_USER_ID);
+
+      expect(result).toBeNull();
+    });
   });
 
   describe("clearGenerateState", () => {

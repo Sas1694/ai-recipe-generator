@@ -80,28 +80,28 @@ export function GenerateContent({ userId }: GenerateContentProps) {
   const t = useTranslations("generate");
   const tErrors = useTranslations("errors");
   
-  // Initialize state with localStorage restore logic
-  const initialState = () => {
-    const savedState = getGenerateState(userId);
-    if (savedState && savedState.ingredients.length > 0) {
-      return {
-        step: "review" as Step,
-        ingredients: savedState.ingredients,
-      };
-    }
-    return {
-      step: "upload" as Step,
-      ingredients: [] as string[],
-    };
-  };
-
-  const { step: initialStep, ingredients: initialIngredients } = initialState();
-  const [step, setStep] = useState<Step>(initialStep);
-  const [ingredients, setIngredients] = useState<string[]>(initialIngredients);
+  // Initialize with SSR-safe defaults
+  const [step, setStep] = useState<Step>("upload");
+  const [ingredients, setIngredients] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recipe, setRecipe] = useState<RecipeDTO | null>(null);
   const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const hasHydratedRef = useRef(false);
+
+  // Restore saved state after mount (hydration-safe)
+  // This is an intentional exception: we need to sync localStorage after SSR to avoid hydration mismatch
+  useEffect(() => {
+    if (hasHydratedRef.current) return;
+    hasHydratedRef.current = true;
+
+    const savedState = getGenerateState(userId);
+    if (savedState && savedState.ingredients.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIngredients(savedState.ingredients);
+      setStep("review");
+    }
+  }, [userId]);
 
   useEffect(() => {
     stepHeadingRef.current?.focus();

@@ -55,6 +55,11 @@ export function getGenerateState(userId: string): GenerateState | null {
       return null;
     }
 
+    // Validate that every ingredient is a string
+    if (!parsed.ingredients.every((item: unknown) => typeof item === "string")) {
+      return null;
+    }
+
     // Verify userId matches (privacy/security check)
     if (parsed.userId !== userId) {
       return null;
