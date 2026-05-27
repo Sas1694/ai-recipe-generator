@@ -10,6 +10,11 @@ import { generateRecipeAction } from "@/modules/recipe/actions/generateRecipeAct
 import { ChefHat, CheckCircle2, Users } from "lucide-react";
 import type { RecipeDTO } from "@/modules/recipe/types";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import {
+  saveGenerateState,
+  getGenerateState,
+  clearGenerateState,
+} from "@/lib/localStorage";
 
 type Step = "upload" | "review" | "generating" | "result";
 
@@ -66,16 +71,37 @@ function StepIndicator({ current }: { current: Step }) {
   );
 }
 
-export function GenerateContent() {
+interface GenerateContentProps {
+  userId: string;
+}
+
+export function GenerateContent({ userId }: GenerateContentProps) {
   const router = useRouter();
   const t = useTranslations("generate");
   const tErrors = useTranslations("errors");
+  
+  // Initialize with SSR-safe defaults
   const [step, setStep] = useState<Step>("upload");
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recipe, setRecipe] = useState<RecipeDTO | null>(null);
   const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const hasHydratedRef = useRef(false);
+
+  // Restore saved state after mount (hydration-safe)
+  // This is an intentional exception: we need to sync localStorage after SSR to avoid hydration mismatch
+  useEffect(() => {
+    if (hasHydratedRef.current) return;
+    hasHydratedRef.current = true;
+
+    const savedState = getGenerateState(userId);
+    if (savedState && savedState.ingredients.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIngredients(savedState.ingredients);
+      setStep("review");
+    }
+  }, [userId]);
 
   useEffect(() => {
     stepHeadingRef.current?.focus();
@@ -89,6 +115,7 @@ export function GenerateContent() {
     const result = await detectIngredientsAction(formData);
     if (result.success) {
       setIngredients(result.data);
+      saveGenerateState({ userId, ingredients: result.data });
       setStep("review");
     } else {
       setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
@@ -102,6 +129,7 @@ export function GenerateContent() {
     const result = await generateRecipeAction(confirmedIngredients);
     if (result.success) {
       setRecipe(result.data);
+      clearGenerateState();
       setStep("result");
     } else {
       setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
@@ -110,6 +138,7 @@ export function GenerateContent() {
   }
 
   function handleBack() {
+    clearGenerateState();
     setStep("upload");
     setIngredients([]);
     setError(null);
@@ -117,6 +146,7 @@ export function GenerateContent() {
   }
 
   function handleStartOver() {
+    clearGenerateState();
     setStep("upload");
     setIngredients([]);
     setError(null);
