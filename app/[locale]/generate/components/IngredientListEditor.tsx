@@ -84,7 +84,7 @@ export function IngredientListEditor({
           onChange={(e) => setNewIngredient(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={t("placeholder")}
-          className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm text-zinc-800 placeholder:text-zinc-400 outline-none transition-colors focus:border-orange-400 focus:ring-2 focus:ring-orange-400/15"
+          className="flex-1 rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-base md:text-sm text-zinc-800 placeholder:text-zinc-400 outline-none transition-colors focus:border-orange-400 focus:ring-2 focus:ring-orange-400/15"
         />
         <button
           type="button"
