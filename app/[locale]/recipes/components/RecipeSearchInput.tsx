@@ -62,7 +62,7 @@ export function RecipeSearchInput() {
         onChange={handleChange}
         placeholder={t("placeholder")}
         aria-label={t("inputLabel")}
-        className="h-10 w-full rounded-xl border border-zinc-200 bg-white pl-9 pr-9 text-sm text-zinc-800 placeholder:text-zinc-400 focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-100 [&::-webkit-search-cancel-button]:hidden"
+        className="h-10 w-full rounded-xl border border-zinc-200 bg-white pl-9 pr-9 text-base md:text-sm text-zinc-800 placeholder:text-zinc-400 focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-100 [&::-webkit-search-cancel-button]:hidden"
       />
       {value && (
         <button
