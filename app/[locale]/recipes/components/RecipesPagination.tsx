@@ -28,10 +28,11 @@ export async function RecipesPagination({
   const isLast = page >= totalPages;
 
   return (
+    <nav aria-label={t("navLabel")}>
     <div className="flex items-center justify-between gap-4">
       {isFirst ? (
         <span className="flex cursor-not-allowed items-center gap-1.5 rounded-xl border border-zinc-100 bg-zinc-50 px-4 py-2 text-sm font-medium text-zinc-300 select-none">
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft aria-hidden="true" className="h-4 w-4" />
           {t("prev")}
         </span>
       ) : (
@@ -39,7 +40,7 @@ export async function RecipesPagination({
           href={buildHref(page - 1)}
           className="flex items-center gap-1.5 rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-600 transition-colors hover:border-orange-200 hover:text-orange-600"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft aria-hidden="true" className="h-4 w-4" />
           {t("prev")}
         </Link>
       )}
@@ -51,7 +52,7 @@ export async function RecipesPagination({
       {isLast ? (
         <span className="flex cursor-not-allowed items-center gap-1.5 rounded-xl border border-zinc-100 bg-zinc-50 px-4 py-2 text-sm font-medium text-zinc-300 select-none">
           {t("next")}
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight aria-hidden="true" className="h-4 w-4" />
         </span>
       ) : (
         <Link
@@ -59,9 +60,10 @@ export async function RecipesPagination({
           className="flex items-center gap-1.5 rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-600 transition-colors hover:border-orange-200 hover:text-orange-600"
         >
           {t("next")}
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight aria-hidden="true" className="h-4 w-4" />
         </Link>
       )}
     </div>
+    </nav>
   );
 }

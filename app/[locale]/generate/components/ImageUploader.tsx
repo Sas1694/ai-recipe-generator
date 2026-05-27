@@ -78,8 +78,8 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
               className="object-cover"
             />
             {loading && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/80 backdrop-blur-sm">
-                <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-200 border-t-orange-500" />
+              <div role="status" aria-live="polite" aria-label={t("loadingStatus")} className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/80 backdrop-blur-sm">
+                <div aria-hidden="true" className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-200 border-t-orange-500" />
                 <p className="text-xs font-medium text-zinc-600">
                   {t("detecting")}
                 </p>
@@ -116,6 +116,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
             }`}
           >
             <UploadCloud
+              aria-hidden="true"
               className={`h-7 w-7 transition-colors ${
                 isDragging ? "text-orange-500" : "text-zinc-400"
               }`}
@@ -136,7 +137,7 @@ export function ImageUploader({ onImageSelected, loading }: ImageUploaderProps) 
             </p>
           </div>
           {error && (
-            <p className="rounded-lg bg-red-50 px-3 py-1.5 text-xs text-red-600">
+            <p role="alert" className="rounded-lg bg-red-50 px-3 py-1.5 text-xs text-red-600">
               {error}
             </p>
           )}

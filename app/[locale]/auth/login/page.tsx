@@ -30,7 +30,7 @@ function LoginForm() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
+    <main id="main-content" className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0"
@@ -43,7 +43,7 @@ function LoginForm() {
         <AnimatedSection delay={0} className="flex flex-col items-center gap-3 text-center">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/15">
-              <ChefHat className="h-5 w-5 text-orange-400" />
+              <ChefHat aria-hidden="true" className="h-5 w-5 text-orange-400" />
             </div>
             <span className="text-xl font-bold tracking-tight text-zinc-100">
               {t("brand")}
@@ -58,12 +58,12 @@ function LoginForm() {
 
           <form action={handleSubmit} className="mt-6 space-y-4">
             {registered && (
-              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3 text-sm text-emerald-400">
+              <div role="alert" className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3 text-sm text-emerald-400">
                 {t("login.successBanner")}
               </div>
             )}
             {error && (
-              <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
+              <div role="alert" className="rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
                 {error}
               </div>
             )}
@@ -95,11 +95,12 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
+              aria-busy={loading}
               className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 active:bg-orange-400 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
-                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <svg aria-hidden="true" className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
@@ -125,7 +126,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <LoginForm />
     </Suspense>
   );

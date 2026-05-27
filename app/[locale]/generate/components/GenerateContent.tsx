@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ImageUploader } from "./ImageUploader";
@@ -10,66 +10,102 @@ import { generateRecipeAction } from "@/modules/recipe/actions/generateRecipeAct
 import { ChefHat, CheckCircle2, Users } from "lucide-react";
 import type { RecipeDTO } from "@/modules/recipe/types";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import {
+  saveGenerateState,
+  getGenerateState,
+  clearGenerateState,
+} from "@/lib/localStorage";
 
 type Step = "upload" | "review" | "generating" | "result";
 
 function StepIndicator({ current }: { current: Step }) {
-  const t = useTranslations("generate.steps");
+  const t = useTranslations("generate");
+  const tSteps = useTranslations("generate.steps");
   const STEPS: { key: Step; label: string }[] = [
-    { key: "upload", label: t("upload") },
-    { key: "review", label: t("review") },
-    { key: "generating", label: t("generate") },
-    { key: "result", label: t("done") },
+    { key: "upload", label: tSteps("upload") },
+    { key: "review", label: tSteps("review") },
+    { key: "generating", label: tSteps("generate") },
+    { key: "result", label: tSteps("done") },
   ];
   const idx = STEPS.findIndex((s) => s.key === current);
   return (
-    <div className="flex items-center justify-center gap-1">
-      {STEPS.map((step, i) => {
-        const done = i < idx;
-        const active = i === idx;
-        return (
-          <div key={step.key} className="flex items-center gap-1">
-            <div
-              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all duration-300 ${
-                done
-                  ? "bg-orange-500 text-white"
-                  : active
-                  ? "bg-orange-500/12 text-orange-600 ring-2 ring-orange-500/30"
-                  : "bg-zinc-100 text-zinc-400"
-              }`}
-            >
-              {done ? <CheckCircle2 className="h-4 w-4" /> : i + 1}
-            </div>
-            <span
-              className={`text-xs font-medium hidden sm:block ${
-                active ? "text-zinc-800" : "text-zinc-400"
-              }`}
-            >
-              {step.label}
-            </span>
-            {i < STEPS.length - 1 && (
+    <nav aria-label={t("stepsNavLabel")}>
+      <ol className="flex items-center justify-center gap-1">
+        {STEPS.map((step, i) => {
+          const done = i < idx;
+          const active = i === idx;
+          return (
+            <li key={step.key} className="flex items-center gap-1">
               <div
-                className={`h-px w-5 sm:w-8 mx-0.5 ${
-                  i < idx ? "bg-orange-400/60" : "bg-zinc-200"
+                aria-current={active ? "step" : undefined}
+                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all duration-300 ${
+                  done
+                    ? "bg-orange-500 text-white"
+                    : active
+                    ? "bg-orange-500/12 text-orange-600 ring-2 ring-orange-500/30"
+                    : "bg-zinc-100 text-zinc-400"
                 }`}
-              />
-            )}
-          </div>
-        );
-      })}
-    </div>
+              >
+                {done ? <CheckCircle2 aria-hidden="true" className="h-4 w-4" /> : i + 1}
+              </div>
+              <span
+                className={`text-xs font-medium hidden sm:block ${
+                  active ? "text-zinc-800" : "text-zinc-400"
+                }`}
+              >
+                {step.label}
+              </span>
+              {i < STEPS.length - 1 && (
+                <div
+                  aria-hidden="true"
+                  className={`h-px w-5 sm:w-8 mx-0.5 ${
+                    i < idx ? "bg-orange-400/60" : "bg-zinc-200"
+                  }`}
+                />
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
   );
 }
 
-export function GenerateContent() {
+interface GenerateContentProps {
+  userId: string;
+}
+
+export function GenerateContent({ userId }: GenerateContentProps) {
   const router = useRouter();
   const t = useTranslations("generate");
   const tErrors = useTranslations("errors");
+  
+  // Initialize with SSR-safe defaults
   const [step, setStep] = useState<Step>("upload");
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recipe, setRecipe] = useState<RecipeDTO | null>(null);
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const hasHydratedRef = useRef(false);
+
+  // Restore saved state after mount (hydration-safe)
+  // This is an intentional exception: we need to sync localStorage after SSR to avoid hydration mismatch
+  useEffect(() => {
+    if (hasHydratedRef.current) return;
+    hasHydratedRef.current = true;
+
+    const savedState = getGenerateState(userId);
+    if (savedState && savedState.ingredients.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIngredients(savedState.ingredients);
+      setStep("review");
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    stepHeadingRef.current?.focus();
+  }, [step]);
 
   async function handleImageSelected(file: File) {
     setError(null);
@@ -79,6 +115,7 @@ export function GenerateContent() {
     const result = await detectIngredientsAction(formData);
     if (result.success) {
       setIngredients(result.data);
+      saveGenerateState({ userId, ingredients: result.data });
       setStep("review");
     } else {
       setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
@@ -92,6 +129,7 @@ export function GenerateContent() {
     const result = await generateRecipeAction(confirmedIngredients);
     if (result.success) {
       setRecipe(result.data);
+      clearGenerateState();
       setStep("result");
     } else {
       setError(tErrors(result.error as Parameters<typeof tErrors>[0]));
@@ -100,6 +138,7 @@ export function GenerateContent() {
   }
 
   function handleBack() {
+    clearGenerateState();
     setStep("upload");
     setIngredients([]);
     setError(null);
@@ -107,6 +146,7 @@ export function GenerateContent() {
   }
 
   function handleStartOver() {
+    clearGenerateState();
     setStep("upload");
     setIngredients([]);
     setError(null);
@@ -117,7 +157,7 @@ export function GenerateContent() {
     <div className="w-full max-w-lg space-y-8">
       {/* Header */}
       <AnimatedSection className="space-y-4 text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
+        <h1 ref={stepHeadingRef} tabIndex={-1} className="text-2xl font-bold tracking-tight text-zinc-900 outline-none">
           {t("title")}
         </h1>
         <StepIndicator current={step} />
@@ -125,7 +165,7 @@ export function GenerateContent() {
 
       {/* Error */}
       {error && (
-        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
         </div>
       )}
@@ -157,9 +197,9 @@ export function GenerateContent() {
       {/* Generating */}
       {step === "generating" && (
         <AnimatedSection className="space-y-6">
-          <div className="flex flex-col items-center gap-5 py-10">
+          <div role="status" aria-live="polite" aria-label={t("generatingStatus")} className="flex flex-col items-center gap-5 py-10">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-500/10">
-              <ChefHat className="h-8 w-8 animate-pulse text-orange-500" />
+              <ChefHat aria-hidden="true" className="h-8 w-8 animate-pulse text-orange-500" />
             </div>
             <div className="text-center">
               <p className="font-semibold text-zinc-800">{t("loading.title")}</p>
@@ -188,7 +228,7 @@ export function GenerateContent() {
               <h2 className="text-xl font-bold text-zinc-900">{recipe.title}</h2>
               <p className="mt-1 text-sm text-zinc-600">{recipe.description}</p>
               <p className="mt-2 flex items-center gap-1.5 text-xs text-zinc-400">
-                <Users className="h-3.5 w-3.5" />
+                <Users aria-hidden="true" className="h-3.5 w-3.5" />
                 {t("result.serves", { servings: recipe.servings })}
               </p>
             </div>
@@ -233,12 +273,14 @@ export function GenerateContent() {
 
           <div className="flex gap-3">
             <button
+              type="button"
               onClick={() => router.push(`/recipes/${recipe.id}`)}
               className="flex-1 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 active:bg-orange-400 cursor-pointer"
             >
               {t("result.viewFullRecipe")}
             </button>
             <button
+              type="button"
               onClick={handleStartOver}
               className="flex-1 rounded-xl border border-zinc-200 bg-white py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-800 active:border-zinc-300 active:text-zinc-800 cursor-pointer"
             >

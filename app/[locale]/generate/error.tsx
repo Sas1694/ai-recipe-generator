@@ -16,7 +16,7 @@ export default function GenerateError({
   }, [error]);
 
   return (
-    <main className="max-w-xl mx-auto px-4 py-16 text-center space-y-4">
+    <main id="main-content" className="max-w-xl mx-auto px-4 py-16 text-center space-y-4">
         <h2 className="text-xl font-semibold text-foreground">
           Failed to process your request
         </h2>
