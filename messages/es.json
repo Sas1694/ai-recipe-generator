@@ -139,7 +139,9 @@
       "serves": "Para {count}"
     },
     "search": {
-      "placeholder": "Buscar recetas\u2026",      "inputLabel": "Buscar recetas",      "clear": "Limpiar b\u00fasqueda",
+      "placeholder": "Buscar recetas\u2026",
+      "inputLabel": "Buscar recetas",
+      "clear": "Limpiar b\u00fasqueda",
       "noResults": "No se encontraron recetas para \u201c{query}\u201d",
       "noResultsHint": "Prueba con otro t\u00e9rmino de b\u00fasqueda."
     },
@@ -191,7 +193,9 @@
       "emailLabel": "Email",
       "emailPlaceholder": "nombre@ejemplo.com",
       "passwordLabel": "Contraseña",
-      "passwordPlaceholder": "Al menos 6 caracteres",      "passwordHint": "Usa al menos 6 caracteres",      "creating": "Creando cuenta…",
+      "passwordPlaceholder": "Al menos 6 caracteres",
+      "passwordHint": "Usa al menos 6 caracteres",
+      "creating": "Creando cuenta\u2026",
       "create": "Crear cuenta",
       "hasAccount": "¿Ya tienes una cuenta?",
       "signIn": "Iniciar sesión"
