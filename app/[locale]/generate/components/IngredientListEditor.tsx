@@ -16,17 +16,21 @@ export function IngredientListEditor({
   const t = useTranslations("ingredientEditor");
   const [ingredients, setIngredients] = useState<string[]>(initialIngredients);
   const [newIngredient, setNewIngredient] = useState("");
+  const [announcement, setAnnouncement] = useState("");
 
   function handleAdd() {
     const trimmed = newIngredient.trim().toLowerCase();
     if (trimmed && !ingredients.includes(trimmed)) {
       setIngredients([...ingredients, trimmed]);
       setNewIngredient("");
+      setAnnouncement(t("ingredientAdded", { ingredient: trimmed }));
     }
   }
 
   function handleRemove(index: number) {
+    const removed = ingredients[index];
     setIngredients(ingredients.filter((_, i) => i !== index));
+    setAnnouncement(t("ingredientRemoved", { ingredient: removed }));
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -51,13 +55,13 @@ export function IngredientListEditor({
       <div className="min-h-[80px] rounded-2xl border border-zinc-200 bg-white p-4">
         {ingredients.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-4 text-center">
-            <Sparkles className="h-5 w-5 text-zinc-300" />
+            <Sparkles aria-hidden="true" className="h-5 w-5 text-zinc-300" />
             <p className="text-sm text-zinc-400">{t("empty")}</p>
           </div>
         ) : (
-          <div className="flex flex-wrap gap-2">
+          <ul aria-label={t("listLabel")} className="flex flex-wrap gap-2">
             {ingredients.map((ingredient, index) => (
-              <span
+              <li
                 key={`${ingredient}-${index}`}
                 className="flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-sm font-medium text-orange-700"
               >
@@ -68,17 +72,22 @@ export function IngredientListEditor({
                   aria-label={t("removeAriaLabel", { ingredient })}
                   className="mt-px text-orange-400 transition-colors hover:text-orange-600 active:text-orange-600 cursor-pointer"
                 >
-                  <X className="h-3.5 w-3.5" />
+                  <X aria-hidden="true" className="h-3.5 w-3.5" />
                 </button>
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
 
+      {/* Live region for AT announcements */}
+      <p aria-live="polite" aria-atomic="true" className="sr-only">{announcement}</p>
+
       {/* Add input */}
       <div className="flex gap-2">
+        <label htmlFor="new-ingredient" className="sr-only">{t("inputLabel")}</label>
         <input
+          id="new-ingredient"
           type="text"
           value={newIngredient}
           onChange={(e) => setNewIngredient(e.target.value)}
@@ -93,7 +102,7 @@ export function IngredientListEditor({
           aria-label={t("addAriaLabel")}
           className="flex h-[42px] w-[42px] items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-500 transition-colors hover:border-orange-400 hover:text-orange-500 active:border-orange-400 active:text-orange-500 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
         >
-          <Plus className="h-4 w-4" />
+          <Plus aria-hidden="true" className="h-4 w-4" />
         </button>
       </div>
 
@@ -102,10 +111,14 @@ export function IngredientListEditor({
         type="button"
         onClick={() => onConfirm(ingredients)}
         disabled={ingredients.length === 0}
+        aria-describedby={ingredients.length === 0 ? "confirm-hint" : undefined}
         className="w-full rounded-xl bg-orange-500 py-3 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-orange-400 active:bg-orange-400 disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
       >
         {t("confirmButton", { count: ingredients.length })}
       </button>
+      {ingredients.length === 0 && (
+        <p id="confirm-hint" className="sr-only">{t("confirmDisabledHint")}</p>
+      )}
     </div>
   );
 }

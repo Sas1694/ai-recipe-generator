@@ -1,4 +1,5 @@
 {
+  "skipNav": "Skip to main content",
   "metadata": {
     "title": "SousChef",
     "description": "Upload a photo of your ingredients and get a personalized recipe in seconds.",
@@ -66,10 +67,16 @@
     "mockBadge": "Demo mode",
     "generate": "Generate",
     "myRecipes": "My Recipes",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "navLabel": "Main navigation",
+    "generateAriaLabel": "Generate a recipe",
+    "myRecipesAriaLabel": "My recipes",
+    "loggedInAs": "Logged in as {name}"
   },
   "generate": {
     "title": "Generate a Recipe",
+    "stepsNavLabel": "Recipe generation progress",
+    "generatingStatus": "Generating your recipe, please wait…",
     "steps": {
       "upload": "Upload",
       "review": "Review",
@@ -92,6 +99,7 @@
   "imageUploader": {
     "alt": "Ingredient preview",
     "detecting": "Detecting ingredients…",
+    "loadingStatus": "Detecting ingredients, please wait…",
     "changePh": "Choose a different photo",
     "dropZonePre": "Drop a photo here, or",
     "dropZoneBrowse": "browse",
@@ -107,6 +115,11 @@
     "subtitle": "Remove anything that doesn't belong or add what's missing",
     "empty": "No ingredients yet. Add some below.",
     "placeholder": "Add an ingredient…",
+    "inputLabel": "New ingredient",
+    "listLabel": "Detected ingredients",
+    "confirmDisabledHint": "Add at least one ingredient to generate a recipe",
+    "ingredientAdded": "{ingredient} added",
+    "ingredientRemoved": "{ingredient} removed",
     "addAriaLabel": "Add ingredient",
     "removeAriaLabel": "Remove {ingredient}",
     "confirmButton": "{count, plural, one {Generate recipe with # ingredient →} other {Generate recipe with # ingredients →}}"
@@ -127,6 +140,7 @@
     },
     "search": {
       "placeholder": "Search recipes…",
+      "inputLabel": "Search recipes",
       "clear": "Clear search",
       "noResults": "No recipes found for \u201c{query}\u201d",
       "noResultsHint": "Try a different search term."
@@ -134,7 +148,8 @@
     "pagination": {
       "prev": "Previous",
       "next": "Next",
-      "page": "Page {current} of {total}"
+      "page": "Page {current} of {total}",
+      "navLabel": "Pagination"
     }
   },
   "recipeDetail": {
@@ -147,6 +162,7 @@
   "dishImage": {
     "title": "Dish Image",
     "loading": "Creating your dish image…",
+    "loadingStatus": "Creating dish image, please wait…",
     "alt": "Dish image",
     "empty": {
       "title": "See how your dish looks",
@@ -178,6 +194,7 @@
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "Password",
       "passwordPlaceholder": "At least 6 characters",
+      "passwordHint": "Use at least 6 characters",
       "creating": "Creating account…",
       "create": "Create account",
       "hasAccount": "Already have an account?",

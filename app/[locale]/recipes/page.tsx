@@ -22,7 +22,7 @@ export default async function RecipesPage({
   const locale = await getLocale();
 
   return (
-    <main className="flex flex-1 items-start justify-center px-4 py-10">
+    <main id="main-content" className="flex flex-1 items-start justify-center px-4 py-10">
         <div className="w-full max-w-2xl space-y-6">
           {/* Header */}
           <AnimatedSection className="flex items-center justify-between">
@@ -40,7 +40,7 @@ export default async function RecipesPage({
               href="/generate"
               className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 active:bg-orange-400"
             >
-              <Plus className="h-4 w-4" />
+              <Plus aria-hidden="true" className="h-4 w-4" />
               {t("newRecipe")}
             </Link>
           </AnimatedSection>
@@ -52,7 +52,7 @@ export default async function RecipesPage({
 
           {/* Error */}
           {!result.success && (
-            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {tErrors(result.error)}
             </div>
           )}
@@ -61,7 +61,7 @@ export default async function RecipesPage({
           {result.success && result.data.total === 0 && !query && (
             <AnimatedSection delay={100} className="flex flex-col items-center gap-5 rounded-2xl border-2 border-dashed border-zinc-200 py-20 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-50">
-                <ChefHat className="h-8 w-8 text-orange-400" />
+                <ChefHat aria-hidden="true" className="h-8 w-8 text-orange-400" />
               </div>
               <div>
                 <p className="font-semibold text-zinc-800">{t("empty.title")}</p>
@@ -73,7 +73,7 @@ export default async function RecipesPage({
                 href="/generate"
                 className="flex items-center gap-1.5 rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 transition-colors hover:bg-orange-400 active:bg-orange-400"
               >
-                <Plus className="h-4 w-4" />
+                <Plus aria-hidden="true" className="h-4 w-4" />
                 {t("empty.cta")}
               </Link>
             </AnimatedSection>
@@ -108,20 +108,20 @@ export default async function RecipesPage({
                       </p>
                     </div>
                     <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-50 transition-colors group-hover:bg-orange-100 group-active:bg-orange-100">
-                      <ChefHat className="h-4 w-4 text-orange-400" />
+                      <ChefHat aria-hidden="true" className="h-4 w-4 text-orange-400" />
                     </div>
                   </div>
                   <div className="mt-4 flex items-center gap-3 text-xs text-zinc-400">
                     <span className="flex items-center gap-1">
-                      <Layers className="h-3.5 w-3.5" />
+                      <Layers aria-hidden="true" className="h-3.5 w-3.5" />
                       {t("card.ingredients", { count: recipe.ingredients.length })}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5" />
+                      <Clock aria-hidden="true" className="h-3.5 w-3.5" />
                       {t("card.steps", { count: recipe.steps.length })}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Users className="h-3.5 w-3.5" />
+                      <Users aria-hidden="true" className="h-3.5 w-3.5" />
                       {t("card.serves", { count: recipe.servings })}
                     </span>
                     <span className="ml-auto">

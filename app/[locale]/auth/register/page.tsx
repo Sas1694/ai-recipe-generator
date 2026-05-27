@@ -28,7 +28,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
+    <main id="main-content" className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0"
@@ -41,7 +41,7 @@ export default function RegisterPage() {
         <AnimatedSection delay={0} className="flex flex-col items-center gap-3 text-center">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/15">
-              <ChefHat className="h-5 w-5 text-orange-400" />
+              <ChefHat aria-hidden="true" className="h-5 w-5 text-orange-400" />
             </div>
             <span className="text-xl font-bold tracking-tight text-zinc-100">
               {t("brand")}
@@ -56,7 +56,7 @@ export default function RegisterPage() {
 
           <form action={handleSubmit} className="mt-6 space-y-4">
             {error && (
-              <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
+              <div role="alert" className="rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
                 {error}
               </div>
             )}
@@ -97,17 +97,22 @@ export default function RegisterPage() {
                 minLength={6}
                 placeholder={t("register.passwordPlaceholder")}
                 required
+                aria-describedby="password-hint"
                 className="w-full rounded-xl border border-white/8 bg-zinc-800/60 px-4 py-2.5 text-base md:text-sm text-zinc-100 placeholder:text-zinc-600 outline-none transition-colors focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/15"
               />
+              <p id="password-hint" className="text-xs text-zinc-500">
+                {t("register.passwordHint")}
+              </p>
             </div>
             <button
               type="submit"
               disabled={loading}
+              aria-busy={loading}
               className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-400 active:bg-orange-400 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
-                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <svg aria-hidden="true" className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>

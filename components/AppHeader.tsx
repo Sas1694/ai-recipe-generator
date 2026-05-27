@@ -17,7 +17,7 @@ export async function AppHeader() {
           <div className="flex items-center gap-2">
             <Link href="/generate" className="flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-orange-500/15">
-                <ChefHat className="h-4 w-4 text-orange-400" />
+                <ChefHat aria-hidden="true" className="h-4 w-4 text-orange-400" />
               </div>
               <span className="whitespace-nowrap text-sm font-semibold tracking-tight text-zinc-100 sm:text-base">
                 {t("brand")}
@@ -25,25 +25,28 @@ export async function AppHeader() {
             </Link>
             {isMockAI && (
               <div className="flex items-center gap-1.5 rounded-lg border border-amber-400/50 bg-amber-400/15 px-2 py-1 text-xs font-semibold text-amber-300 sm:px-2.5">
-                <FlaskConical className="h-3.5 w-3.5 shrink-0" />
+                <FlaskConical aria-hidden="true" className="h-3.5 w-3.5 shrink-0" />
                 <span className="hidden sm:inline">{t("mockBadge")}</span>
               </div>
             )}
           </div>
-          <nav className="flex gap-1">
-            <Link href="/generate" className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 active:text-zinc-100 sm:px-3">
-              <Sparkles className="h-4 w-4 shrink-0 sm:hidden" />
+          <nav aria-label={t("navLabel")} className="flex gap-1">
+            <Link href="/generate" aria-label={t("generateAriaLabel")} className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 active:text-zinc-100 sm:px-3">
+              <Sparkles aria-hidden="true" className="h-4 w-4 shrink-0 sm:hidden" />
               <span className="hidden sm:inline">{t("generate")}</span>
             </Link>
-            <Link href="/recipes" className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 active:text-zinc-100 sm:px-3">
-              <BookOpen className="h-4 w-4 shrink-0 sm:hidden" />
+            <Link href="/recipes" aria-label={t("myRecipesAriaLabel")} className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-100 active:text-zinc-100 sm:px-3">
+              <BookOpen aria-hidden="true" className="h-4 w-4 shrink-0 sm:hidden" />
               <span className="hidden sm:inline">{t("myRecipes")}</span>
             </Link>
           </nav>
         </div>
         <div className="flex items-center gap-3">
           {session?.user?.name && (
-            <div className="hidden h-8 w-8 items-center justify-center rounded-full bg-orange-500/15 text-xs font-bold text-orange-400 sm:flex">
+            <div
+              aria-label={t("loggedInAs", { name: session.user.name })}
+              className="hidden h-8 w-8 items-center justify-center rounded-full bg-orange-500/15 text-xs font-bold text-orange-400 sm:flex"
+            >
               {session.user.name.charAt(0).toUpperCase()}
             </div>
           )}

@@ -1,4 +1,5 @@
 {
+  "skipNav": "Saltar al contenido principal",
   "metadata": {
     "title": "SousChef",
     "description": "Sube una foto de tus ingredientes y obtén una receta personalizada en segundos.",
@@ -66,10 +67,16 @@
     "mockBadge": "Modo demo",
     "generate": "Generar",
     "myRecipes": "Mis Recetas",
-    "signOut": "Cerrar sesión"
+    "signOut": "Cerrar sesión",
+    "navLabel": "Navegación principal",
+    "generateAriaLabel": "Generar una receta",
+    "myRecipesAriaLabel": "Mis recetas",
+    "loggedInAs": "Sesión iniciada como {name}"
   },
   "generate": {
     "title": "Generar Receta",
+    "stepsNavLabel": "Progreso de generación de receta",
+    "generatingStatus": "Generando tu receta, por favor espera…",
     "steps": {
       "upload": "Subir",
       "review": "Revisar",
@@ -92,6 +99,7 @@
   "imageUploader": {
     "alt": "Vista previa de ingredientes",
     "detecting": "Detectando ingredientes…",
+    "loadingStatus": "Detectando ingredientes, por favor espera…",
     "changePh": "Elegir una foto diferente",
     "dropZonePre": "Arrastra aquí una foto o",
     "dropZoneBrowse": "busca",
@@ -107,6 +115,11 @@
     "subtitle": "Elimina lo que no corresponde o añade lo que falta",
     "empty": "Sin ingredientes aún. Añade algunos abajo.",
     "placeholder": "Añadir un ingrediente…",
+    "inputLabel": "Nuevo ingrediente",
+    "listLabel": "Ingredientes detectados",
+    "confirmDisabledHint": "Añade al menos un ingrediente para generar una receta",
+    "ingredientAdded": "{ingredient} añadido",
+    "ingredientRemoved": "{ingredient} eliminado",
     "addAriaLabel": "Añadir ingrediente",
     "removeAriaLabel": "Eliminar {ingredient}",
     "confirmButton": "{count, plural, one {Generar receta con # ingrediente →} other {Generar receta con # ingredientes →}}"
@@ -126,15 +139,15 @@
       "serves": "Para {count}"
     },
     "search": {
-      "placeholder": "Buscar recetas\u2026",
-      "clear": "Limpiar b\u00fasqueda",
+      "placeholder": "Buscar recetas\u2026",      "inputLabel": "Buscar recetas",      "clear": "Limpiar b\u00fasqueda",
       "noResults": "No se encontraron recetas para \u201c{query}\u201d",
       "noResultsHint": "Prueba con otro t\u00e9rmino de b\u00fasqueda."
     },
     "pagination": {
       "prev": "Anterior",
       "next": "Siguiente",
-      "page": "P\u00e1gina {current} de {total}"
+      "page": "P\u00e1gina {current} de {total}",
+      "navLabel": "Paginaci\u00f3n"
     }
   },
   "recipeDetail": {
@@ -147,6 +160,7 @@
   "dishImage": {
     "title": "Imagen del Plato",
     "loading": "Generando la imagen de tu plato…",
+    "loadingStatus": "Generando imagen del plato, por favor espera…",
     "alt": "Imagen del plato",
     "empty": {
       "title": "Ve cómo queda tu plato",
@@ -177,8 +191,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "nombre@ejemplo.com",
       "passwordLabel": "Contraseña",
-      "passwordPlaceholder": "Al menos 6 caracteres",
-      "creating": "Creando cuenta…",
+      "passwordPlaceholder": "Al menos 6 caracteres",      "passwordHint": "Usa al menos 6 caracteres",      "creating": "Creando cuenta…",
       "create": "Crear cuenta",
       "hasAccount": "¿Ya tienes una cuenta?",
       "signIn": "Iniciar sesión"
