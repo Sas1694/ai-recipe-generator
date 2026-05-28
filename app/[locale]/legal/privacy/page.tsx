@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ChefHat } from "lucide-react";
+import { LegalContent } from "../components/LegalContent";
 
 export default async function PrivacyPage() {
   const t = await getTranslations("legal");
@@ -15,6 +16,9 @@ export default async function PrivacyPage() {
     { title: tp("s6Title"), content: tp("s6") },
     { title: tp("s7Title"), content: tp("s7") },
     { title: tp("s8Title"), content: tp("s8") },
+    { title: tp("s9Title"), content: tp("s9") },
+    { title: tp("s10Title"), content: tp("s10") },
+    { title: tp("s11Title"), content: tp("s11") },
   ] as const;
 
   return (
@@ -41,9 +45,9 @@ export default async function PrivacyPage() {
           {sections.map(({ title, content }) => (
             <section key={title}>
               <h2 className="text-base font-semibold text-zinc-200">{title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                {content}
-              </p>
+              <div className="mt-2 text-sm leading-relaxed text-zinc-400">
+                <LegalContent content={content} />
+              </div>
             </section>
           ))}
         </div>

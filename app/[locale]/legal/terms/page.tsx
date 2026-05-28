@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ChefHat } from "lucide-react";
+import { LegalContent } from "../components/LegalContent";
 
 export default async function TermsPage() {
   const t = await getTranslations("legal");
@@ -14,6 +15,14 @@ export default async function TermsPage() {
     { title: tt("s5Title"), content: tt("s5") },
     { title: tt("s6Title"), content: tt("s6") },
     { title: tt("s7Title"), content: tt("s7") },
+    { title: tt("s8Title"), content: tt("s8") },
+    { title: tt("s9Title"), content: tt("s9") },
+    { title: tt("s10Title"), content: tt("s10") },
+    { title: tt("s11Title"), content: tt("s11") },
+    { title: tt("s12Title"), content: tt("s12") },
+    { title: tt("s13Title"), content: tt("s13") },
+    { title: tt("s14Title"), content: tt("s14") },
+    { title: tt("s15Title"), content: tt("s15") },
   ] as const;
 
   return (
@@ -40,9 +49,9 @@ export default async function TermsPage() {
           {sections.map(({ title, content }) => (
             <section key={title}>
               <h2 className="text-base font-semibold text-zinc-200">{title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                {content}
-              </p>
+              <div className="mt-2 text-sm leading-relaxed text-zinc-400">
+                <LegalContent content={content} />
+              </div>
             </section>
           ))}
         </div>
