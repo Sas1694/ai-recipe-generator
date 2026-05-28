@@ -463,9 +463,10 @@ Este proyecto está licenciado bajo la **Licencia MIT**. Ver el archivo [LICENSE
 
 ## 👨‍💻 Autor
 
-**Sas1694**
+**Sergio Álvaro Sampedro**
 
-- GitHub: [@Sas1694](https://github.com/Sas1694)
+- 🔗 LinkedIn: [linkedin.com/in/sergio-alvaro-sampedro/](https://www.linkedin.com/in/sergio-alvaro-sampedro/)
+- 💻 GitHub: [@Sas1694](https://github.com/Sas1694)
 
 ---
 
