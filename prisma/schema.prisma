@@ -39,7 +39,6 @@ model Recipe {
   images            RecipeImage[]
 
   @@unique([ingredientHash])
-  @@index([createdAt])
 }
 
 // ─── UserRecipe ──────────────────────────────────────────────────────────────

@@ -223,7 +223,7 @@ export const recipeRepository: RecipeRepository = {
 
           await tx.userRecipe.create({ data: { userId, recipeId } });
         },
-        { isolationLevel: "ReadCommitted" }
+        { isolationLevel: "Serializable" }
       );
     } catch (error) {
       if (error instanceof Error) {
