@@ -6,6 +6,7 @@ describe("loginUser", () => {
   const mockUserRepository: UserRepository = {
     createUser: vi.fn(),
     findByEmail: vi.fn(),
+    deleteUser: vi.fn(),
   };
 
   const mockAuthService: AuthService = {

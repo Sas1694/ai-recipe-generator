@@ -221,6 +221,7 @@
     "recipeFetchFailed": "Error al cargar las recetas",
     "invalidCredentials": "Email o contraseña incorrectos",
     "registrationFailed": "El registro falló",
+    "accountDeletionFailed": "Error al eliminar la cuenta",
     "imageGenerationFailed": "La generación de imagen falló",
     "invalidInput": "Entrada no válida",
     "invalidEmail": "Email no válido",

@@ -6,6 +6,7 @@ import { deleteAccountAction } from "@/modules/auth/actions/deleteAccountAction"
 
 export function DeleteAccountSection() {
   const t = useTranslations("settings");
+  const tErrors = useTranslations("errors");
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -15,9 +16,8 @@ export function DeleteAccountSection() {
     setError(null);
     const result = await deleteAccountAction();
     if (!result.success) {
-      setError(result.error ?? "Unknown error");
+      setError(result.error ?? "accountDeletionFailed");
       setDeleting(false);
-      setShowConfirm(false);
     }
   }
 
@@ -50,7 +50,9 @@ export function DeleteAccountSection() {
             {t("confirmDescription")}
           </p>
           {error && (
-            <p className="mt-3 text-xs text-red-400">{error}</p>
+            <p className="mt-3 text-xs text-red-400">
+              {tErrors(error as Parameters<typeof tErrors>[0])}
+            </p>
           )}
           <div className="mt-4 flex gap-3">
             <button

@@ -14,7 +14,7 @@ export async function deleteAccountAction(): Promise<ActionResponse<void>> {
   try {
     await deleteUser(session.user.id, { userRepository });
   } catch {
-    return { success: false, error: "registrationFailed" };
+    return { success: false, error: "accountDeletionFailed" };
   }
 
   await signOut({ redirectTo: "/" });

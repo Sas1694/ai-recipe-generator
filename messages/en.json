@@ -221,6 +221,7 @@
     "recipeFetchFailed": "Failed to load recipes",
     "invalidCredentials": "Invalid email or password",
     "registrationFailed": "Registration failed",
+    "accountDeletionFailed": "Failed to delete account",    
     "imageGenerationFailed": "Image generation failed",
     "invalidInput": "Invalid input",
     "invalidEmail": "Invalid email",

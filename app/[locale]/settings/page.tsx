@@ -15,7 +15,7 @@ export default async function SettingsPage() {
   const { name, email } = session.user;
 
   return (
-    <main className="min-h-screen bg-zinc-950 px-4 py-16 text-zinc-100 sm:px-6">
+    <main id="main-content" className="min-h-screen bg-zinc-950 px-4 py-16 text-zinc-100 sm:px-6">
       <div className="mx-auto max-w-lg">
         <div className="mb-8 flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-orange-500/15">

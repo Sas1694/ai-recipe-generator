@@ -11,10 +11,10 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       const pathname = nextUrl.pathname;
 
-      // Match /generate, /recipes (default locale) and /{locale}/generate, /{locale}/recipes
+      // Match /generate, /recipes, /settings (default locale) and /{locale}/generate, /{locale}/recipes, /{locale}/settings
       const isProtected =
-        /^\/(generate|recipes)(\/.*)?$/.test(pathname) ||
-        /^\/[a-z]{2}\/(generate|recipes)(\/.*)?$/.test(pathname);
+        /^\/(generate|recipes|settings)(\/.*)?$/.test(pathname) ||
+        /^\/[a-z]{2}\/(generate|recipes|settings)(\/.*)?$/.test(pathname);
 
       if (isProtected && !isLoggedIn) {
         return Response.redirect(new URL("/auth/login", nextUrl));

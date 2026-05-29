@@ -1,23 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { getLocalStorageItem, setLocalStorageItem } from "@/lib/localStorage";
 
 const STORAGE_KEY = "cookie-notice-accepted";
 
 export function CookieNoticeBanner() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => {
+    // Solo verificar en el cliente
+    if (typeof window === "undefined") return false;
+    return !getLocalStorageItem(STORAGE_KEY);
+  });
   const t = useTranslations("cookieBanner");
 
-  useEffect(() => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      setVisible(true);
-    }
-  }, []);
-
   function handleAccept() {
-    localStorage.setItem(STORAGE_KEY, "1");
+    setLocalStorageItem(STORAGE_KEY, "1");
     setVisible(false);
   }
 
