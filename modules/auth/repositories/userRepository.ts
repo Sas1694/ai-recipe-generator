@@ -32,4 +32,12 @@ export const userRepository: UserRepository = {
       throw new Error("Failed to retrieve user");
     }
   },
+
+  async deleteUser(id: string): Promise<void> {
+    try {
+      await prisma.user.delete({ where: { id } });
+    } catch {
+      throw new Error("Failed to delete user");
+    }
+  },
 };

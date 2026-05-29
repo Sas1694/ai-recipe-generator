@@ -15,16 +15,48 @@ export interface GenerateState {
 }
 
 /**
+ * Generic helper: Safely reads from localStorage, returning null if unavailable.
+ * Used by other localStorage utilities.
+ */
+export function getLocalStorageItem(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch (error) {
+    console.error("Failed to read from localStorage:", error);
+    return null;
+  }
+}
+
+/**
+ * Generic helper: Safely writes to localStorage, failing silently if unavailable.
+ * Used by other localStorage utilities.
+ */
+export function setLocalStorageItem(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch (error) {
+    console.error("Failed to write to localStorage:", error);
+  }
+}
+
+/**
+ * Generic helper: Safely removes from localStorage, failing silently if unavailable.
+ * Used by other localStorage utilities.
+ */
+export function removeLocalStorageItem(key: string): void {
+  try {
+    localStorage.removeItem(key);
+  } catch (error) {
+    console.error("Failed to remove from localStorage:", error);
+  }
+}
+
+/**
  * Saves the generate state (userId + ingredients) to localStorage.
  * Overwrites any existing state.
  */
 export function saveGenerateState(state: GenerateState): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch (error) {
-    // Silently fail if localStorage is not available (SSR, privacy mode, etc.)
-    console.error("Failed to save generate state to localStorage:", error);
-  }
+  setLocalStorageItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 /**
@@ -35,12 +67,12 @@ export function saveGenerateState(state: GenerateState): void {
  * - userId does not match the stored userId (prevents cross-user leaks)
  */
 export function getGenerateState(userId: string): GenerateState | null {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) {
-      return null;
-    }
+  const stored = getLocalStorageItem(STORAGE_KEY);
+  if (!stored) {
+    return null;
+  }
 
+  try {
     const parsed = JSON.parse(stored);
 
     // Validate structure
@@ -67,7 +99,7 @@ export function getGenerateState(userId: string): GenerateState | null {
 
     return parsed as GenerateState;
   } catch (error) {
-    // Return null on JSON parse error or any other error
+    // Return null on JSON parse error
     console.error("Failed to parse generate state from localStorage:", error);
     return null;
   }
@@ -78,10 +110,5 @@ export function getGenerateState(userId: string): GenerateState | null {
  * Safe to call even if no state exists.
  */
 export function clearGenerateState(): void {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch (error) {
-    // Silently fail if localStorage is not available
-    console.error("Failed to clear generate state from localStorage:", error);
-  }
+  removeLocalStorageItem(STORAGE_KEY);
 }

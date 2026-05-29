@@ -11,6 +11,7 @@ const registerSchema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
   password: z.string().min(6),
+  termsAccepted: z.literal("on"),
 });
 
 export async function registerAction(
@@ -20,11 +21,18 @@ export async function registerAction(
     name: formData.get("name"),
     email: formData.get("email"),
     password: formData.get("password"),
+    termsAccepted: formData.get("termsAccepted"),
   };
 
   const parsed = registerSchema.safeParse(raw);
   if (!parsed.success) {
-    return { success: false, error: "invalidInput" };
+    const hasTermsError = parsed.error.issues.some(
+      (i) => i.path[0] === "termsAccepted"
+    );
+    return {
+      success: false,
+      error: hasTermsError ? "termsRequired" : "invalidInput",
+    };
   }
 
   try {

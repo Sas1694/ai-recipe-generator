@@ -13,11 +13,13 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           "/generate",
           "/recipes",
+          "/settings",
           "/auth",
           "/api",
           "/monitoring",
           "/es/generate",
           "/es/recipes",
+          "/es/settings",
           "/es/auth",
         ],
       },
