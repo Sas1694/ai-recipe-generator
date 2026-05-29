@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { getLocalStorageItem, setLocalStorageItem } from "@/lib/localStorage";
@@ -8,12 +8,16 @@ import { getLocalStorageItem, setLocalStorageItem } from "@/lib/localStorage";
 const STORAGE_KEY = "cookie-notice-accepted";
 
 export function CookieNoticeBanner() {
-  const [visible, setVisible] = useState(() => {
-    // Solo verificar en el cliente
-    if (typeof window === "undefined") return false;
-    return !getLocalStorageItem(STORAGE_KEY);
-  });
+  const [visible, setVisible] = useState(false);
   const t = useTranslations("cookieBanner");
+
+  useEffect(() => {
+    // Verificar después de la hidratación para evitar mismatch
+    if (!getLocalStorageItem(STORAGE_KEY)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVisible(true);
+    }
+  }, []);
 
   function handleAccept() {
     setLocalStorageItem(STORAGE_KEY, "1");
