@@ -84,24 +84,17 @@ export default async function HomePage() {
         <section className="relative overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background: [
-                "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(249,115,22,0.18) 0%, transparent 60%)",
-                "radial-gradient(ellipse 50% 35% at 15% 70%, rgba(234,179,8,0.06) 0%, transparent 55%)",
-                "radial-gradient(ellipse 50% 35% at 85% 20%, rgba(239,68,68,0.05) 0%, transparent 55%)",
-              ].join(", "),
-            }}
+            className="pointer-events-none absolute inset-0 hero-gradient"
           />
           <div className="relative mx-auto max-w-6xl px-4 py-28 text-center sm:px-6 sm:py-36 lg:py-44">
-            <AnimatedSection delay={0}>
+            <AnimatedSection delay={0} immediate>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-1.5 text-xs font-medium text-orange-300">
                 <Sparkles className="h-3 w-3" />
                 {t("hero.badge")}
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={100}>
+            <AnimatedSection delay={100} immediate>
               <h1 className="mx-auto max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
                 {t("hero.h1Start")}{" "}
                 <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-200 bg-clip-text text-transparent">
@@ -110,7 +103,7 @@ export default async function HomePage() {
               </h1>
             </AnimatedSection>
 
-            <AnimatedSection delay={200}>
+            <AnimatedSection delay={200} immediate>
               <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
                 {t("hero.descriptionPart1")}{" "}
                 <span className="font-medium text-zinc-200">
@@ -120,7 +113,7 @@ export default async function HomePage() {
               </p>
             </AnimatedSection>
 
-            <AnimatedSection delay={300}>
+            <AnimatedSection delay={300} immediate>
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link
                   href="/auth/register"

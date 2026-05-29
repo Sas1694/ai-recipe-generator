@@ -15,7 +15,8 @@ export function AnimatedSection({
   className,
   delay = 0,
   as: Tag = "div",
-}: AnimatedSectionProps) {
+  immediate = false,
+}: AnimatedSectionProps & { immediate?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   const [reducedMotion] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -23,13 +24,15 @@ export function AnimatedSection({
   });
 
   const [visible, setVisible] = useState(() => {
+    // If immediate, always start visible (both SSR and client)
+    if (immediate) return true;
     if (typeof window === "undefined") return false;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     return prefersReducedMotion || typeof IntersectionObserver === "undefined";
   });
 
   useEffect(() => {
-    if (reducedMotion || typeof IntersectionObserver === "undefined") return;
+    if (reducedMotion || typeof IntersectionObserver === "undefined" || immediate) return;
 
     const el = ref.current;
     if (!el) return;
@@ -46,7 +49,7 @@ export function AnimatedSection({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [reducedMotion]);
+  }, [reducedMotion, immediate]);
 
   return (
     <Tag
