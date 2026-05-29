@@ -273,6 +273,9 @@ export default async function HomePage() {
               <Link href="/legal/terms" className="text-xs text-zinc-600 transition-colors hover:text-zinc-400">
                 {t("footer.terms")}
               </Link>
+              <Link href="/legal/cookies" className="text-xs text-zinc-600 transition-colors hover:text-zinc-400">
+                {t("footer.cookies")}
+              </Link>
             </div>
             <p className="text-sm text-zinc-700">
               {t("footer.copyright", { year: new Date().getFullYear() })}

@@ -11,7 +11,8 @@
     "registerTitle": "Create Account",
     "settingsTitle": "Settings",
     "privacyTitle": "Privacy Policy",
-    "termsTitle": "Terms of Service"
+    "termsTitle": "Terms of Service",
+    "cookiesTitle": "Cookie Policy"
   },
   "landing": {
     "brand": "SousChef",
@@ -64,7 +65,8 @@
       "brand": "SousChef",
       "copyright": "© {year}",
       "privacy": "Privacy Policy",
-      "terms": "Terms of Service"
+      "terms": "Terms of Use",
+      "cookies": "Cookie Policy"
     }
   },
   "appHeader": {
@@ -233,7 +235,7 @@
   },
   "cookieBanner": {
     "text": "We use strictly necessary session cookies and privacy-friendly analytics. By using this service, you acknowledge our",
-    "privacyLink": "Privacy Policy",
+    "cookiePolicyLink": "Cookie Policy",
     "accept": "Got it"
   },
   "settings": {
@@ -258,7 +260,7 @@
       "title": "Privacy Policy",
       "lastUpdated": "Last updated: May 2026",
       "s1Title": "1. Data Controller",
-      "s1": "This digital service (the \"App\"), available through the web app, App Store and Google Play, is operated by:\n\n• Data Controller: [NOMBRE O RAZÓN SOCIAL]\n• ID/TAX ID: [ID/TAX ID]\n• Address: Calle Pintor Salvador Abril, 11 – 46006, Valencia\n• Contact email: privacy@souschef.app\n\nThe App allows users to generate recipes using artificial intelligence tools based on text, culinary preferences and/or images of ingredients.",
+      "s1": "This digital service (the \"App\"), available through the web app, App Store and Google Play, is operated by:\n\n• Data Controller: Sergio Álvaro Sampedro\n• ID/TAX ID: [ID/TAX ID]\n• Address: Calle Pintor Salvador Abril, 11 – 46006, Valencia\n• Contact email: privacy@souschef.app\n\nThe App allows users to generate recipes using artificial intelligence tools based on text, culinary preferences and/or images of ingredients.",
       "s2Title": "2. Personal data we process",
       "s2": "Depending on your use of the App, we may process the following categories of data:\n\na) Account and registration data\n• Name or username\n• Email address\n• Encrypted password (cryptographic hash)\n• Account creation date and activity\n• Internal user identifiers\n\nb) App usage data\n• Culinary preferences\n• Manually entered ingredients\n• Generated recipes\n• Basic interaction history with the app\n• Language and regional settings\n\nc) Images and content uploaded by the user\n\nWhen you use ingredient recognition features via images:\n• Images are automatically processed to detect ingredients and generate recipes\n• Unless expressly stated otherwise, images are not stored permanently and are processed temporarily in memory or for the time strictly necessary to provide the service\n• We recommend not uploading images that include unnecessary personal data or visible sensitive information\n\nd) Technical and device data\n• IP address\n• Device type and operating system\n• Session technical identifiers\n• Browser and version\n• Technical and security logs\n• Aggregated or pseudonymized analytical data\n\ne) Subscription and payment data\n\nIn case of premium features or subscriptions:\n• Subscription status\n• Payment identifiers\n• Basic billing information\n\nPayments are processed by specialized external providers and we do not store complete bank card data.",
       "s3Title": "3. Purposes of processing",
@@ -274,7 +276,7 @@
       "s8Title": "8. Security",
       "s8": "We apply reasonable technical and organizational measures to protect personal information, including:\n• Encryption in transit via HTTPS/TLS\n• Access control\n• Secure credential management\n• Security monitoring and logs\n• Internal access segmentation\n• Incident detection and mitigation measures\n\nHowever, no system is completely infallible and we cannot guarantee absolute security.",
       "s9Title": "9. User rights",
-      "s9": "You may exercise the following rights:\n• Access\n• Rectification\n• Erasure\n• Objection\n• Limitation of processing\n• Portability\n• Withdrawal of consent\n\nTo exercise them, you can write to: privacy@souschef.app\n\nYou may also file a complaint with the Spanish Data Protection Agency (AEPD).",
+      "s9": "You may exercise the following rights:\n• Access\n• Rectification\n• Erasure\n• Objection\n• Limitation of processing\n• Portability\n• Withdrawal of consent\n\nTo exercise them, you can write to:\n\nprivacy@souschef.app\n\nYou may also file a complaint with the Spanish Data Protection Agency:\n\n[Spanish Data Protection Agency (AEPD)](https://www.aepd.es)",
       "s10Title": "10. Cookies and similar technologies",
       "s10": "The App uses cookies and similar technologies to:\n• Maintain authenticated sessions\n• Ensure technical functionality\n• Analyze usage and performance\n• Remember preferences\n\nYou can consult more information in the Cookie Policy.",
       "s11Title": "11. Changes to this policy",
@@ -284,11 +286,11 @@
       "title": "Terms and Conditions of Use",
       "lastUpdated": "Last updated: May 2026",
       "s1Title": "1. Owner identification",
-      "s1": "In compliance with Article 10 of Law 34/2002, on Information Society Services and Electronic Commerce (LSSI-CE), it is reported that:\n\n• Owner: [NAME OR COMPANY NAME]\n• ID/TAX ID: [ID/TAX ID]\n• Address: [COMPLETE ADDRESS]\n• Email: [CONTACT EMAIL]\n\nThe App is available through website, mobile applications and associated services.",
+      "s1": "In compliance with Article 10 of Law 34/2002, on Information Society Services and Electronic Commerce (LSSI-CE), it is reported that:\n\n• Owner: Sergio Álvaro Sampedro\n• ID/TAX ID: [ID/TAX ID]\n• Address: Calle Pintor Salvador Abril, 11 – 46006, Valencia\n• Email: privacy@souschef.app\n\nThe App is available through website, mobile applications and associated services.",
       "s2Title": "2. Service purpose",
       "s2": "The App provides artificial intelligence-based tools for:\n• Recipe generation\n• Ingredient detection through images\n• Culinary suggestions\n• Basic organization of gastronomic preferences\n• Premium or personalized features\n\nThe service may evolve, be modified, suspended or have features removed at any time.",
       "s3Title": "3. Acceptance of conditions",
-      "s3": "Access and use of the App implies full acceptance of these Terms and Conditions. If you do not agree with them, you must refrain from using the service.",
+      "s3": "Creating an account, as well as using the App, implies full acceptance of these Terms and Conditions.\n\nIf you do not agree with them, you must refrain from using the service.",
       "s4Title": "4. Registration and accounts",
       "s4": "To access certain features it may be necessary to create an account.\n\nThe user agrees to:\n• Provide truthful information\n• Maintain the confidentiality of their credentials\n• Not share their account with third parties\n• Notify unauthorized access\n\nThe user will be responsible for all activity performed from their account.",
       "s5Title": "5. Permitted use",
@@ -313,6 +315,24 @@
       "s14": "We may modify these Terms and Conditions at any time. Continuing to use the service after publication of changes will imply acceptance thereof.",
       "s15Title": "15. Applicable law and jurisdiction",
       "s15": "These terms are governed by Spanish law. Unless otherwise required by mandatory consumer law, any dispute shall be submitted to the courts of Valencia, Spain."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "lastUpdated": "Last updated: May 2026",
+      "s1Title": "1. What are cookies",
+      "s1": "Cookies are small files that are stored on your device when you browse or use a web application.\n\nThey serve to allow the technical functioning of the service, remember preferences, analyze usage or customize certain features.",
+      "s2Title": "2. What types of cookies we use",
+      "s2": "a) Technical or strictly necessary cookies\n\nThey allow:\n• Login\n• Maintain authenticated sessions\n• Ensure security and stability\n• Remember basic preferences\n• Load balancing and technical operation\n\nThese cookies do not require consent according to Article 22.2 of the LSSI-CE.\n\nb) Analytical cookies\n\nWe may use our own or third-party analytical tools to:\n• Measure feature usage\n• Detect errors\n• Improve performance and user experience\n• Obtain aggregated statistics\n\nWhen these cookies are not strictly necessary, prior consent will be requested.\n\nc) Third-party cookies\n\nThe App may integrate third-party services that install their own cookies, including:\n• Google\n• Apple\n• Stripe\n• Analytical or authentication tools\n\nInformation about such cookies will depend on each provider's own policies.",
+      "s3Title": "3. Legal basis",
+      "s3": "The use of technical cookies is based on legitimate interest and technical necessity to provide the service.\n\nNon-necessary cookies will only be installed when the user gives their consent.",
+      "s4Title": "4. Consent management",
+      "s4": "You can:\n• Accept all cookies\n• Reject non-necessary cookies\n• Configure preferences\n• Withdraw consent later\n\nWithdrawal of consent will not affect the lawfulness of prior processing.",
+      "s5Title": "5. How to disable cookies from the browser",
+      "s5": "You can configure your browser to block or delete cookies.\n\nOfficial information from major browsers:\n• Google Chrome\n• Safari\n• Mozilla Firefox\n• Microsoft Edge\n\nKeep in mind that blocking certain cookies may affect the App's functionality.",
+      "s6Title": "6. International transfers",
+      "s6": "Some technology providers may process data outside the European Economic Area.\n\nWhen international transfer exists, we will apply adequate safeguards in accordance with GDPR.",
+      "s7Title": "7. Changes to this policy",
+      "s7": "We may update this Cookie Policy when there are technical, regulatory or functional changes.\n\nThe current version will always be available in the App."
     }
   }
 }

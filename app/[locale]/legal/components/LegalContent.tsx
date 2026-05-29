@@ -1,10 +1,66 @@
 import React from "react";
+import Link from "next/link";
 
 interface LegalContentProps {
   content: string;
 }
 
 export function LegalContent({ content }: LegalContentProps) {
+  // Helper function to parse text with markdown-style links
+  const parseTextWithLinks = (text: string) => {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const parts: (string | React.ReactNode)[] = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      // Add text before the link
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+
+      // Add the link
+      const linkText = match[1];
+      const linkUrl = match[2];
+      
+      // Check if it's an external link
+      const isExternal = linkUrl.startsWith('http://') || linkUrl.startsWith('https://');
+      
+      if (isExternal) {
+        parts.push(
+          <a
+            key={match.index}
+            href={linkUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-orange-400 underline underline-offset-2 transition-colors hover:text-orange-300"
+          >
+            {linkText}
+          </a>
+        );
+      } else {
+        parts.push(
+          <Link
+            key={match.index}
+            href={linkUrl}
+            className="text-orange-400 underline underline-offset-2 transition-colors hover:text-orange-300"
+          >
+            {linkText}
+          </Link>
+        );
+      }
+
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    return parts.length > 0 ? parts : text;
+  };
+
   // Parse the content and convert to structured HTML
   const parseContent = (text: string) => {
     const lines = text.split("\n");
@@ -20,7 +76,7 @@ export function LegalContent({ content }: LegalContentProps) {
         if (text) {
           elements.push(
             <p key={elements.length} className="mb-3">
-              {text}
+              {parseTextWithLinks(text)}
             </p>
           );
         }
@@ -33,7 +89,7 @@ export function LegalContent({ content }: LegalContentProps) {
         elements.push(
           <ul key={elements.length} className="mb-4 ml-6 list-disc space-y-1 pl-2">
             {currentList.map((item, idx) => (
-              <li key={idx}>{item}</li>
+              <li key={idx}>{parseTextWithLinks(item)}</li>
             ))}
           </ul>
         );

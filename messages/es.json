@@ -11,7 +11,8 @@
     "registerTitle": "Crear cuenta",
     "settingsTitle": "Ajustes",
     "privacyTitle": "Política de Privacidad",
-    "termsTitle": "Términos de Uso"
+    "termsTitle": "Términos de Uso",
+    "cookiesTitle": "Política de Cookies"
   },
   "landing": {
     "brand": "SousChef",
@@ -64,7 +65,8 @@
       "brand": "SousChef",
       "copyright": "© {year}",
       "privacy": "Política de Privacidad",
-      "terms": "Términos de Uso"
+      "terms": "Términos de Uso",
+      "cookies": "Política de Cookies"
     }
   },
   "appHeader": {
@@ -233,7 +235,7 @@
   },
   "cookieBanner": {
     "text": "Usamos cookies de sesión estrictamente necesarias y analíticas sin seguimiento personal. Al usar este servicio, reconoces nuestra",
-    "privacyLink": "Política de Privacidad",
+    "cookiePolicyLink": "Política de Cookies",
     "accept": "Entendido"
   },
   "settings": {
@@ -258,7 +260,7 @@
       "title": "Política de Privacidad",
       "lastUpdated": "Última actualización: mayo de 2026",
       "s1Title": "1. Responsable del tratamiento",
-      "s1": "El presente servicio digital (la \"App\"), disponible a través de la web-app, App Store y Google Play, es gestionado por:\n\n• Responsable del tratamiento: [NOMBRE O RAZÓN SOCIAL]\n• NIF/CIF: [NIF/CIF]\n• Domicilio: Calle Pintor Salvador Abril, 11 – 46006, Valencia\n• Email de contacto: privacy@souschef.app\n\nLa App permite a los usuarios generar recetas mediante herramientas de inteligencia artificial a partir de texto, preferencias culinarias y/o imágenes de ingredientes.",
+      "s1": "El presente servicio digital (la \"App\"), disponible a través de la web-app, App Store y Google Play, es gestionado por:\n\n• Responsable del tratamiento: Sergio Álvaro Sampedro\n• NIF/CIF: [NIF/CIF]\n• Domicilio: Calle Pintor Salvador Abril, 11 – 46006, Valencia\n• Email de contacto: privacy@souschef.app\n\nLa App permite a los usuarios generar recetas mediante herramientas de inteligencia artificial a partir de texto, preferencias culinarias y/o imágenes de ingredientes.",
       "s2Title": "2. Qué datos personales tratamos",
       "s2": "Dependiendo del uso que hagas de la App, podremos tratar las siguientes categorías de datos:\n\na) Datos de cuenta y registro\n• Nombre o alias de usuario\n• Dirección de correo electrónico\n• Contraseña cifrada (hash criptográfico)\n• Fecha de alta y actividad de la cuenta\n• Identificadores internos de usuario\n\nb) Datos de uso de la App\n• Preferencias culinarias\n• Ingredientes introducidos manualmente\n• Recetas generadas\n• Historial básico de interacción con la app\n• Idioma y configuración regional\n\nc) Imágenes y contenido subido por el usuario\n\nCuando utilizas funcionalidades de reconocimiento de ingredientes mediante imágenes:\n• Las imágenes se procesan automáticamente para detectar ingredientes y generar recetas\n• Salvo indicación expresa en contrario, las imágenes no se almacenan permanentemente y se procesan temporalmente en memoria o durante el tiempo estrictamente necesario para prestar el servicio\n• Te recomendamos no subir imágenes que incluyan datos personales innecesarios o información sensible visible\n\nd) Datos técnicos y de dispositivo\n• Dirección IP\n• Tipo de dispositivo y sistema operativo\n• Identificadores técnicos de sesión\n• Navegador y versión\n• Logs técnicos y de seguridad\n• Datos analíticos agregados o seudonimizados\n\ne) Datos de suscripción y pago\n\nEn caso de funcionalidades premium o suscripciones:\n• Estado de la suscripción\n• Identificadores de pago\n• Información de facturación básica\n\nLos pagos son procesados por proveedores externos especializados y nosotros no almacenamos datos completos de tarjeta bancaria.",
       "s3Title": "3. Finalidades del tratamiento",
@@ -274,7 +276,7 @@
       "s8Title": "8. Seguridad",
       "s8": "Aplicamos medidas técnicas y organizativas razonables para proteger la información personal, incluyendo:\n• Cifrado en tránsito mediante HTTPS/TLS\n• Control de accesos\n• Gestión segura de credenciales\n• Monitorización y registros de seguridad\n• Segmentación de accesos internos\n• Medidas de detección y mitigación de incidentes\n\nNo obstante, ningún sistema es completamente infalible y no podemos garantizar seguridad absoluta.",
       "s9Title": "9. Derechos de los usuarios",
-      "s9": "Puedes ejercer los siguientes derechos:\n• Acceso\n• Rectificación\n• Supresión\n• Oposición\n• Limitación del tratamiento\n• Portabilidad\n• Retirada del consentimiento\n\nPara ejercerlos, puedes escribir a: privacy@souschef.app\n\nTambién puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD).",
+      "s9": "Puedes ejercer los siguientes derechos:\n• Acceso\n• Rectificación\n• Supresión\n• Oposición\n• Limitación del tratamiento\n• Portabilidad\n• Retirada del consentimiento\n\nPara ejercerlos, puedes escribir a:\n\nprivacy@souschef.app\n\nTambién puedes presentar una reclamación ante la Agencia Española de Protección de Datos:\n\n[Agencia Española de Protección de Datos (AEPD)](https://www.aepd.es)",
       "s10Title": "10. Cookies y tecnologías similares",
       "s10": "La App utiliza cookies y tecnologías similares para:\n• Mantener sesiones autenticadas\n• Garantizar el funcionamiento técnico\n• Analizar uso y rendimiento\n• Recordar preferencias\n\nPuedes consultar más información en la Política de Cookies.",
       "s11Title": "11. Cambios en esta política",
@@ -284,11 +286,11 @@
       "title": "Términos y Condiciones de Uso",
       "lastUpdated": "Última actualización: mayo de 2026",
       "s1Title": "1. Identificación del titular",
-      "s1": "En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa que:\n\n• Titular: [NOMBRE O RAZÓN SOCIAL]\n• NIF/CIF: [NIF/CIF]\n• Domicilio: [DIRECCIÓN COMPLETA]\n• Email: [EMAIL DE CONTACTO]\n\nLa App se encuentra disponible a través de sitio web, aplicaciones móviles y servicios asociados.",
+      "s1": "En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa que:\n\n• Titular: Sergio Álvaro Sampedro\n• NIF/CIF: [NIF/CIF]\n• Domicilio: Calle Pintor Salvador Abril, 11 – 46006, Valencia\n• Email: privacy@souschef.app\n\nLa App se encuentra disponible a través de sitio web, aplicaciones móviles y servicios asociados.",
       "s2Title": "2. Objeto del servicio",
       "s2": "La App proporciona herramientas basadas en inteligencia artificial para:\n• Generación de recetas\n• Detección de ingredientes mediante imágenes\n• Sugerencias culinarias\n• Organización básica de preferencias gastronómicas\n• Funcionalidades premium o personalizadas\n\nEl servicio podrá evolucionar, modificarse, suspenderse o eliminar funcionalidades en cualquier momento.",
       "s3Title": "3. Aceptación de las condiciones",
-      "s3": "El acceso y uso de la App implica la aceptación plena de los presentes Términos y Condiciones. Si no estás de acuerdo con ellos, debes abstenerte de utilizar el servicio.",
+      "s3": "La creación de una cuenta, así como el uso de la App, implica la aceptación plena de los presentes Términos y Condiciones.\n\nSi no estás de acuerdo con ellos, debes abstenerte de utilizar el servicio.",
       "s4Title": "4. Registro y cuentas",
       "s4": "Para acceder a determinadas funcionalidades puede ser necesario crear una cuenta.\n\nEl usuario se compromete a:\n• Facilitar información veraz\n• Mantener la confidencialidad de sus credenciales\n• No compartir su cuenta con terceros\n• Notificar accesos no autorizados\n\nEl usuario será responsable de toda actividad realizada desde su cuenta.",
       "s5Title": "5. Uso permitido",
@@ -313,6 +315,24 @@
       "s14": "Podremos modificar estos Términos y Condiciones en cualquier momento. La continuación en el uso del servicio tras la publicación de cambios implicará su aceptación.",
       "s15Title": "15. Legislación aplicable y jurisdicción",
       "s15": "Estos términos se rigen por la legislación española. Salvo disposición imperativa distinta en materia de consumidores y usuarios, cualquier controversia se someterá a los juzgados y tribunales de Valencia, España."
+    },
+    "cookies": {
+      "title": "Política de Cookies",
+      "lastUpdated": "Última actualización: mayo de 2026",
+      "s1Title": "1. Qué son las cookies",
+      "s1": "Las cookies son pequeños archivos que se almacenan en tu dispositivo cuando navegas o utilizas una aplicación web.\n\nSirven para permitir el funcionamiento técnico del servicio, recordar preferencias, analizar uso o personalizar determinadas funcionalidades.",
+      "s2Title": "2. Qué tipos de cookies utilizamos",
+      "s2": "a) Cookies técnicas o estrictamente necesarias\n\nPermiten:\n• Iniciar sesión\n• Mantener sesiones autenticadas\n• Garantizar seguridad y estabilidad\n• Recordar preferencias básicas\n• Balanceo de carga y funcionamiento técnico\n\nEstas cookies no requieren consentimiento conforme al artículo 22.2 de la LSSI-CE.\n\nb) Cookies analíticas\n\nPodremos utilizar herramientas analíticas propias o de terceros para:\n• Medir uso de funcionalidades\n• Detectar errores\n• Mejorar rendimiento y experiencia de usuario\n• Obtener estadísticas agregadas\n\nCuando estas cookies no sean estrictamente necesarias, se solicitará consentimiento previo.\n\nc) Cookies de terceros\n\nLa App puede integrar servicios de terceros que instalan sus propias cookies, incluyendo:\n• Google\n• Apple\n• Stripe\n• Herramientas analíticas o de autenticación\n\nLa información sobre dichas cookies dependerá de las políticas propias de cada proveedor.",
+      "s3Title": "3. Base legal",
+      "s3": "La utilización de cookies técnicas se basa en el interés legítimo y necesidad técnica para prestar el servicio.\n\nLas cookies no necesarias se instalarán únicamente cuando el usuario otorgue su consentimiento.",
+      "s4Title": "4. Gestión del consentimiento",
+      "s4": "Puedes:\n• Aceptar todas las cookies\n• Rechazar cookies no necesarias\n• Configurar preferencias\n• Retirar el consentimiento posteriormente\n\nLa retirada del consentimiento no afectará a la licitud del tratamiento previo.",
+      "s5Title": "5. Cómo desactivar cookies desde el navegador",
+      "s5": "Puedes configurar tu navegador para bloquear o eliminar cookies.\n\nInformación oficial de los principales navegadores:\n• Google Chrome\n• Safari\n• Mozilla Firefox\n• Microsoft Edge\n\nTen en cuenta que bloquear determinadas cookies puede afectar al funcionamiento de la App.",
+      "s6Title": "6. Transferencias internacionales",
+      "s6": "Algunos proveedores tecnológicos pueden tratar datos fuera del Espacio Económico Europeo.\n\nCuando exista transferencia internacional, aplicaremos garantías adecuadas conforme al RGPD.",
+      "s7Title": "7. Cambios en esta política",
+      "s7": "Podremos actualizar esta Política de Cookies cuando existan cambios técnicos, regulatorios o funcionales.\n\nLa versión vigente estará siempre disponible en la App."
     }
   }
 }

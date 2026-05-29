@@ -29,10 +29,10 @@ export function CookieNoticeBanner() {
         <p className="text-sm text-zinc-400">
           {t("text")}{" "}
           <Link
-            href="/legal/privacy"
+            href="/legal/cookies"
             className="font-medium text-orange-400 underline underline-offset-2 transition-colors hover:text-orange-300"
           >
-            {t("privacyLink")}
+            {t("cookiePolicyLink")}
           </Link>
           .
         </p>
