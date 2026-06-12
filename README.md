@@ -461,7 +461,15 @@ Este proyecto está licenciado bajo la **Licencia MIT**. Ver el archivo [LICENSE
 
 ---
 
-## 👨‍💻 Autor
+## � Presentación del Proyecto
+
+Puedes ver la presentación completa del proyecto en:
+
+🔗 **[https://ai-recipe-generator-presentation.vercel.app](https://ai-recipe-generator-presentation.vercel.app)**
+
+---
+
+## �👨‍💻 Autor
 
 **Sergio Álvaro Sampedro**
 
