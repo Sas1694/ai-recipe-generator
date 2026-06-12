@@ -94,7 +94,7 @@ export default function RegisterPage() {
                 id="password"
                 name="password"
                 type="password"
-                minLength={6}
+                minLength={8}
                 placeholder={t("register.passwordPlaceholder")}
                 required
                 aria-describedby="password-hint"
