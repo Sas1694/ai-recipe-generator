@@ -461,7 +461,7 @@ Este proyecto está licenciado bajo la **Licencia MIT**. Ver el archivo [LICENSE
 
 ---
 
-## � Presentación del Proyecto
+## 📊 Presentación del Proyecto
 
 Puedes ver la presentación completa del proyecto en:
 
@@ -469,7 +469,7 @@ Puedes ver la presentación completa del proyecto en:
 
 ---
 
-## �👨‍💻 Autor
+## 👨‍💻 Autor
 
 **Sergio Álvaro Sampedro**
 
